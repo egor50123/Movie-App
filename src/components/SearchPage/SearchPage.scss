@@ -1,0 +1,19 @@
+.searchPage {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  height: 700px;
+  margin: 0 auto;
+  gap: 20px;
+  padding: 15px;
+  width: 90vw;
+  min-height: 500px;
+  background-color: rgba(97, 218, 251, 0.55);
+}
+
+.searchPage__menu {
+  background-color: rgba(0, 0, 0, 0.39);
+}
+
+.searchPage__list {
+  background-color: rgba(0, 0, 0, 0.45);
+}

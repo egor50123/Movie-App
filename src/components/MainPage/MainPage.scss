@@ -1,0 +1,18 @@
+.mainPage {
+  width: 90vw;
+  margin: 20px auto;
+}
+
+.mainPage__searchBox {
+  padding: 10px;
+  height: 200px;
+  width: 100%;
+  margin-bottom: 20px;
+  background-color: rgba(0, 100, 0, 0.48);
+}
+
+.mainPage__list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
