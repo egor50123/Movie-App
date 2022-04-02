@@ -3,11 +3,13 @@ import thunk from "redux-thunk";
 import {popularReducer} from "./reducers/popularReducer";
 import {searchReducer} from "./reducers/searchReducer";
 import {composeWithDevTools} from "@redux-devtools/extension";
+import {movieTvPersonReducer} from "./reducers/MovieTvPerson";
 
 const  reducer = combineReducers(
     {
         user: popularReducer,
-        search: searchReducer
+        search: searchReducer,
+        movieTvPerson: movieTvPersonReducer
     }
 )
 export type RootState = ReturnType<typeof reducer>

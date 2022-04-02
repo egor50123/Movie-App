@@ -1,8 +1,16 @@
 .header {
+  display: flex;
+  justify-content: space-around;
   position: fixed;
   z-index: 100;
-  width: 1000vw;
+  width: 100vw;
   height: 40px;
   top:0;
   background-color: rgba(95, 158, 160, 0.76);
+}
+
+.header__films,
+.header__tv{
+  display: flex;
+  flex-direction: column;
 }

@@ -1,6 +1,6 @@
 import "./MainPage.scss"
-import Search from "../Common/Search/Search";
 import PreviewItem from "./PreviewItem/PreviewItem";
+import Search from "../../components/Common/Search/Search";
 
 
 const MainPage = () => {
