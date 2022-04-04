@@ -1,5 +1,5 @@
 import {Dispatch} from "react";
-import {filmsAPI} from "../../API/indexAPI";
+import {movieAPI} from "../../API/indexAPI";
 import {MovieTvPersonAction, MovieTvPersonActionTypes} from "../../types/MovieTvPersonT";
 
 
@@ -7,7 +7,7 @@ export const  fetchMovieTvPerson = (id:string) => {
     return async (dispatch: Dispatch<MovieTvPersonAction>) => {
         try {
             dispatch({type: MovieTvPersonActionTypes.FETCH_ITEM})
-            const response = await filmsAPI.getFilm(id)
+            const response = await movieAPI.getMovie(id)
             let title = response.data.original_title
             let description = response.data.overview
 

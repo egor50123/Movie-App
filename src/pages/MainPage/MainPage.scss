@@ -1,14 +1,13 @@
 .mainPage {
-  width: 90vw;
-  margin: 20px auto;
+  width: 100%;
 }
 
 .mainPage__searchBox {
   padding: 10px;
-  height: 200px;
+  height: 400px;
   width: 100%;
   margin-bottom: 20px;
-  background-color: rgba(0, 100, 0, 0.48);
+  background-color: rgb(0, 0, 52);
 }
 
 .mainPage__list {

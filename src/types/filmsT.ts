@@ -1,28 +1,30 @@
-export interface UserState {
+export interface MovieState {
     films: any[],
     text?: string,
     isLoading: boolean,
     error: null | string
 }
 
-export enum UserActionTypes {
-    FETCH_USER = "FETCH_USER",
-    FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS",
-    FETCH_USER_ERROR = "FETCH_USER_ERROR",
+export enum MovieActionTypes {
+    FETCH_MOVIE = "FETCH_MOVIE",
+    FETCH_MOVIE_SUCCESS = "FETCH_MOVIE_SUCCESS",
+    FETCH_MOVIE_ERROR = "FETCH_MOVIE_ERROR",
 }
 
-interface FetchUserAction {
-    type: UserActionTypes.FETCH_USER,
+interface FetchMovieAction {
+    type: MovieActionTypes.FETCH_MOVIE,
 }
 
-interface FetchUserSuccessAction {
-    type: UserActionTypes.FETCH_USER_SUCCESS,
+interface FetchMovieSuccessAction {
+    type: MovieActionTypes.FETCH_MOVIE_SUCCESS,
     payload: any[],
 }
 
-interface FetchUserErrorAction {
-    type: UserActionTypes.FETCH_USER_ERROR,
+interface FetchMovieErrorAction {
+    type: MovieActionTypes.FETCH_MOVIE_ERROR,
     payload: string,
 }
 
-export type UserAction = FetchUserAction | FetchUserSuccessAction | FetchUserErrorAction
+
+
+export type MovieAction = FetchMovieAction | FetchMovieSuccessAction | FetchMovieErrorAction

@@ -20,6 +20,7 @@ const MovieTvItem = () => {
         if (id !== undefined) {
             fetchMovieTvPerson(id)
         }
+        // размонтирование сделать
     },[id])
 
     console.log(params)

@@ -1,13 +1,13 @@
 import {Dispatch} from "react";
 import {FilmAction, FilmActionTypes} from "../../types/searchT";
-import {filmsAPI} from "../../API/indexAPI";
+import {movieAPI} from "../../API/indexAPI";
 
 
 export const  fetchSearchFilms = (text = "a") => {
     return async (dispatch: Dispatch<FilmAction>) => {
         try {
             dispatch({type: FilmActionTypes.FETCH_FILMS})
-            const response = await filmsAPI.getSearchedFilms(text)
+            const response = await movieAPI.getSearchedMovies(text)
             setTimeout(() => {
                 dispatch({type: FilmActionTypes.FETCH_FILMS_SUCCESS,payload: response.data.results})
             },500)

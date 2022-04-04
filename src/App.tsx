@@ -13,26 +13,29 @@ import MovieTvItem from "./pages/CategoriesPage/MovieTvItem/MovieTvItem";
 
 function App() {
   return (
-    <div>
+    <div className={"app"}>
         <Header/>
-        <Routes>
-            <Route path={"/search"} element={<SearchPage/>}>
-                <Route index element={<SearchCurrent type={"movie"}/>}/>
-                <Route path={"tv"} element={<SearchCurrent type={"tv"}/>}/>
-            </Route>
-            <Route path={"/movie"} element={<CategoriesPage type={"movie"} current={"popular"}/>}>
-                <Route path={":movieId"} element={<MovieTvItem/>}/>
-                <Route index element={<CategoriesCurrent type={"movie"} current={"popular"}/>}/>
-                <Route path={"best"} element={<CategoriesCurrent type={"movie"} current={"best"}/>}/>
-            </Route>
-            <Route path={"/tv"} element={<CategoriesPage type={"tv"} current={"popular"}/>}>
-                <Route path={":tvID"} element={<MovieTvItem/>}/>
-                <Route index element={<CategoriesCurrent type={"tv"} current={"popular"}/>}/>
-                <Route path={"best"} element={<CategoriesCurrent type={"tv"} current={"best"}/>}/>
-            </Route>
-            <Route path={"/auth"} element={<AuthPage/>}/>
-            <Route path={"*"} element={<MainPage/>}/>
-        </Routes>
+        <div className={"container"}>
+            <Routes>
+                <Route path={"/search"} element={<SearchPage/>}>
+                    <Route index element={<SearchCurrent type={"movie"}/>}/>
+                    <Route path={"tv"} element={<SearchCurrent type={"tv"}/>}/>
+                </Route>
+                <Route path={"/movie"} element={<CategoriesPage type={"movie"} current={"popular"}/>}>
+                    <Route path={":movieId"} element={<MovieTvItem/>}/>
+                    <Route index element={<CategoriesCurrent type={"movie"} current={"popular"}/>}/>
+                    <Route path={"best"} element={<CategoriesCurrent type={"movie"} current={"best"}/>}/>
+                </Route>
+                <Route path={"/tv"} element={<CategoriesPage type={"tv"} current={"popular"}/>}>
+                    <Route path={":tvID"} element={<MovieTvItem/>}/>
+                    <Route index element={<CategoriesCurrent type={"tv"} current={"popular"}/>}/>
+                    <Route path={"best"} element={<CategoriesCurrent type={"tv"} current={"best"}/>}/>
+                </Route>
+                <Route path={"/auth"} element={<AuthPage/>}/>
+                <Route path={"*"} element={<MainPage/>}/>
+            </Routes>
+        </div>
+
         <Footer/>
     </div>
   );
