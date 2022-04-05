@@ -1,12 +1,12 @@
 import React, {FC, useEffect} from 'react';
 import Switch from "../../../../components/Common/Switch/Switch";
 import {NavLink} from "react-router-dom";
-import {Types} from "../../MainPage";
 import {useAction} from "../../../../hooks/useAction";
+import {EPreviewItems, ESwitch, ISwitch, PreviewItemsTypes} from "../../../../models/previewItem_SwitchM";
 
 interface IPreviewItemPure {
     title:string,
-    type: Types,
+    type: PreviewItemsTypes,
     switchType:number,
     previews:{
         [key:string]: {
@@ -17,39 +17,30 @@ interface IPreviewItemPure {
     }
 }
 
-interface ISwitch {
-    movies: {
-        [key: number]: "now_playing" | "popular" | "upcoming" | "top_rated"
-    },
-    tv: {
-        [key: number]: "popular" | "airing_today" | "on_the_air" | "top_rated"
-    }
-}
-//++
 
 const PreviewItemChild:FC<IPreviewItemPure> = ({title,type,previews,switchType}) => {
 
     const {fetchPreviewItems} = useAction()
 
-    const obj:ISwitch = {
-        movies: {
-            1:"now_playing",
-            2:"popular",
-            3:"upcoming",
-            4:"top_rated"
+    const switchTypes:ISwitch = {
+        Movies: {
+            1:ESwitch.now_playing,
+            2:ESwitch.popular,
+            3:ESwitch.upcoming,
+            4:ESwitch.top_rated
         },
-        tv: {
-            1:"popular",
-            2:"airing_today",
-            3:"on_the_air",
-            4:"top_rated"
+        Tv: {
+            1:ESwitch.popular,
+            2:ESwitch.airing_today,
+            3:ESwitch.on_the_air,
+            4:ESwitch.top_rated
         }
     }
 
     useEffect( () => {
         switch (type) {
-            case Types.Movies: fetchPreviewItems(type,obj.movies[switchType]);break;
-            case Types.Tv:fetchPreviewItems(type,obj.tv[switchType]);break;
+            case EPreviewItems.Movies: fetchPreviewItems(type,switchTypes.Movies[switchType]);break;
+            case EPreviewItems.Tv:fetchPreviewItems(type,switchTypes.Tv[switchType]);break;
             default: break;
         }
     },[switchType])

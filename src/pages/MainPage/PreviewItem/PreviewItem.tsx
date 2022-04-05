@@ -1,13 +1,13 @@
 import React, {FC} from 'react';
 import "./PreviewItem.scss"
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
-import {Types} from "../MainPage";
 import {shallowEqual} from "react-redux";
 import PreviewItemChild from "./PreviewItemChild/PreviewItemChild";
+import {EPreviewItems, PreviewItemsTypes} from "../../../models/previewItem_SwitchM";
 
 interface IPreviewItem {
     title:string,
-    type:Types,
+    type:PreviewItemsTypes,
 }
 
 
@@ -15,7 +15,7 @@ const PreviewItem:FC<IPreviewItem> = ({title,type}) => {
     const {Tv:switchTvType,Movies:switchMoviesType} = useTypedSelector(state => state.mainPage.switchType,shallowEqual)
     let previews = useTypedSelector(state => state.previewItem.previews)
 
-    let switchType = type === "Tv" ? switchTvType : switchMoviesType
+    let switchType = type === EPreviewItems.Tv ? switchTvType : switchMoviesType
 
 
     if (previews.error) {

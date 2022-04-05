@@ -1,17 +1,14 @@
 import React, {FC} from 'react';
-import {Types} from "../../../pages/MainPage/MainPage";
 import "./Switch.scss"
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import {useAction} from "../../../hooks/useAction";
+import {EPreviewItems, PreviewItemsTypes} from "../../../models/previewItem_SwitchM";
 
 interface ISwitch {
-    type:Types
+    type:PreviewItemsTypes
 }
 
-export enum SwitchTypes {
-    Movies = "Movies",
-    Tv = "Tv"
-}
+
 
 const Switch:FC<ISwitch> = ({type}) => {
     const moviesTypes = ["Смотрят сейчас","Популярное","Ожидаемые","Лучшие"];
@@ -25,21 +22,21 @@ const Switch:FC<ISwitch> = ({type}) => {
         let targetId = (e.target as HTMLElement).id
         let id = Number(targetId.replace(/[a-z]/gi,""))
         let currentSwitch = String(targetId.replace(/\d/g,""))
-        if ( currentSwitch === SwitchTypes.Tv || currentSwitch === SwitchTypes.Movies){
+        if ( currentSwitch === EPreviewItems.Tv || currentSwitch === EPreviewItems.Movies){
             setCurrentSwitch(id, currentSwitch)
         }
     }
 
     return (
         <div className={"switch"}>
-            {type === Types.Movies && <div className={"switch__list"}>
+            {type === EPreviewItems.Movies && <div className={"switch__list"}>
                 {moviesTypes.map((text,index) =>
-                    <span id={`Movies${index+1}`} key={`Movies${index+1}`} onClick={changeType} className={current.Movies === index+1 ? "active" : ""}>{text}</span>
+                    <span id={`${EPreviewItems.Movies}${index+1}`} key={`${EPreviewItems.Movies}${index+1}`} onClick={changeType} className={current.Movies === index+1 ? "active" : ""}>{text}</span>
                 )}
             </div>}
-            {type === Types.Tv && <div className={"switch__list"}>
+            {type === EPreviewItems.Tv && <div className={"switch__list"}>
                 {tvTypes.map((text,index) =>
-                    <span id={`Tv${index+1}`} key={`Tv${index+1}`} onClick={changeType} className={current.Tv === index+1 ? "active" : ""}>{text}</span>
+                    <span id={`${EPreviewItems.Tv}${index+1}`} key={`${EPreviewItems.Tv}${index+1}`} onClick={changeType} className={current.Tv === index+1 ? "active" : ""}>{text}</span>
                 )}
             </div>}
         </div>

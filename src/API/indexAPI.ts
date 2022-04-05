@@ -1,4 +1,5 @@
 import axios from "axios";
+import {MovieSwitchTypes, TvSwitchTypes} from "../models/previewItem_SwitchM";
 
 export const API_KEY = "cb16c889cb26730cf04918e138034c54"
 export const BASE_URI = "&language=ru&page=1"
@@ -11,12 +12,9 @@ interface IMovieTvPerson {
     overview:string
 }
 
-type MovieTypes = "now_playing" | "popular" | "upcoming" | "top_rated"
-type TvTypes = "popular" | "airing_today" | "on_the_air" | "top_rated"
-//++
 
 export const movieAPI = {
-    getMovies(type:MovieTypes) {
+    getMovies(type:MovieSwitchTypes) {
         return instance.get(`movie/${type}?api_key=${API_KEY}${BASE_URI}`)
     },
     getSearchedMovies(text:string) {
@@ -28,7 +26,7 @@ export const movieAPI = {
 }
 
 export const tvAPI = {
-    getTv(type:TvTypes) {
+    getTv(type:TvSwitchTypes) {
         return instance.get(`tv/${type}?api_key=${API_KEY}${BASE_URI}`)
     },
 }

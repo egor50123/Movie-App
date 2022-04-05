@@ -1,5 +1,4 @@
 import {MainPageTypes} from "../../types/mainPageT";
+import {PreviewItemsTypes} from "../../models/previewItem_SwitchM";
 
-type SwitchTypes = "Movies" | "Tv"
-
-export const setCurrentSwitch = (id:number,currentSwitch:SwitchTypes) => ({type:MainPageTypes.SET_SWITCH,currentSwitch,id})
+export const setCurrentSwitch = (id:number,currentSwitch:PreviewItemsTypes) => ({type:MainPageTypes.SET_SWITCH,currentSwitch,id})

@@ -1,7 +1,9 @@
+import {EPreviewItems, PreviewItemsTypes} from "../models/previewItem_SwitchM";
+
 export interface MainPageState {
     switchType:{
-        Movies:number,
-        Tv:number
+        [EPreviewItems.Movies]:number,
+        [EPreviewItems.Tv]:number
     }
 }
 
@@ -12,7 +14,7 @@ export enum MainPageTypes {
 interface SetSwitchAction {
     type: MainPageTypes.SET_SWITCH,
     id: number,
-    currentSwitch:"Movie" | "Tv"
+    currentSwitch: PreviewItemsTypes
 
 }
 
