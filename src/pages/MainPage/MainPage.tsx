@@ -8,6 +8,7 @@ export enum Types {
     Trailers= "Trailers",
     Trends = "Trends",
 }
+//+
 
 const MainPage = () => {
     return (

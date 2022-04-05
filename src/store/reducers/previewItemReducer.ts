@@ -1,8 +1,6 @@
 import {PreviewAction, PreviewActionTypes, previewState} from "../../types/previewItemT";
 
 const init: previewState = {
-    // isLoading: false,
-    // error: null,
     previews: {},
 }
 

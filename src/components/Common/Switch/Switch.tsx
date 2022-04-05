@@ -25,7 +25,6 @@ const Switch:FC<ISwitch> = ({type}) => {
         let targetId = (e.target as HTMLElement).id
         let id = Number(targetId.replace(/[a-z]/gi,""))
         let currentSwitch = String(targetId.replace(/\d/g,""))
-        console.log(currentSwitch)
         if ( currentSwitch === SwitchTypes.Tv || currentSwitch === SwitchTypes.Movies){
             setCurrentSwitch(id, currentSwitch)
         }

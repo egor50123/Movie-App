@@ -13,6 +13,7 @@ interface IMovieTvPerson {
 
 type MovieTypes = "now_playing" | "popular" | "upcoming" | "top_rated"
 type TvTypes = "popular" | "airing_today" | "on_the_air" | "top_rated"
+//++
 
 export const movieAPI = {
     getMovies(type:MovieTypes) {
