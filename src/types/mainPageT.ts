@@ -1,9 +1,8 @@
-import {EPreviewItems, PreviewItemsTypes} from "../models/previewItem_SwitchM";
+import {PreviewItemsTypes} from "../models/previewItem_SwitchM";
 
 export interface MainPageState {
     switchType:{
-        [EPreviewItems.Movies]:number,
-        [EPreviewItems.Tv]:number
+        [key:string]:number,
     }
 }
 

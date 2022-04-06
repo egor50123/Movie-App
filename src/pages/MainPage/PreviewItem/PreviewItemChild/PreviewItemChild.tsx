@@ -8,6 +8,7 @@ interface IPreviewItemPure {
     title:string,
     type: PreviewItemsTypes,
     switchType:number,
+    switchTitles:string[],
     previews:{
         [key:string]: {
             isLoading: boolean,
@@ -18,7 +19,7 @@ interface IPreviewItemPure {
 }
 
 
-const PreviewItemChild:FC<IPreviewItemPure> = ({title,type,previews,switchType}) => {
+const PreviewItemChild:FC<IPreviewItemPure> = ({title,type,previews,switchType,switchTitles}) => {
 
     const {fetchPreviewItems} = useAction()
 
@@ -49,7 +50,7 @@ const PreviewItemChild:FC<IPreviewItemPure> = ({title,type,previews,switchType})
         <>
             <div>
                 <h2>{title}</h2>
-                <Switch type={type}/>
+                <Switch type={type} switchTitles={switchTitles}/>
             </div>
 
             {<div className={"previewItem__list"}>

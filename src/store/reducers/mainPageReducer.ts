@@ -1,10 +1,7 @@
 import {MainPageAction, MainPageState, MainPageTypes} from "../../types/mainPageT";
 
 const init = {
-    switchType: {
-        Movies: 1,
-        Tv: 1
-    }
+    switchType: {}
 }
 
 export const mainPageReducer = (state = init, action:MainPageAction):MainPageState => {
