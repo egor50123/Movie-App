@@ -8,6 +8,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   padding-top: $HEADER_HEIGHT;
+  background-color: rgb(11, 11, 11);
+  background-image: url("./assest/image/newBG.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
 }
 
 code {

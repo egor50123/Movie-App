@@ -5,7 +5,7 @@ import {Link, Outlet} from "react-router-dom";
 const SearchPage = () => {
     return (
         <>
-            <div className={"searchPage"}>
+            <div className={"searchPage container"}>
                 <div className={"searchPage__menu"}>
                     <ul>
                         <li><Link to={""}>Фильмы</Link></li>

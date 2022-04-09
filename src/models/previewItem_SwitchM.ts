@@ -9,13 +9,12 @@ export type PreviewItemsTypes = EPreviewItems.Movies | EPreviewItems.Tv | EPrevi
 //-----------------------------------------------------------------------------------------------
 export type MovieSwitchTypes = "now_playing" | "popular" | "upcoming" | "top_rated"
 export type TvSwitchTypes = "popular" | "airing_today" | "on_the_air" | "top_rated"
+export type TrendsSwitchTypes = "day" | "week"
+export type TrailersSwitchTypes = "movie" | "tv"
 
 export interface ISwitch {
-    [EPreviewItems.Movies]: {
-        [key: number]: MovieSwitchTypes
-    },
-    [EPreviewItems.Tv]: {
-        [key: number]: TvSwitchTypes
+    [key:string]: {
+        [key:number]:MovieSwitchTypes | TvSwitchTypes | TrendsSwitchTypes,
     }
 }
 
@@ -26,6 +25,10 @@ export enum ESwitch {
     top_rated = "top_rated",
     airing_today = "airing_today",
     on_the_air = "on_the_air",
+    day = "day",
+    week = "week",
+    movie = "movie",
+    tv = "tv"
 }
 
 

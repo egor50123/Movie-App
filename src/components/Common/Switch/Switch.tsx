@@ -6,7 +6,7 @@ import {EPreviewItems, PreviewItemsTypes} from "../../../models/previewItem_Swit
 
 interface ISwitch {
     type:PreviewItemsTypes,
-    switchTitles:string[]
+    switchTitles:string[][]
 }
 
 const Switch:FC<ISwitch> = ({type,switchTitles}) => {
@@ -19,7 +19,8 @@ const Switch:FC<ISwitch> = ({type,switchTitles}) => {
         let targetId = (e.target as HTMLElement).id
         let id = Number(targetId.replace(/[a-z]/gi,""))
         let currentSwitch = String(targetId.replace(/\d/g,""))
-        if ( currentSwitch === EPreviewItems.Tv || currentSwitch === EPreviewItems.Movies){
+
+        if ( currentSwitch === EPreviewItems[type]){
             setCurrentSwitch(id, currentSwitch)
         }
     }
@@ -27,8 +28,8 @@ const Switch:FC<ISwitch> = ({type,switchTitles}) => {
     return (
         <div className={"switch"}>
             <div className={"switch__list"}>
-                {switchTitles.map((text,index) =>
-                    <span id={`${type}${index+1}`} key={`${type}${index+1}`} onClick={changeType} className={currentActive === index+1 ? "active" : ""}>{text}</span>
+                {switchTitles.map((item,index) =>
+                    <span id={`${type}${index+1}`} key={`${type}${index+1}`} onClick={changeType} className={currentActive === index+1 ? "active" : ""}>{item[1]}</span>
                 )}
             </div>
         </div>

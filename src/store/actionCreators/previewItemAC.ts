@@ -1,13 +1,19 @@
 import {Dispatch} from "react";
-import {movieAPI, tvAPI} from "../../API/indexAPI";
+import {movieAPI, trailersAPI, trendsAPI, tvAPI} from "../../API/indexAPI";
 import {PreviewAction, PreviewActionTypes} from "../../types/previewItemT";
 import {AxiosResponse} from "axios";
-import {EPreviewItems, MovieSwitchTypes, PreviewItemsTypes, TvSwitchTypes} from "../../models/previewItem_SwitchM";
+import {
+    EPreviewItems,
+    MovieSwitchTypes,
+    PreviewItemsTypes, TrailersSwitchTypes,
+    TrendsSwitchTypes,
+    TvSwitchTypes
+} from "../../models/previewItem_SwitchM";
 
 
-export const  fetchPreviewItems = (currentPreview:PreviewItemsTypes,switchType:MovieSwitchTypes | TvSwitchTypes) => {
+export const  fetchPreviewItems = (currentPreview:PreviewItemsTypes,switchType:string) => {
     return async (dispatch: Dispatch<PreviewAction>) => {
-        let time = currentPreview === "Movies" ? 500 : 1000
+        let time = 100
         let response = {} as AxiosResponse<any>
         try {
             dispatch({type: PreviewActionTypes.FETCH_PREVIEW,currentPreview})
@@ -18,6 +24,14 @@ export const  fetchPreviewItems = (currentPreview:PreviewItemsTypes,switchType:M
                 }
                 case EPreviewItems.Tv: {
                     response = await tvAPI.getTv(switchType as TvSwitchTypes);
+                    break;
+                }
+                case EPreviewItems.Trends:{
+                    response = await trendsAPI.getTrends(switchType as TrendsSwitchTypes);
+                    break;
+                }
+                case EPreviewItems.Trailers:{
+                    response = await trailersAPI.getTrailers(switchType as TrailersSwitchTypes);
                     break;
                 }
                 default:break

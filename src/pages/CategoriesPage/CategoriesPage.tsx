@@ -11,7 +11,7 @@ const CategoriesPage:FC<ICategoriesPage> = ({type,current="popular"}) => {
 
 
     return (
-        <div className={"categoriesPage"}>
+        <div className={"categoriesPage container"}>
             <Outlet/>
         </div>
     );

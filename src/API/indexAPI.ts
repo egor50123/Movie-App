@@ -1,8 +1,9 @@
 import axios from "axios";
-import {MovieSwitchTypes, TvSwitchTypes} from "../models/previewItem_SwitchM";
+import {MovieSwitchTypes, TrailersSwitchTypes, TrendsSwitchTypes, TvSwitchTypes} from "../models/previewItem_SwitchM";
 
 export const API_KEY = "cb16c889cb26730cf04918e138034c54"
 export const BASE_URI = "&language=ru&page=1"
+export const BASE_IMG_URL = 'https://www.themoviedb.org/t/p/w220_and_h330_face'
 export const instance = axios.create({
     baseURL: "https://api.themoviedb.org/3/",
 })
@@ -22,7 +23,7 @@ export const movieAPI = {
     },
     getMovie(id:string) {
         return instance.get<IMovieTvPerson>(`/movie/${id}?api_key=${API_KEY}${BASE_URI}&include_adult=false`)
-    }
+    },
 }
 
 export const tvAPI = {
@@ -30,5 +31,18 @@ export const tvAPI = {
         return instance.get(`tv/${type}?api_key=${API_KEY}${BASE_URI}`)
     },
 }
+
+export const trendsAPI = {
+    getTrends(type:TrendsSwitchTypes) {
+        return instance.get(`trending/all/${type}?api_key=${API_KEY}${BASE_URI}`)
+    }
+}
+
+export const trailersAPI = {
+    getTrailers(type:TrailersSwitchTypes) {
+        return instance.get(`${type}/latest?api_key=${API_KEY}&language=ru`)
+    }
+}
+
 
 

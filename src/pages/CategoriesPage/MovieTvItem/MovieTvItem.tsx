@@ -1,11 +1,15 @@
-import React, {useEffect} from 'react';
+import React, {FC, useEffect} from 'react';
 import {useParams} from "react-router-dom";
 import {useAction} from "../../../hooks/useAction";
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 
+type MovieTvItemType = "tv" | "movie"
 
+interface IMovieTvItem {
+    [key:string]: MovieTvItemType
+}
 
-const MovieTvItem = () => {
+const MovieTvItem:FC<IMovieTvItem> = ({type}) => {
     let params = useParams()
 
     let {fetchMovieTvPerson} = useAction()
@@ -23,7 +27,6 @@ const MovieTvItem = () => {
         // размонтирование сделать
     },[id])
 
-    console.log(params)
     return (
         <div>
             {title}

@@ -8,7 +8,7 @@ import {PreviewItemsTypes} from "../../../models/previewItem_SwitchM";
 interface IPreviewItem {
     title:string,
     type:PreviewItemsTypes,
-    switchTitles:string[]
+    switchTitles:string[][]
 }
 
 

@@ -2,13 +2,14 @@ import React, {FC, useEffect} from 'react';
 import Switch from "../../../../components/Common/Switch/Switch";
 import {NavLink} from "react-router-dom";
 import {useAction} from "../../../../hooks/useAction";
-import {EPreviewItems, ESwitch, ISwitch, PreviewItemsTypes} from "../../../../models/previewItem_SwitchM";
+import {EPreviewItems, PreviewItemsTypes} from "../../../../models/previewItem_SwitchM";
+import {BASE_IMG_URL} from "../../../../API/indexAPI";
 
 interface IPreviewItemPure {
     title:string,
     type: PreviewItemsTypes,
     switchType:number,
-    switchTitles:string[],
+    switchTitles:string[][],
     previews:{
         [key:string]: {
             isLoading: boolean,
@@ -19,31 +20,16 @@ interface IPreviewItemPure {
 }
 
 
-const PreviewItemChild:FC<IPreviewItemPure> = ({title,type,previews,switchType,switchTitles}) => {
 
+
+const PreviewItemChild:FC<IPreviewItemPure> = ({title,type,previews,switchType,switchTitles}) => {
+    if (type === EPreviewItems.Trailers) {
+        debugger
+    }
     const {fetchPreviewItems} = useAction()
 
-    const switchTypes:ISwitch = {
-        Movies: {
-            1:ESwitch.now_playing,
-            2:ESwitch.popular,
-            3:ESwitch.upcoming,
-            4:ESwitch.top_rated
-        },
-        Tv: {
-            1:ESwitch.popular,
-            2:ESwitch.airing_today,
-            3:ESwitch.on_the_air,
-            4:ESwitch.top_rated
-        }
-    }
-
     useEffect( () => {
-        switch (type) {
-            case EPreviewItems.Movies: fetchPreviewItems(type,switchTypes.Movies[switchType]);break;
-            case EPreviewItems.Tv:fetchPreviewItems(type,switchTypes.Tv[switchType]);break;
-            default: break;
-        }
+        fetchPreviewItems(type,switchTitles[switchType-1][0]);
     },[switchType])
 
     return (
@@ -56,9 +42,9 @@ const PreviewItemChild:FC<IPreviewItemPure> = ({title,type,previews,switchType,s
             {<div className={"previewItem__list"}>
                 {(previews[type] !== undefined && !previews[type].isLoading) ? previews[type].payload.map(film =>
                     <div className={"previewItem__item"} key={film.id} id={film.id}>
-                        <img src={`https://www.themoviedb.org/t/p/w220_and_h330_face${film.poster_path}`} alt=""/>
+                        <img src={`${BASE_IMG_URL}${film.poster_path}`} alt=""/>
                         {film.title}<br/>
-                        <NavLink to={`/movie/${film.id}`}>перейти</NavLink>
+                        <NavLink to={`/${type === "Tv" ? "tv" : "movie"}/${film.id}`}>перейти</NavLink>
                     </div>
                 ) : <h1>Loading</h1>}
             </div>}
