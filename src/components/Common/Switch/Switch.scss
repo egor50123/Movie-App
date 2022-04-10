@@ -1,6 +1,7 @@
 $HEIGHT:40px;
 
 .switch {
+  color: white;
   width: min-content;
   height: $HEIGHT;
   background-color: white;
@@ -20,13 +21,13 @@ $HEIGHT:40px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color:deepskyblue;
+    background-color: rgba(29, 39, 107, 0.45);
     border-radius: $HEIGHT/2;
     padding: 0 15px;
 
 
     &.active{
-    background-color: chartreuse;
+    background-color: #6b2007;
     }
   }
 }

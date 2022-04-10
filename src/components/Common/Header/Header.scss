@@ -12,7 +12,7 @@ $CATEGORIES_HEIGHT: 50px;
   height: $HEADER_HEIGHT;
   padding: 10px 50px;
   top:0;
-  background-color: rgba(0, 0, 0, 0.17);
+  background-color: rgb(0, 0, 0);
   color: white;
   font-size: 20px;
 }
@@ -26,7 +26,12 @@ $CATEGORIES_HEIGHT: 50px;
 .header__right {
   height: $CATEGORIES_HEIGHT;
   display: flex;
+  gap: 20px;
   align-items: center;
+}
+
+.header__search {
+
 }
 
 .header__logo {

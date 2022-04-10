@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import "./Header.scss"
 import {Link} from "react-router-dom";
 import logo  from "../../../assest/image/logo.svg"
+import Search from "../Search/Search";
 
 
 const Header = () => {
@@ -48,14 +49,11 @@ const Header = () => {
                 </div>
             </div>
             <div className={"header__right"}>
+                <div className={"header__search"}>
+                    <Search/>
+                </div>
                 <Link to={"/auth"}>Войти</Link>
             </div>
-            {/*<div className={"header__tv"}>*/}
-            {/*    <Link to={"/tv"}>Сериалы популярные</Link>*/}
-            {/*    <Link to={"/movie/best"}>Фильмы лучшие</Link>*/}
-            {/*    <Link to={"/tv/best"}>Сериалы лучшие</Link>*/}
-            {/*</div>*/}
-
         </div>
     );
 };

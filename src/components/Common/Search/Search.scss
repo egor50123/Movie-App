@@ -1,13 +1,17 @@
 .search {
-  height: min-content;
-  width: 500px;
-  background-color: rgba(97, 218, 251, 0.75);
+  display: flex;
+  align-items: center;
+  position: relative;
 }
 
 .search__list {
-  margin-top: 10px;
-  color: white;
-  background-color: rgba(0, 0, 0, 0.41);
-  height: 100px;
+  color: black;
+  position: absolute;
+  top: 30px;
+  left: 0;
+  height: min-content;
+  max-height: 200px;
+  width: 200px;
+  background-color: white;
   overflow-y: scroll;
 }

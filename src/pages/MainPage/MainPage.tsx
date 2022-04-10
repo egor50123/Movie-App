@@ -25,14 +25,10 @@ const MainPage = () => {
         <div className={"mainPage"}>
             <Poster/>
             <div className={"container"}>
-                <div className={"mainPage__searchBox"}>
-                    <Search/>
-                </div>
                 <div className={"mainPage__list"}>
                     <PreviewItem title={"Фильмы"} type={EPreviewItems.Movies} switchTitles={moviesSwitchTitles}/>
                     <PreviewItem title={"Сериалы"} type={EPreviewItems.Tv} switchTitles={tvSwitchTitles}/>
                     <PreviewItem title={"Тренды"} type={EPreviewItems.Trends} switchTitles={trendsSwitchTitles}/>
-                    {/*<PreviewItem title={"Последние трейлеры"} type={EPreviewItems.Trailers} switchTitles={trailersSwitchType}/>*/}
                 </div>
             </div>
 

@@ -23,7 +23,7 @@ function App() {
                     <Route path={"tv"} element={<SearchCurrent type={"tv"}/>}/>
                 </Route>
                 <Route path={"/movie"} element={<CategoriesPage type={"movie"} current={"popular"}/>}>
-                    <Route path={":movieId"} element={<MovieTvItem type={"movie"}/>}/>
+                    {/*<Route path={":movieId"} element={<MovieTvItem type={"movie"}/>}/>*/}
                     <Route index element={<CategoriesCurrent type={"movie"} current={"popular"}/>}/>
                     <Route path={"best"} element={<CategoriesCurrent type={"movie"} current={"best"}/>}/>
                 </Route>
@@ -34,6 +34,7 @@ function App() {
                 </Route>
                 <Route path={"/auth"} element={<AuthPage/>}/>
                 <Route path={"*"} element={<MainPage/>}/>
+                <Route path={"/movie/:movieId"} element={<MovieTvItem type={"movie"}/>}/>
             </Routes>
         </div>
 

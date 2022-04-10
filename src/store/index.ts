@@ -2,7 +2,7 @@ import {applyMiddleware, combineReducers, createStore} from "redux";
 import thunk from "redux-thunk";
 import {searchReducer} from "./reducers/searchReducer";
 import {composeWithDevTools} from "@redux-devtools/extension";
-import {movieTvPersonReducer} from "./reducers/MovieTvPerson";
+import {movieTvPersonReducer} from "./reducers/MovieTvPersonReducer";
 import {mainPageReducer} from "./reducers/mainPageReducer";
 import {previewItemReducer} from "./reducers/previewItemReducer";
 import {posterReducer} from "./reducers/posterReducer";

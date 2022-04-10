@@ -1,21 +1,46 @@
 import {Dispatch} from "react";
-import {movieAPI} from "../../API/indexAPI";
+import {IMovieTvPerson, IPeople, movieAPI, peopleAPI, tvAPI} from "../../API/indexAPI";
 import {MovieTvPersonAction, MovieTvPersonActionTypes} from "../../types/MovieTvPersonT";
+import {MovieTvItemType} from "../../pages/CategoriesPage/MovieTvItem/MovieTvItem";
+import {AxiosResponse} from "axios";
 
 
-export const  fetchMovieTvPerson = (id:string) => {
+export const  fetchItem = (id:string,type:MovieTvItemType) => {
     return async (dispatch: Dispatch<MovieTvPersonAction>) => {
         try {
             dispatch({type: MovieTvPersonActionTypes.FETCH_ITEM})
-            const response = await movieAPI.getMovie(id)
-            let title = response.data.original_title
-            let description = response.data.overview
+            let response = {} as AxiosResponse<IMovieTvPerson>
+            switch (type) {
+                case "movie": response = await movieAPI.getMovie(id);break;
+                case "tv":response = await tvAPI.getTvItem(id);break;
+                default:break
+            }
+            let payload = response.data
 
             setTimeout(() => {
-                dispatch({type: MovieTvPersonActionTypes.FETCH_ITEM_SUCCESS,title,description})
+                dispatch({type: MovieTvPersonActionTypes.FETCH_ITEM_SUCCESS,payload})
             },500)
         }catch (e) {
-            dispatch({type: MovieTvPersonActionTypes.FETCH_ITEM_ERROR,payload: "error"})
+            dispatch({type: MovieTvPersonActionTypes.FETCH_ITEM_ERROR,error: "error"})
         }
     }
 }
+
+export const fetchPeople = (id:string,type:MovieTvItemType) => {
+    return async (dispatch: Dispatch<MovieTvPersonAction>) => {
+        try {
+            dispatch({type: MovieTvPersonActionTypes.FETCH_PEOPLE})
+            let response = await peopleAPI.getPeople(type,id)
+            let people = response.data
+
+            setTimeout(() => {
+                dispatch({type: MovieTvPersonActionTypes.FETCH_PEOPLE_SUCCESS,people})
+            },500)
+        }catch (e) {
+            dispatch({type: MovieTvPersonActionTypes.FETCH_PEOPLE_ERROR,errorPeople: "error"})
+        }
+    }
+}
+
+
+export const clearItem = () => ({type: MovieTvPersonActionTypes.CLEAR_ITEM})

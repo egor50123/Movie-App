@@ -20,8 +20,8 @@ const Search = () => {
 
     return (
         <div className={"search"}>
-            <input type="search" onChange={onChange} value={value}/>
-            <NavLink to={"/search"}>search</NavLink>
+            <input placeholder={"поиск..."} type="search" onChange={onChange} value={value}/>
+            <NavLink to={"/search"}>o</NavLink>
             <div className={"search__list"}>
                 {!isLoading ? films.map(film =>
                     <div key={film.id}> {film.title}</div>
