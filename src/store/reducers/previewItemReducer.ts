@@ -1,4 +1,4 @@
-import {PreviewAction, PreviewActionTypes, previewState} from "../../types/previewItemT";
+import {PreviewAction, PreviewActionTypes, previewState} from "../types/previewItemT";
 
 const init: previewState = {
     previews: {},

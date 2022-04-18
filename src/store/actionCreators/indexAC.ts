@@ -3,6 +3,7 @@ import * as ItemAc from "./MovieTvPersonAC"
 import * as MainPageAC from "./mainPageAC"
 import * as PreviewAC from "./previewItemAC"
 import * as PosterAC from "./posterAC"
+import * as Categories from "./categoriesAC"
 
 export default {
     ...SearchAC,
@@ -10,4 +11,5 @@ export default {
     ...MainPageAC,
     ...PreviewAC,
     ...PosterAC,
+    ...Categories,
 }

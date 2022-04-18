@@ -104,8 +104,6 @@ const Poster = () => {
     },[])
 
 
-
-
     return (
         <div className={"poster"}>
             <div className={`poster__slider ${transitionClass}`} onMouseDown={swipeStart} onMouseMove={swipeMove} onMouseUp={swipeEnd} onMouseLeave={swipeEnd}>
@@ -130,8 +128,6 @@ const Poster = () => {
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                 )}
             </div>

@@ -1,4 +1,4 @@
-import {PosterAction, PosterActionTypes, posterState} from "../../types/posterT";
+import {PosterAction, PosterActionTypes, posterState} from "../types/posterT";
 
 const init: posterState = {
     isLoading:false,

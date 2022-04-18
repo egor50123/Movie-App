@@ -1,6 +1,6 @@
 import {Dispatch} from "react";
 import {movieAPI, trailersAPI, trendsAPI, tvAPI} from "../../API/indexAPI";
-import {PreviewAction, PreviewActionTypes} from "../../types/previewItemT";
+import {PreviewAction, PreviewActionTypes} from "../types/previewItemT";
 import {AxiosResponse} from "axios";
 import {
     EPreviewItems,

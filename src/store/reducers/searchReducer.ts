@@ -1,4 +1,4 @@
-import {FilmAction, FilmActionTypes, SearchState} from "../../types/searchT";
+import {FilmAction, FilmActionTypes, SearchState} from "../types/searchT";
 
 const init: SearchState = {
     films: [],

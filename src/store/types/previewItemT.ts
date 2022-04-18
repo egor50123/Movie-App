@@ -1,4 +1,4 @@
-import {PreviewItemsTypes} from "../models/previewItem_SwitchM";
+import {PreviewItemsTypes} from "../../models/previewItem_SwitchM";
 
 export interface previewState {
     previews:{

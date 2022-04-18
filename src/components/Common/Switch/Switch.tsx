@@ -10,7 +10,7 @@ interface ISwitch {
 }
 
 const Switch:FC<ISwitch> = ({type,switchTitles}) => {
-    let currentSwitch = useTypedSelector(state => state.mainPage.switchType)
+    let currentSwitch = useTypedSelector(state => (state.mainPage as any).switchType)
     let currentActive = currentSwitch[type] === undefined ? 1 : currentSwitch[type]
 
     const {setCurrentSwitch} = useAction()

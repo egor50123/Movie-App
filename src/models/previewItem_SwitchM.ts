@@ -18,6 +18,20 @@ export interface ISwitch {
     }
 }
 
+export interface IPreviewItemPure {
+    title:string,
+    type: PreviewItemsTypes,
+    switchType:number,
+    switchTitles:string[][],
+    previews:{
+        [key:string]: {
+            isLoading: boolean,
+            error: null | string,
+            payload: any[],
+        },
+    }
+}
+
 export enum ESwitch {
     now_playing = "now_playing",
     popular = "popular",

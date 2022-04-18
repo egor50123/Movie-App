@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import {useAction} from "../../../hooks/useAction";
-import {Link, NavLink} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import "./Search.scss"
 
 const Search = () => {

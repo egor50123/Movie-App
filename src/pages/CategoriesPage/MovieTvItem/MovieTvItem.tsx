@@ -3,7 +3,8 @@ import {useParams} from "react-router-dom";
 import {useAction} from "../../../hooks/useAction";
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import "./movieTvItem.scss"
-import {IMovieTvPerson, IPeople, YOUTUBE_URL} from "../../../API/indexAPI";
+import {YOUTUBE_URL} from "../../../API/indexAPI";
+import {IMovieTvPersonPayload, IPeoplePayload, ISimilarMoviesPayload} from "../../../models/payloadAPI_M";
 
 export type MovieTvItemType = "tv" | "movie"
 
@@ -15,10 +16,11 @@ interface IMovieTvItem {
 const MovieTvItem:FC<IMovieTvItem> = ({type}) => {
     let params = useParams()
 
-    let {fetchItem,clearItem,fetchPeople} = useAction()
+    let {fetchItem,clearItem,fetchPeople,fetchSimilar} = useAction()
 
-    let movieTvPerson:IMovieTvPerson = useTypedSelector(state => state.movieTvPerson.payload)
-    let people:IPeople | null = useTypedSelector(state => state.movieTvPerson.people)
+    let movieTvPerson:IMovieTvPersonPayload = useTypedSelector(state => state.movieTvPerson.payload)
+    let people:IPeoplePayload | null = useTypedSelector(state => state.movieTvPerson.people)
+    let  similar:ISimilarMoviesPayload | null = useTypedSelector(state => state.movieTvPerson.similarMovie)
 
     let id:string | undefined =  params.movieId
 
@@ -35,6 +37,7 @@ const MovieTvItem:FC<IMovieTvItem> = ({type}) => {
         if (id !== undefined) {
             fetchItem(id,type)
             fetchPeople(id,type)
+            fetchSimilar(id)
         }
         return () => {
             clearItem()
@@ -66,6 +69,7 @@ const MovieTvItem:FC<IMovieTvItem> = ({type}) => {
                     <div className={"previewItem__decs-info"}>
                         <span>{movieTvPerson.release_date}</span><br/>
                         <span>{movieTvPerson.vote_average}</span><br/>
+                        <span>{movieTvPerson.tagline}</span><br/>
                         <span>{movieTvPerson.genres && movieTvPerson.genres.map(item => <div key={item.id}>{item.name}</div>)}</span><br/>
                     </div>
                     <p>{movieTvPerson.overview}</p>
@@ -74,7 +78,9 @@ const MovieTvItem:FC<IMovieTvItem> = ({type}) => {
             <div className={'movieTvItem__actors'}>{
                 people && people.cast.map(item => <div className={"movieTvItem__actors-item"} key={item.id}>{item.name}</div>)
             }</div>
-            <div className={"movieTvItem__similar"}>похожие</div>
+            <div className={"movieTvItem__similar"}>{similar && similar.results?.map(item => <div className={"movieTvItem__similar-item"}>
+                {item.title}
+            </div>)}</div>
             <div className={"movieTvItem__recommendations"}>рекомендации</div>
             <div className={"movieTvItem__collections"}></div>
         </div>

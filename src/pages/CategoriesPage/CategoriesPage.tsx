@@ -1,18 +1,13 @@
 import React, {FC} from 'react';
 import "./CategoriesPage.scss"
 import {Outlet} from "react-router-dom";
+import {ICategoriesPage} from "../../models/categoriesM";
 
-interface ICategoriesPage {
-    type: "movie" | "tv"
-    current: "popular" | "best"
-}
-
-const CategoriesPage:FC<ICategoriesPage> = ({type,current="popular"}) => {
-
+const CategoriesPage:FC<ICategoriesPage> = ({type}) => {
 
     return (
         <div className={"categoriesPage container"}>
-            <Outlet/>
+            <Outlet />
         </div>
     );
 };

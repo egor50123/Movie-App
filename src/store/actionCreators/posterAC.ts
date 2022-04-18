@@ -1,6 +1,6 @@
 import {Dispatch} from "react";
 import {movieAPI} from "../../API/indexAPI";
-import {PosterAction, PosterActionTypes} from "../../types/posterT";
+import {PosterAction, PosterActionTypes} from "../types/posterT";
 import {ESwitch} from "../../models/previewItem_SwitchM";
 
 export const  fetchPosterItems = () => {

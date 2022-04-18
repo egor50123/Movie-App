@@ -13,7 +13,7 @@ interface IPreviewItem {
 
 
 const PreviewItem:FC<IPreviewItem> = ({title,type,switchTitles}) => {
-    const currentSwitch = useTypedSelector(state => state.mainPage.switchType,shallowEqual)
+    const currentSwitch = useTypedSelector(state => (state.mainPage as any).switchType,shallowEqual)
     let previews = useTypedSelector(state => state.previewItem.previews)
 
     let switchType = currentSwitch[type] !== undefined ? currentSwitch[type] : 1

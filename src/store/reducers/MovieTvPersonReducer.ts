@@ -1,8 +1,4 @@
-import {
-    MovieTvPerson,
-    MovieTvPersonAction,
-    MovieTvPersonActionTypes
-} from "../../types/MovieTvPersonT";
+import {MovieTvPerson, MovieTvPersonAction, MovieTvPersonActionTypes} from "../types/MovieTvPersonT";
 
 
 const init: MovieTvPerson = {
@@ -19,13 +15,17 @@ const init: MovieTvPerson = {
         videos:null,
         runtime: 0,
         homepage:"",
-        belongs_to_collection: null
+        belongs_to_collection: null,
+        tagline:""
     },
     isLoading: false,
     error: null,
     isLoadingPeople:false,
     errorPeople:null,
     people:null,
+    similarMovie: null,
+    isLoadingSimilar: false,
+    errorSimilar: null,
 }
 
 export const movieTvPersonReducer = (state = init,action:MovieTvPersonAction):MovieTvPerson => {
@@ -44,6 +44,12 @@ export const movieTvPersonReducer = (state = init,action:MovieTvPersonAction):Mo
             return {...state,isLoadingPeople:false, people: action.people}
         case MovieTvPersonActionTypes.FETCH_PEOPLE_ERROR:
             return {...state,isLoadingPeople:false,errorPeople:action.errorPeople}
+        case MovieTvPersonActionTypes.FETCH_SIMILAR:
+            return {...state,isLoadingSimilar:true}
+        case MovieTvPersonActionTypes.FETCH_SIMILAR_SUCCESS:
+            return {...state,similarMovie:action.similar,isLoadingSimilar:false}
+        case MovieTvPersonActionTypes.FETCH_SIMILAR_ERROR:
+            return {...state,errorSimilar:action.errorSimilar,isLoadingSimilar:false}
         default: return state
     }
 }

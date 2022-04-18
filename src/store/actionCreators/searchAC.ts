@@ -1,5 +1,5 @@
 import {Dispatch} from "react";
-import {FilmAction, FilmActionTypes} from "../../types/searchT";
+import {FilmAction, FilmActionTypes} from "../types/searchT";
 import {movieAPI} from "../../API/indexAPI";
 
 
