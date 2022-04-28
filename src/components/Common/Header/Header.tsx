@@ -7,16 +7,18 @@ import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import {MainPageState} from "../../../store/types/mainPageT";
 import {useAction} from "../../../hooks/useAction";
 
-
 const Header = () => {
     let [currentCategory,setCategory] = useState<string | null>(null)
+    let isAuth = useTypedSelector(state => state.auth.session.payload?.success)
     const movie = "movie",
             tv = "tv",
             people = "people"
 
     let genres = useTypedSelector(state => (state.mainPage as MainPageState).genres.payload)
+    let token = useTypedSelector(state => state.auth.payload?.request_token)
+    let session = useTypedSelector(state => state.auth.session.payload?.session_id)
 
-    let {fetchGenres} = useAction()
+    let {fetchGenres,deleteSession} = useAction()
     function onHover(e:React.MouseEvent<HTMLDivElement>) {
         let target = (e.target as Element).closest(".header__categories-item")
         if (target !== null) setCategory(target.id)
@@ -30,6 +32,11 @@ const Header = () => {
     useEffect(() => {
         fetchGenres()
     },[])
+
+    function onLogOut() {
+        console.log(session)
+        if (session) deleteSession(session)
+    }
 
     return (
         <div className={"header"}>
@@ -65,7 +72,19 @@ const Header = () => {
                 <div className={"header__search"}>
                     <Search/>
                 </div>
-                <Link to={"/auth"}>Войти</Link>
+                {!isAuth ? <a href={`https://www.themoviedb.org/authenticate/${token}?redirect_to=http://localhost:3000/auth`}
+                    target="_blank">Войти CS</a> :
+                    <div>
+                        <span>Garrus</span>
+                        <button onClick={onLogOut}>Выйти</button>
+                    </div>}
+                {/*{isAuth ? <div>*/}
+                {/*    <span>Garrus</span>*/}
+                {/*    <button onClick={onLogOut}>Выйти</button>*/}
+                {/*</div> : <div>*/}
+                {/*    <a href="https://www.themoviedb.org/signup" target="_blank">Sign Up</a>*/}
+                {/*    <Link to={"/auth"}>Войти</Link>*/}
+                {/*</div>}*/}
             </div>
         </div>
     );

@@ -65,7 +65,7 @@ const MovieTvItem:FC<IMovieTvItem> = ({type}) => {
                     </div>
                 </div>
                 <div className={"previewItem__decs-box"}>
-                    <h1>{movieTvPerson.title}</h1>
+                    <h1>{movieTvPerson.title !== undefined ? movieTvPerson.title : movieTvPerson.name}</h1>
                     <div className={"previewItem__decs-info"}>
                         <span>{movieTvPerson.release_date}</span><br/>
                         <span>{movieTvPerson.vote_average}</span><br/>

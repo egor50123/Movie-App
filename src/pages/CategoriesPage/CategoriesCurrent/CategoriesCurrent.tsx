@@ -68,7 +68,7 @@ const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
     }
 
     return (
-        <>
+        <div className={"categoriesPage_col"}>
             <div className={"categoriesPage__filter filter"}>
                 {type}
                 <div>
@@ -127,16 +127,16 @@ const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
                 </div>
             </div>
             <div className={"categoriesPage__list categoriesList"}>
-                {movieTv?.map(item => <div key={item.id} className={"categoriesList__item"}>
+                {movieTv?.map(item => <Link to={`/movie/${item.id}`} key={item.id} className={"categoriesList__item"}>
                     <div className={"categoriesList_imgBox"}>
                         <img src={`${BASE_IMG_URL}${item.poster_path}`} alt=""/>
                     </div>
                     {item.title}<br/>
                     {item.release_date}<br/>
                     {item.vote_average}<br/>
-                </div>)}
+                </Link>)}
             </div>
-        </>
+        </div>
     );
 };
 

@@ -15,7 +15,6 @@ const PreviewItemChild: FC<IPreviewItemPure> = ({title, type, previews, switchTy
         fetchPreviewItems(type, switchTitles[switchType - 1][0]);
     }, [switchType])
 
-    let itemName = type === "Tv" ? "name" : "title"
 
     return (
         <>
@@ -26,12 +25,12 @@ const PreviewItemChild: FC<IPreviewItemPure> = ({title, type, previews, switchTy
 
             {<div className={"previewItem__list"}>
                 {(previews[type] !== undefined && !previews[type].isLoading) ? previews[type].payload.map(film =>
-                    <NavLink to={`/${type === "Tv" ? "tv" : "movie"}/${film.id} `} key={film.id}>
+                    <NavLink to={`/${film["title"] !== undefined ? "movie" : "tv"}/${film.id} `} key={film.id}>
                         <div className={"previewItem__item"} id={film.id}>
                             <div className={"previewItem__img-box"}>
                                 <img src={`${BASE_IMG_URL}${film.poster_path}`} alt=""/>
                             </div>
-                            {film[itemName]}<br/>
+                            {film["title"] !== undefined ? film["title"] : film["name"]}<br/>
 
                         </div>
                     </NavLink>

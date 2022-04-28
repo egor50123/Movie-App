@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import './App.css';
 import {Route, Routes} from "react-router-dom";
 import Header from "./components/Common/Header/Header";
@@ -12,9 +12,30 @@ import AuthPage from "./pages/AuthPage/AuthPage";
 import MovieTvItem from "./pages/CategoriesPage/MovieTvItem/MovieTvItem";
 import {useTypedSelector} from "./hooks/useTypedSelector";
 import {MainPageState} from "./store/types/mainPageT";
+import {useAction} from "./hooks/useAction";
 
 function App() {
     let genres = useTypedSelector(state => (state.mainPage as MainPageState).genres.payload)
+    let token  = useTypedSelector(state => state.auth.payload?.request_token)
+    let wasTokenDeleted = useRef(false)
+    let {fetchAuthToken,setAuthTokenLocal} = useAction()
+
+
+    useEffect(() => {
+        let tokenStorage = localStorage.getItem("movieAppToken")
+        if (tokenStorage) {
+            setAuthTokenLocal(tokenStorage)
+            wasTokenDeleted.current = true
+            localStorage.removeItem("movieAppToken")
+        } else if (typeof tokenStorage !== "string" && typeof token !== "string") {
+            wasTokenDeleted.current = false
+            fetchAuthToken()
+        } else if( typeof token === "string" && !wasTokenDeleted.current) {
+            localStorage.setItem(`movieAppToken`,token)
+        }
+
+    },[token])
+
     return (
         <div className={"app"}>
             <Header/>
@@ -35,7 +56,6 @@ function App() {
 
                     <Route path={"/tv"} element={<CategoriesPage type={"tv"}/>}>
                         <Route index element={<CategoriesCurrent type={"tv"}/>}/>
-                        {/*<Route path={"best"} element={<CategoriesCurrent type={"tv"} current={"best"}/>}/>*/}
                     </Route>
 
                     <Route path={"/auth"} element={<AuthPage/>}/>

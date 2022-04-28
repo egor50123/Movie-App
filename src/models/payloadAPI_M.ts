@@ -24,7 +24,8 @@ export interface IMovieTvPersonPayload {
     vote_average:string,
     vote_count:string,
     release_date:string,
-    title:string,
+    title?:string,
+    name?:string,
     videos:{
         results:[{
             key:string,
