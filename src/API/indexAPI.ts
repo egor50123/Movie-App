@@ -3,16 +3,15 @@ import {MovieSwitchTypes, TrailersSwitchTypes, TrendsSwitchTypes, TvSwitchTypes}
 import {MovieTvItemType} from "../pages/CategoriesPage/MovieTvItem/MovieTvItem";
 import {IFilterSettings} from "../models/categoriesM";
 import {
-    ICategoriesPayload,
-    IMovieTvPersonPayload,
+    ICategoriesPayload, IMoviePayload,
     IPeoplePayload,
-    ISimilarMoviesPayload,
+    ISimilarMoviesPayload, ITvPayload,
     TGenresPayload
 } from "../models/payloadAPI_M";
 import {authPayload, deleteSessionPayload, sessionPayload} from "../store/types/authT";
 
 export const API_KEY = "api_key=cb16c889cb26730cf04918e138034c54"
-export const BASE_URI = "&language=ru&page=1"
+export const BASE_URI = "&language=ru&page=1&region=ru"
 export const BASE_IMG_URL = 'https://www.themoviedb.org/t/p/w220_and_h330_face'
 export const BIG_IMG_URL = "https://www.themoviedb.org/t/p/w1920_and_h600_multi_faces_filter(duotone,032541,01b4e4)/"
 export const YOUTUBE_URL = "https://www.youtube.com/embed/"
@@ -32,7 +31,7 @@ export const movieAPI = {
         return instance.get(`/search/movie?${API_KEY}${BASE_URI}include_adult=false&query=${text}`)
     },
     getMovie(id: string) {
-        return instance.get<IMovieTvPersonPayload>(`/movie/${id}?${API_KEY}${BASE_URI}&include_adult=false&append_to_response=videos,peoples`)
+        return instance.get<IMoviePayload>(`/movie/${id}?${API_KEY}${BASE_URI}&include_adult=false&append_to_response=videos,peoples`)
     },
     getSimilar(id: string) {
         return instance.get<ISimilarMoviesPayload>(`/movie/${id}/similar?${API_KEY}${BASE_URI}`)
@@ -44,7 +43,7 @@ export const tvAPI = {
         return instance.get(`tv/${type}?${API_KEY}${BASE_URI}`)
     },
     getTvItem(id: string) {
-        return instance.get<IMovieTvPersonPayload>(`/tv/${id}?${API_KEY}${BASE_URI}&include_adult=false`)
+        return instance.get<ITvPayload>(`/tv/${id}?${API_KEY}${BASE_URI}&include_adult=false&append_to_response=videos,peoples`)
     }
 }
 

@@ -74,17 +74,11 @@ const Header = () => {
                 </div>
                 {!isAuth ? <a href={`https://www.themoviedb.org/authenticate/${token}?redirect_to=http://localhost:3000/auth`}
                     target="_blank">Войти CS</a> :
-                    <div>
+                    <Link to={"/profile"} className={"header__profile"}>
                         <span>Garrus</span>
+
                         <button onClick={onLogOut}>Выйти</button>
-                    </div>}
-                {/*{isAuth ? <div>*/}
-                {/*    <span>Garrus</span>*/}
-                {/*    <button onClick={onLogOut}>Выйти</button>*/}
-                {/*</div> : <div>*/}
-                {/*    <a href="https://www.themoviedb.org/signup" target="_blank">Sign Up</a>*/}
-                {/*    <Link to={"/auth"}>Войти</Link>*/}
-                {/*</div>}*/}
+                    </Link>}
             </div>
         </div>
     );

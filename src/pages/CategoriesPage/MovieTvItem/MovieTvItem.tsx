@@ -4,7 +4,7 @@ import {useAction} from "../../../hooks/useAction";
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import "./movieTvItem.scss"
 import {YOUTUBE_URL} from "../../../API/indexAPI";
-import {IMovieTvPersonPayload, IPeoplePayload, ISimilarMoviesPayload} from "../../../models/payloadAPI_M";
+import {IMoviePayload, IPeoplePayload, ISimilarMoviesPayload, ITvPayload} from "../../../models/payloadAPI_M";
 
 export type MovieTvItemType = "tv" | "movie"
 
@@ -15,12 +15,14 @@ interface IMovieTvItem {
 
 const MovieTvItem:FC<IMovieTvItem> = ({type}) => {
     let params = useParams()
-
     let {fetchItem,clearItem,fetchPeople,fetchSimilar} = useAction()
 
-    let movieTvPerson:IMovieTvPersonPayload = useTypedSelector(state => state.movieTvPerson.payload)
-    let people:IPeoplePayload | null = useTypedSelector(state => state.movieTvPerson.people)
-    let  similar:ISimilarMoviesPayload | null = useTypedSelector(state => state.movieTvPerson.similarMovie)
+    let movieTvPayload:IMoviePayload | ITvPayload | null = useTypedSelector(state => state.movieTvPerson.payload),
+        peoplePayload:IPeoplePayload | null = useTypedSelector(state => state.movieTvPerson.people.payload),
+        similarPayload:ISimilarMoviesPayload | null = useTypedSelector(state => state.movieTvPerson.similar.payload);
+
+    let moviePayload:IMoviePayload | null= movieTvPayload as IMoviePayload,
+        tvPayload:ITvPayload | null = movieTvPayload as ITvPayload;
 
     let id:string | undefined =  params.movieId
 
@@ -48,39 +50,47 @@ const MovieTvItem:FC<IMovieTvItem> = ({type}) => {
         <div className={"movieTvItem container"}>
             <div className={"movieTvItem__pre"}>
                 <span>тип</span><br/>
-                <span>{movieTvPerson.genres && movieTvPerson.genres[0].name}</span>
+                <span>{movieTvPayload && movieTvPayload.genres[0].name}</span>
             </div>
             <div className={"movieTvItem__main"}>
                 <div className={"movieTvItem__preview"}>
                     <div className={"movieTvItem__trailer"}>
-                        {movieTvPerson.videos && <iframe src={`${YOUTUBE_URL}${movieTvPerson.videos.results[0].key}`}
-                                 title={movieTvPerson.videos.results[0].name} allowFullScreen/>}
+                        {movieTvPayload && movieTvPayload.videos?.results[0] && <iframe src={`${YOUTUBE_URL}${movieTvPayload.videos.results[0].key}`}
+                                                                  title={movieTvPayload.videos.results[0].name} allowFullScreen/>}
                     </div>
                     <div className={"movieTvItem__trailer-btns"}>
                         <button>добавить в список</button>
                         <button>избранное</button>
                         <button>закладки</button>
                         <button>оценить</button>
-                        <button>{movieTvPerson.homepage}</button>
                     </div>
                 </div>
                 <div className={"previewItem__decs-box"}>
-                    <h1>{movieTvPerson.title !== undefined ? movieTvPerson.title : movieTvPerson.name}</h1>
+                    <h1>{
+                        type === "movie" ?
+                            moviePayload && moviePayload.title :
+                            tvPayload && tvPayload.name
+                    }</h1>
                     <div className={"previewItem__decs-info"}>
-                        <span>{movieTvPerson.release_date}</span><br/>
-                        <span>{movieTvPerson.vote_average}</span><br/>
-                        <span>{movieTvPerson.tagline}</span><br/>
-                        <span>{movieTvPerson.genres && movieTvPerson.genres.map(item => <div key={item.id}>{item.name}</div>)}</span><br/>
+                        <span>{
+                            type === "movie" ?
+                                moviePayload && moviePayload.release_date :
+                                tvPayload && tvPayload.first_air_date
+                        }</span><br/>
+                        <span>{movieTvPayload && movieTvPayload.vote_average}</span><br/>
+                        <span>{movieTvPayload && movieTvPayload.tagline}</span><br/>
+                        <span>{movieTvPayload && movieTvPayload.genres.map(item => <div key={item.id}>{item.name}</div>)}</span><br/>
                     </div>
-                    <p>{movieTvPerson.overview}</p>
+                    <p>{movieTvPayload && movieTvPayload.overview}</p>
                 </div>
             </div>
             <div className={'movieTvItem__actors'}>{
-                people && people.cast.map(item => <div className={"movieTvItem__actors-item"} key={item.id}>{item.name}</div>)
+                peoplePayload && peoplePayload.cast.map(item => <div className={"movieTvItem__actors-item"} key={item.id}>{item.name}</div>)
             }</div>
-            <div className={"movieTvItem__similar"}>{similar && similar.results?.map(item => <div className={"movieTvItem__similar-item"}>
+            {similarPayload && <div className={"movieTvItem__similar"}>{similarPayload.results?.map(item => <div
+                className={"movieTvItem__similar-item"}>
                 {item.title}
-            </div>)}</div>
+            </div>)}</div>}
             <div className={"movieTvItem__recommendations"}>рекомендации</div>
             <div className={"movieTvItem__collections"}></div>
         </div>

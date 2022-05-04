@@ -1,16 +1,37 @@
-import {IMovieTvPersonPayload, IPeoplePayload, ISimilarMoviesPayload} from "../../models/payloadAPI_M";
+import {
+    IMoviePayload,
+    IPeoplePayload,
+    ISimilarMoviesPayload,
+    ITvPayload
+} from "../../models/payloadAPI_M";
+
+export type itemType = "movie" | "tv"
 
 export interface MovieTvPerson {
-    payload: IMovieTvPersonPayload,
+    tv?: {
+        payload:ITvPayload
+    },
+    movie?: {
+        payload:IMoviePayload
+    }
+    payload: IMoviePayload | ITvPayload | null,
+    type: string | null
     isLoading: boolean,
-    error: null | string
-    isLoadingPeople: boolean,
-    errorPeople:null | string,
-    people: IPeoplePayload | null,
-    isLoadingSimilar: boolean,
-    errorSimilar:null | string,
-    similarMovie: ISimilarMoviesPayload | null
+    error: null | string,
+
+    people: {
+        isLoading: boolean,
+        error: null | string,
+        payload: IPeoplePayload | null,
+    }
+
+    similar: {
+        isLoading: boolean,
+        error: null | string,
+        payload: ISimilarMoviesPayload | null,
+    }
 }
+
 
 export enum MovieTvPersonActionTypes {
     FETCH_ITEM = "FETCH_ITEM",
@@ -31,22 +52,23 @@ interface FetchSimilarAction {
 
 interface FetchSimilarSuccessAction {
     type: MovieTvPersonActionTypes.FETCH_SIMILAR_SUCCESS
-    similar: ISimilarMoviesPayload | null
+    payload: ISimilarMoviesPayload | null
 }
 
 interface FetchSimilarErrorAction {
     type: MovieTvPersonActionTypes.FETCH_SIMILAR_ERROR,
-    errorSimilar: string
+    error: string
 }
 
 
 interface FetchMovieTvPersonAction {
     type: MovieTvPersonActionTypes.FETCH_ITEM,
+    itemType:itemType
 }
 
 interface FetchMovieTvPersonSuccessAction {
     type: MovieTvPersonActionTypes.FETCH_ITEM_SUCCESS,
-    payload:IMovieTvPersonPayload
+    payload:IMoviePayload | ITvPayload,
 }
 
 interface FetchMovieTvPersonErrorAction {
@@ -60,12 +82,12 @@ interface FetchPeopleAction {
 
 interface FetchPeopleSuccessAction {
     type: MovieTvPersonActionTypes.FETCH_PEOPLE_SUCCESS
-    people:IPeoplePayload | null
+    payload:IPeoplePayload | null
 }
 
 interface FetchPeopleErrorAction {
     type:MovieTvPersonActionTypes.FETCH_PEOPLE_ERROR
-    errorPeople:string
+    error:string
 }
 
 interface ClearItemAction {
@@ -74,5 +96,13 @@ interface ClearItemAction {
 
 
 
-export type MovieTvPersonAction = FetchMovieTvPersonAction | FetchMovieTvPersonSuccessAction | FetchMovieTvPersonErrorAction | ClearItemAction | FetchPeopleAction |
-    FetchPeopleSuccessAction | FetchPeopleErrorAction | FetchSimilarAction | FetchSimilarSuccessAction | FetchSimilarErrorAction
+export type MovieTvPersonAction = FetchMovieTvPersonAction |
+    FetchMovieTvPersonSuccessAction |
+    FetchMovieTvPersonErrorAction |
+    ClearItemAction |
+    FetchPeopleAction |
+    FetchPeopleSuccessAction |
+    FetchPeopleErrorAction |
+    FetchSimilarAction |
+    FetchSimilarSuccessAction |
+    FetchSimilarErrorAction

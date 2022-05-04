@@ -13,13 +13,13 @@ import MovieTvItem from "./pages/CategoriesPage/MovieTvItem/MovieTvItem";
 import {useTypedSelector} from "./hooks/useTypedSelector";
 import {MainPageState} from "./store/types/mainPageT";
 import {useAction} from "./hooks/useAction";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
 
 function App() {
     let genres = useTypedSelector(state => (state.mainPage as MainPageState).genres.payload)
     let token  = useTypedSelector(state => state.auth.payload?.request_token)
     let wasTokenDeleted = useRef(false)
     let {fetchAuthToken,setAuthTokenLocal} = useAction()
-
 
     useEffect(() => {
         let tokenStorage = localStorage.getItem("movieAppToken")
@@ -39,7 +39,7 @@ function App() {
     return (
         <div className={"app"}>
             <Header/>
-            <div className={""}>
+            <div className={"main"}>
                 <Routes>
                     <Route path={"/search"} element={<SearchPage/>}>
                         <Route index element={<SearchCurrent type={"movie"}/>}/>
@@ -56,14 +56,14 @@ function App() {
 
                     <Route path={"/tv"} element={<CategoriesPage type={"tv"}/>}>
                         <Route index element={<CategoriesCurrent type={"tv"}/>}/>
+                        <Route path={":tvId"} element={<MovieTvItem type={"tv"}/>}/>
                     </Route>
 
                     <Route path={"/auth"} element={<AuthPage/>}/>
                     <Route path={"*"} element={<MainPage/>}/>
-                    <Route path={"/tv/:tvId"} element={<MovieTvItem type={"tv"}/>}/>
+                    <Route path={"/profile"} element={<ProfilePage/>}/>
                 </Routes>
             </div>
-
             <Footer/>
         </div>
     );

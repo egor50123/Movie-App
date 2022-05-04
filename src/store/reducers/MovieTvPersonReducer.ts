@@ -2,54 +2,86 @@ import {MovieTvPerson, MovieTvPersonAction, MovieTvPersonActionTypes} from "../t
 
 
 const init: MovieTvPerson = {
-    payload:{
-        overview:"",
-        poster_path:"",
-        backdrop_path:"",
-        genres: null,
-        original_title:"",
-        vote_average:"",
-        vote_count:"",
-        release_date:"",
-        title:"",
-        videos:null,
-        runtime: 0,
-        homepage:"",
-        belongs_to_collection: null,
-        tagline:""
-    },
+    payload: null,
     isLoading: false,
     error: null,
-    isLoadingPeople:false,
-    errorPeople:null,
-    people:null,
-    similarMovie: null,
-    isLoadingSimilar: false,
-    errorSimilar: null,
+    type: null,
+
+    people: {
+        payload: null,
+        isLoading: false,
+        error: null,
+    },
+    similar: {
+        payload: null,
+        isLoading: false,
+        error: null,
+    }
 }
 
-export const movieTvPersonReducer = (state = init,action:MovieTvPersonAction):MovieTvPerson => {
+export const movieTvPersonReducer = (state = init, action: MovieTvPersonAction): MovieTvPerson => {
     switch (action.type) {
         case MovieTvPersonActionTypes.FETCH_ITEM:
-            return {...state,isLoading:true,error:null}
+            return {...state, isLoading: true, type: action.itemType}
         case MovieTvPersonActionTypes.FETCH_ITEM_SUCCESS:
-            return {...state,isLoading:false,error:null,payload:action.payload}
+            return {...state, isLoading: false, error: null, payload: action.payload}
         case MovieTvPersonActionTypes.FETCH_ITEM_ERROR:
-            return {...state,isLoading:false,error:"error"}
+            return {...state, isLoading: false, error: "error"}
         case MovieTvPersonActionTypes.CLEAR_ITEM:
-            return {...state}
+            return {...init}
         case MovieTvPersonActionTypes.FETCH_PEOPLE:
-            return {...state,isLoadingPeople:true}
+            return {
+                ...state,
+                people: {
+                    ...state.people,
+                    isLoading: true,
+                }
+            }
         case MovieTvPersonActionTypes.FETCH_PEOPLE_SUCCESS:
-            return {...state,isLoadingPeople:false, people: action.people}
+            return {
+                ...state,
+                people: {
+                    ...state.people,
+                    isLoading: false,
+                    payload: action.payload
+                }
+            }
         case MovieTvPersonActionTypes.FETCH_PEOPLE_ERROR:
-            return {...state,isLoadingPeople:false,errorPeople:action.errorPeople}
+            return {
+                ...state,
+                people: {
+                    ...state.people,
+                    isLoading: false,
+                    error: action.error
+                }
+            }
         case MovieTvPersonActionTypes.FETCH_SIMILAR:
-            return {...state,isLoadingSimilar:true}
+            return {
+                ...state,
+                similar: {
+                    ...state.similar,
+                    isLoading: true
+                }
+            }
         case MovieTvPersonActionTypes.FETCH_SIMILAR_SUCCESS:
-            return {...state,similarMovie:action.similar,isLoadingSimilar:false}
+            return {
+                ...state,
+                similar: {
+                    ...state.similar,
+                    isLoading: false,
+                    payload: action.payload,
+                }
+            }
         case MovieTvPersonActionTypes.FETCH_SIMILAR_ERROR:
-            return {...state,errorSimilar:action.errorSimilar,isLoadingSimilar:false}
-        default: return state
+            return {
+                ...state,
+                similar: {
+                    ...state.similar,
+                    isLoading: false,
+                    error: action.error,
+                }
+            }
+        default:
+            return state
     }
 }
