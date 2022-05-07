@@ -35,13 +35,6 @@ const PreviewItemChild: FC<IPreviewItemPure> = ({title, type, previews, switchTy
                         </div>
                     </NavLink>
                 ) : <div className={"previewItem__plug"}>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
                 </div>}
             </div>}
         </>

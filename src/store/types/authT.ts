@@ -15,23 +15,24 @@ export interface deleteSessionPayload {
 export interface authState {
     payload: authPayload | null
     isLoading: boolean,
-    error: string | null
+    error: string | null,
     session: {
         payload: sessionPayload | null
         isLoading: boolean,
         error: string | null
-    }
+    },
 }
 
 export enum authActionCreators {
     FETCH_TOKEN = "FETCH_TOKEN",
     FETCH_TOKEN_SUCCESS = "FETCH_TOKEN_SUCCESS",
-    SET_TOKEN_LOCAL = "SET_TOKEN_LOCAL",
     FETCH_TOKEN_ERROR = "FETCH_TOKEN_ERROR",
+    SET_TOKEN_LOCAL = "SET_TOKEN_LOCAL",
     CREATE_SESSION = "CREATE_SESSION",
     CREATE_SESSION_SUCCESS = "CREATE_SESSION_SUCCESS",
     CREATE_SESSION_ERROR = "CREATE_SESSION_ERROR",
-    DELETE_SESSION = "DELETE_SESSION"
+    DELETE_SESSION = "DELETE_SESSION",
+    FETCH_ERROR = "FETCH_ERROR"
 }
 
 interface FetchTokenAction {
@@ -71,6 +72,19 @@ interface deleteSessionAction {
     type:authActionCreators.DELETE_SESSION
 }
 
+interface commonFetchError {
+    type:authActionCreators.FETCH_ERROR
+    error:string
+}
 
 
-export type authActions = FetchTokenAction | FetchTokenSuccessAction | FetchTokenErrorAction | createSessionSuccessAction | createSessionAction | createSessionErrorAction | deleteSessionAction | SetTokenLocal
+
+export type authActions = FetchTokenAction |
+    FetchTokenSuccessAction |
+    FetchTokenErrorAction |
+    createSessionSuccessAction |
+    createSessionAction |
+    createSessionErrorAction |
+    deleteSessionAction |
+    SetTokenLocal |
+    commonFetchError

@@ -13,13 +13,17 @@ import MovieTvItem from "./pages/CategoriesPage/MovieTvItem/MovieTvItem";
 import {useTypedSelector} from "./hooks/useTypedSelector";
 import {MainPageState} from "./store/types/mainPageT";
 import {useAction} from "./hooks/useAction";
+import MyLists from "./pages/ProfilePage/MyLists/MyLists";
+import ListsWrapper from "./pages/ProfilePage/ListsWrapper/ListsWrapper";
+import {ProfileLinksNames} from "./models/ProfileM";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 
 function App() {
     let genres = useTypedSelector(state => (state.mainPage as MainPageState).genres.payload)
     let token  = useTypedSelector(state => state.auth.payload?.request_token)
+    let sessionId = useTypedSelector(state => state.auth.session.payload?.session_id)
     let wasTokenDeleted = useRef(false)
-    let {fetchAuthToken,setAuthTokenLocal} = useAction()
+    let {fetchAuthToken,setAuthTokenLocal,fetchAccount} = useAction()
 
     useEffect(() => {
         let tokenStorage = localStorage.getItem("movieAppToken")
@@ -35,6 +39,14 @@ function App() {
         }
 
     },[token])
+
+    useEffect(() => {
+        console.log(sessionId)
+        if (typeof sessionId === "string") {
+            console.log("here")
+            fetchAccount(sessionId)
+        }
+    },[sessionId])
 
     return (
         <div className={"app"}>
@@ -61,7 +73,10 @@ function App() {
 
                     <Route path={"/auth"} element={<AuthPage/>}/>
                     <Route path={"*"} element={<MainPage/>}/>
-                    <Route path={"/profile"} element={<ProfilePage/>}/>
+                    <Route path={"/profile"} element={<ProfilePage/>}>
+                        <Route index element={<MyLists/>}/>
+                        <Route path={`:currentList`} element={<ListsWrapper/>}/>
+                    </Route>
                 </Routes>
             </div>
             <Footer/>

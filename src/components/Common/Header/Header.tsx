@@ -71,7 +71,9 @@ const Header = () => {
             <div className={"header__right"}>
                 <div className={"header__search"}>
                     <Search/>
+
                 </div>
+
                 {!isAuth ? <a href={`https://www.themoviedb.org/authenticate/${token}?redirect_to=http://localhost:3000/auth`}
                     target="_blank">Войти CS</a> :
                     <Link to={"/profile"} className={"header__profile"}>
@@ -79,6 +81,10 @@ const Header = () => {
 
                         <button onClick={onLogOut}>Выйти</button>
                     </Link>}
+                <Link to={"/profile"} className={"header__profile"}>
+                    <span>Профиль</span>
+
+                </Link>
             </div>
         </div>
     );

@@ -9,7 +9,6 @@ const init: authState = {
         error:null,
         payload:null,
     }
-
 }
 
 export const authReducer = (state = init, action: authActions): authState => {
@@ -20,6 +19,7 @@ export const authReducer = (state = init, action: authActions): authState => {
             return {...state,isLoading:false,payload:action.payload}
         case authActionCreators.FETCH_TOKEN_ERROR:
             return {...state,isLoading:false,error:action.error}
+
         case authActionCreators.CREATE_SESSION:
             return {
                 ...state,

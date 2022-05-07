@@ -29,6 +29,7 @@ export interface commonPayloadTvMovie{
     vote_average:string,
     vote_count:string,
     tagline:string,
+    id:number
 }
 
 export interface IMoviePayload extends commonPayloadTvMovie{
@@ -96,3 +97,38 @@ export type TGenresPayload = [{
     id:string,
     name:string
 }]
+
+export interface IAccountPayload {
+    id: number,
+    username: string,
+    name:string
+}
+
+type TAccountListsResults = [{
+    adult: false,
+    backdrop_path: null | string,
+    genre_ids: number[],
+    id: number,
+    original_title: string,
+    overview: string,
+    release_date: string,
+    poster_path: null | string,
+    popularity: number,
+    title: string,
+    vote_average: number,
+    vote_count: number
+}]
+export interface IAccountLists {
+    results: TAccountListsResults
+}
+
+export interface IAccountMyLists{
+    created_by:string,
+    description:string,
+    favorite_count:string,
+    id:number,
+    items: TAccountListsResults,
+    item_count:number,
+    name:string,
+    poster_path:string | null
+}

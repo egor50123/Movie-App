@@ -3,12 +3,15 @@ import {MovieSwitchTypes, TrailersSwitchTypes, TrendsSwitchTypes, TvSwitchTypes}
 import {MovieTvItemType} from "../pages/CategoriesPage/MovieTvItem/MovieTvItem";
 import {IFilterSettings} from "../models/categoriesM";
 import {
+    IAccountLists,
+    IAccountPayload,
     ICategoriesPayload, IMoviePayload,
     IPeoplePayload,
     ISimilarMoviesPayload, ITvPayload,
     TGenresPayload
 } from "../models/payloadAPI_M";
 import {authPayload, deleteSessionPayload, sessionPayload} from "../store/types/authT";
+import {IFavorite, IListParams} from "../models/ProfileM";
 
 export const API_KEY = "api_key=cb16c889cb26730cf04918e138034c54"
 export const BASE_URI = "&language=ru&page=1&region=ru"
@@ -112,13 +115,33 @@ export const authAPI = {
             request_token: token,
         })
     },
-    deleteSession(session:string) {
-        return instance.delete<deleteSessionPayload>(`/authentication/session?${API_KEY}`,{
+    deleteSession(session: string) {
+        return instance.delete<deleteSessionPayload>(`/authentication/session?${API_KEY}`, {
             data: {
                 session_id: session,
             }
         })
-    }
+    },
+}
+
+export const accountAPI = {
+    getAccount(sessionId: string) {
+        return instance.get<IAccountPayload>(`/account?${API_KEY}&session_id=${sessionId}`)
+    },
+    setFavorite({sessionId, acID, itemId, isFavorite}:IFavorite) {
+        return instance.post(`https://api.themoviedb.org/3/account/${acID}/favorite?${API_KEY}&session_id=${sessionId}`, {
+            "media_type": "movie",
+            "media_id": itemId,
+            "favorite": isFavorite
+        }, {
+            headers: {
+                "Content-Type": "application/json;charset=utf-8"
+            }
+        })
+    },
+    getList ({sessionId, acID, type}:IListParams) {
+        return instance.get<IAccountLists>(`/account/${acID}/${type}/movies?${API_KEY}&session_id=${sessionId}&language=ru&page=1`)
+    },
 }
 
 

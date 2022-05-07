@@ -8,6 +8,7 @@ import {previewItemReducer} from "./reducers/previewItemReducer";
 import {posterReducer} from "./reducers/posterReducer";
 import {categoriesReducer} from "./reducers/categoriesReducer";
 import {authReducer} from "./reducers/authReducer";
+import {accountReducer} from "./reducers/accountReducer";
 
 const  reducer = combineReducers(
     {
@@ -17,7 +18,8 @@ const  reducer = combineReducers(
         previewItem: previewItemReducer,
         poster: posterReducer,
         categories: categoriesReducer,
-        auth: authReducer
+        auth: authReducer,
+        account: accountReducer
     }
 )
 export type RootState = ReturnType<typeof reducer>

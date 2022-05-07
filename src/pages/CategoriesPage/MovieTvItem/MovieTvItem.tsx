@@ -5,6 +5,7 @@ import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import "./movieTvItem.scss"
 import {YOUTUBE_URL} from "../../../API/indexAPI";
 import {IMoviePayload, IPeoplePayload, ISimilarMoviesPayload, ITvPayload} from "../../../models/payloadAPI_M";
+import {useFavorite} from "../../../hooks/useFavorite";
 
 export type MovieTvItemType = "tv" | "movie"
 
@@ -16,10 +17,12 @@ interface IMovieTvItem {
 const MovieTvItem:FC<IMovieTvItem> = ({type}) => {
     let params = useParams()
     let {fetchItem,clearItem,fetchPeople,fetchSimilar} = useAction()
+    let addFavorite = useFavorite()
 
     let movieTvPayload:IMoviePayload | ITvPayload | null = useTypedSelector(state => state.movieTvPerson.payload),
         peoplePayload:IPeoplePayload | null = useTypedSelector(state => state.movieTvPerson.people.payload),
         similarPayload:ISimilarMoviesPayload | null = useTypedSelector(state => state.movieTvPerson.similar.payload);
+
 
     let moviePayload:IMoviePayload | null= movieTvPayload as IMoviePayload,
         tvPayload:ITvPayload | null = movieTvPayload as ITvPayload;
@@ -41,10 +44,15 @@ const MovieTvItem:FC<IMovieTvItem> = ({type}) => {
             fetchPeople(id,type)
             fetchSimilar(id)
         }
-        return () => {
-            clearItem()
-        }
+        return () => {clearItem()}
     },[id])
+
+    function onFavorite(itemId:number | undefined,isFavorite:boolean) {
+        if (itemId) addFavorite({itemId, isFavorite})
+    }
+
+    function getFavorite () {}
+
 
     return (
         <div className={"movieTvItem container"}>
@@ -60,9 +68,10 @@ const MovieTvItem:FC<IMovieTvItem> = ({type}) => {
                     </div>
                     <div className={"movieTvItem__trailer-btns"}>
                         <button>добавить в список</button>
-                        <button>избранное</button>
+                        <button onClick={() => onFavorite(movieTvPayload?.id,true)}>избранное</button>
                         <button>закладки</button>
                         <button>оценить</button>
+                        <button onClick={getFavorite}>получить любимые</button>
                     </div>
                 </div>
                 <div className={"previewItem__decs-box"}>
