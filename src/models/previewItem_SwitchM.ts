@@ -1,3 +1,5 @@
+import {IMoviesTvsPayload} from "./payloadAPI_M";
+
 export enum EPreviewItems {
     Movies = "Movies",
     Tv = "Tv",
@@ -27,7 +29,7 @@ export interface IPreviewItemPure {
         [key:string]: {
             isLoading: boolean,
             error: null | string,
-            payload: any[],
+            payload: IMoviesTvsPayload | null,
         },
     }
 }

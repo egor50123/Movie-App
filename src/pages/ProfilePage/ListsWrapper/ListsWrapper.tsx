@@ -21,6 +21,9 @@ const ListsWrapper:FC = () => {
 
     useEffect(() => {
         if (sessionId && acID) getList({sessionId,acID,type:typeAPI})
+        return () => {
+
+        }
     },[currentList])
 
     return (

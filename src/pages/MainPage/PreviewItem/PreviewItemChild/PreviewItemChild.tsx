@@ -4,17 +4,16 @@ import {NavLink} from "react-router-dom";
 import {useAction} from "../../../../hooks/useAction";
 import {EPreviewItems, IPreviewItemPure} from "../../../../models/previewItem_SwitchM";
 import {BASE_IMG_URL} from "../../../../API/indexAPI";
+import Card from "../../../../components/Common/Card/Card";
+import {IMoviesTvsPayload} from "../../../../models/payloadAPI_M";
+
 
 const PreviewItemChild: FC<IPreviewItemPure> = ({title, type, previews, switchType, switchTitles}) => {
-    if (type === EPreviewItems.Trailers) {
-        debugger
-    }
     const {fetchPreviewItems} = useAction()
 
     useEffect(() => {
         fetchPreviewItems(type, switchTitles[switchType - 1][0]);
     }, [switchType])
-
 
     return (
         <>
@@ -24,18 +23,21 @@ const PreviewItemChild: FC<IPreviewItemPure> = ({title, type, previews, switchTy
             </div>
 
             {<div className={"previewItem__list"}>
-                {(previews[type] !== undefined && !previews[type].isLoading) ? previews[type].payload.map(film =>
-                    <NavLink to={`/${film["title"] !== undefined ? "movie" : "tv"}/${film.id} `} key={film.id}>
-                        <div className={"previewItem__item"} id={film.id}>
-                            <div className={"previewItem__img-box"}>
-                                <img src={`${BASE_IMG_URL}${film.poster_path}`} alt=""/>
-                            </div>
-                            {film["title"] !== undefined ? film["title"] : film["name"]}<br/>
-
-                        </div>
-                    </NavLink>
+                {(previews[type] !== undefined && !previews[type].isLoading && previews[type].payload) ?
+                    (previews[type].payload as IMoviesTvsPayload).results.map(film =>
+                        <Card id={film.id}
+                              title={film.title || film.name}
+                              bg_path={film.poster_path}
+                              overview={film.overview} vote={film.vote_average}/>
                 ) : <div className={"previewItem__plug"}>
-                </div>}
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>}
             </div>}
         </>
     );

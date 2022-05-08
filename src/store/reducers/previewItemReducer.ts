@@ -14,7 +14,7 @@ export const previewItemReducer = (state = init, action: PreviewAction): preview
                     [action.currentPreview]: {
                         isLoading: true,
                         error: null,
-                        payload: [],
+                        payload: null,
                     }
                 }
             }
@@ -37,8 +37,8 @@ export const previewItemReducer = (state = init, action: PreviewAction): preview
                     ...state.previews,
                     [action.currentPreview]: {
                         isLoading: false,
-                        error: "null",
-                        payload: [],
+                        error: action.error,
+                        payload: null,
                     }
                 }
             }

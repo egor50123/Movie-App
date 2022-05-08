@@ -1,11 +1,12 @@
 import {PreviewItemsTypes} from "../../models/previewItem_SwitchM";
+import {IMoviesTvsPayload} from "../../models/payloadAPI_M";
 
 export interface previewState {
     previews:{
         [key:string]: {
             isLoading: boolean,
             error: null | string,
-            payload: any[],
+            payload: IMoviesTvsPayload | null,
         },
     }
 }
@@ -23,13 +24,13 @@ interface FetchPreviewAction {
 
 interface FetchPreviewSuccessAction {
     type: PreviewActionTypes.FETCH_PREVIEW_SUCCESS,
-    payload: any[],
+    payload: IMoviesTvsPayload,
     currentPreview: PreviewItemsTypes
 }
 
 interface FetchPreviewErrorAction {
     type: PreviewActionTypes.FETCH_PREVIEW_ERROR,
-    payload: string,
+    error:string
     currentPreview: PreviewItemsTypes
 }
 

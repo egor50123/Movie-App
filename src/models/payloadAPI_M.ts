@@ -132,3 +132,18 @@ export interface IAccountMyLists{
     name:string,
     poster_path:string | null
 }
+
+export interface IMoviesTvsPayload {
+    results: [{
+        backdrop_path:string,
+        poster_path:string,
+        vote_average:number,
+        rating:number,
+        overview:string,
+        release_date?:string,
+        first_air_date?:string,
+        title?:string,
+        name?:string
+        id:number
+    }]
+}
