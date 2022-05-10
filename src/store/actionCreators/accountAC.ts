@@ -38,3 +38,5 @@ export const getList = (settings:IListParams) => {
         }
     }
 }
+
+export const clearLists = () => ({type:accountActionCreators.CLEAR_LISTS})

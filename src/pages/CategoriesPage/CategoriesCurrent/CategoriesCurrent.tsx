@@ -1,11 +1,11 @@
 import React, {FC, useEffect, useState} from 'react';
 import {useAction} from "../../../hooks/useAction";
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
-import {BASE_IMG_URL} from "../../../API/indexAPI";
 import {CategoriesSortTypes, FilterRangeNames, ICategoriesPage, ICheckbox} from "../../../models/categoriesM";
-import {MainPageState} from "../../../store/types/mainPageT";
 import {Link, useParams} from "react-router-dom";
 import {setCheckbox} from "../../../helpers/setCheckbox";
+import Card from "../../../components/Common/Card/Card";
+import {cardTypes} from "../../../models/cardM";
 
 
 const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
@@ -13,7 +13,7 @@ const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
         params = useParams()
 
     let movieTv = useTypedSelector(state => state.categories.payload?.results),
-        genres = useTypedSelector(state => (state.mainPage as MainPageState).genres.payload)
+        genres = useTypedSelector(state => state.mainPage.genres.payload)
 
     let withReleaseType = "3";
     let defaultGenres = params.genresId === undefined ? "" : `${params.genresId}|`
@@ -21,13 +21,13 @@ const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
     let [sortType, setSortType] = useState(CategoriesSortTypes.popularityDown as string),
         [withGenres, setGenres] = useState(""),
         [checkboxes, setActive] = useState<ICheckbox>({}),
-        [filterSettings,changeFilterSettings] = useState({
-            [FilterRangeNames.minYear]:"",
-            [FilterRangeNames.maxYear]:"",
-            [FilterRangeNames.minRank]:"",
-            [FilterRangeNames.maxRank]:"",
-            [FilterRangeNames.minRuntime]:"",
-            [FilterRangeNames.maxRuntime]:""
+        [filterSettings, changeFilterSettings] = useState({
+            [FilterRangeNames.minYear]: "",
+            [FilterRangeNames.maxYear]: "",
+            [FilterRangeNames.minRank]: "",
+            [FilterRangeNames.maxRank]: "",
+            [FilterRangeNames.minRuntime]: "",
+            [FilterRangeNames.maxRuntime]: ""
         })
 
 
@@ -45,24 +45,24 @@ const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
     }
 
     function onFind() {
-        let newSettings = {...filterSettings,type,sortType,withReleaseType,withGenres}
+        let newSettings = {...filterSettings, type, sortType, withReleaseType, withGenres}
         fetchCategoriesItems(newSettings)
     }
 
     useEffect(() => {
-        let newSettings = {...filterSettings,type,sortType,withReleaseType,withGenres:defaultGenres}
+        let newSettings = {...filterSettings, type, sortType, withReleaseType, withGenres: defaultGenres}
         fetchCategoriesItems(newSettings)
     }, [])
 
     useEffect(() => {
         if (params.genresId !== undefined) {
-            let newSettings = {...filterSettings,type,sortType,withReleaseType,withGenres:defaultGenres}
+            let newSettings = {...filterSettings, type, sortType, withReleaseType, withGenres: defaultGenres}
             fetchCategoriesItems(newSettings)
         }
     }, [params.genresId])
 
     function onCheckbox(e: React.ChangeEvent<HTMLInputElement>) {
-        let {target,newGenres,isActive} = setCheckbox(e,withGenres)
+        let {target, newGenres, isActive} = setCheckbox(e, withGenres)
         setGenres(newGenres)
         setActive({...checkboxes, [target]: isActive})
     }
@@ -91,16 +91,18 @@ const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
                 </div>
                 <div className={'filter__item'}>
                     <h2>Дата выхода</h2>
-                    <div>от <input type="text" id={FilterRangeNames.minYear} onChange={onChange} value={filterSettings[FilterRangeNames.minYear]}/></div>
-                    <div>до <input type="text" id={FilterRangeNames.maxYear} onChange={onChange} value={filterSettings[FilterRangeNames.maxYear]}/></div>
+                    <div>от <input type="text" id={FilterRangeNames.minYear} onChange={onChange}
+                                   value={filterSettings[FilterRangeNames.minYear]}/></div>
+                    <div>до <input type="text" id={FilterRangeNames.maxYear} onChange={onChange}
+                                   value={filterSettings[FilterRangeNames.maxYear]}/></div>
                 </div>
                 <div className={'filter__item'}>
                     <h2>Жанры</h2>
                     <div className={"genres"}>
-                        {genres?.map(item => <label key={item.id} id={item.id}>
-                                <input type="checkbox" id={item.id} name={item.name} onChange={onCheckbox}
+                        {genres?.map(item => <label key={item.id} id={item.id + ''}>
+                                <input type="checkbox" id={item.id + ''} name={item.name} onChange={onCheckbox}
                                        checked={checkboxes[item.name] === undefined ? false : checkboxes[item.name]}/>
-                                <span key={item.id} id={item.id}>
+                                <span key={item.id} id={item.id + ''}>
                                 {item.name}
                             </span>
                             </label>
@@ -109,8 +111,10 @@ const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
                 </div>
                 <div className={'filter__item'}>
                     <h2>рейтинг</h2>
-                    <div>min<input type="text" onChange={onChange} id={FilterRangeNames.minRank} value={filterSettings[FilterRangeNames.minRank]}/></div>
-                    <div>max<input type="text" onChange={onChange} id={FilterRangeNames.maxRank} value={filterSettings[FilterRangeNames.maxRank]}/></div>
+                    <div>min<input type="text" onChange={onChange} id={FilterRangeNames.minRank}
+                                   value={filterSettings[FilterRangeNames.minRank]}/></div>
+                    <div>max<input type="text" onChange={onChange} id={FilterRangeNames.maxRank}
+                                   value={filterSettings[FilterRangeNames.maxRank]}/></div>
                 </div>
                 <div className={'filter__item'}>
                     <h2>минимальное количкство голосов пользователей</h2>
@@ -118,8 +122,10 @@ const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
                 </div>
                 <div className={'filter__item'}>
                     <h2>Длительность</h2>
-                    <div>min<input type="text" onChange={onChange} id={FilterRangeNames.minRuntime} value={filterSettings[FilterRangeNames.minRuntime]}/></div>
-                    <div>max<input type="text" onChange={onChange} id={FilterRangeNames.maxRuntime} value={filterSettings[FilterRangeNames.maxRuntime]}/></div>
+                    <div>min<input type="text" onChange={onChange} id={FilterRangeNames.minRuntime}
+                                   value={filterSettings[FilterRangeNames.minRuntime]}/></div>
+                    <div>max<input type="text" onChange={onChange} id={FilterRangeNames.maxRuntime}
+                                   value={filterSettings[FilterRangeNames.maxRuntime]}/></div>
                 </div>
                 <div className={'filter__item'}>
                     <h2>Ключевые слова</h2>
@@ -127,14 +133,15 @@ const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
                 </div>
             </div>
             <div className={"categoriesPage__list categoriesList"}>
-                {movieTv?.map(item => <Link to={`/movie/${item.id}`} key={item.id} className={"categoriesList__item"}>
-                    <div className={"categoriesList_imgBox"}>
-                        <img src={`${BASE_IMG_URL}${item.poster_path}`} alt=""/>
-                    </div>
-                    {item.title}<br/>
-                    {item.release_date}<br/>
-                    {item.vote_average}<br/>
-                </Link>)}
+                {movieTv?.map(item =>
+                    <Card title={item.title}
+                          overview={item.overview}
+                          id={item.id}
+                          vote={item.vote_average}
+                          bg_path={item.poster_path || item.backdrop_path}
+                          genres={item.genre_ids}
+                          type={cardTypes.type_1} date={item.release_date}/>
+                )}
             </div>
         </div>
     );

@@ -1,6 +1,6 @@
 import {MainPageActions, MainPageActionTypes, MainPageState} from "../types/mainPageT";
 
-const init = {
+const init:MainPageState = {
     switchType: {},
     genres: {
         isLoading:false,

@@ -1,11 +1,10 @@
 import React, {FC, useEffect} from 'react';
 import Switch from "../../../../components/Common/Switch/Switch";
-import {NavLink} from "react-router-dom";
 import {useAction} from "../../../../hooks/useAction";
-import {EPreviewItems, IPreviewItemPure} from "../../../../models/previewItem_SwitchM";
-import {BASE_IMG_URL} from "../../../../API/indexAPI";
+import {IPreviewItemPure} from "../../../../models/previewItem_SwitchM";
 import Card from "../../../../components/Common/Card/Card";
 import {IMoviesTvsPayload} from "../../../../models/payloadAPI_M";
+import {cardTypes} from "../../../../models/cardM";
 
 
 const PreviewItemChild: FC<IPreviewItemPure> = ({title, type, previews, switchType, switchTitles}) => {
@@ -26,9 +25,14 @@ const PreviewItemChild: FC<IPreviewItemPure> = ({title, type, previews, switchTy
                 {(previews[type] !== undefined && !previews[type].isLoading && previews[type].payload) ?
                     (previews[type].payload as IMoviesTvsPayload).results.map(film =>
                         <Card id={film.id}
-                              title={film.title || film.name}
+                              title={film.title as string || film.name as string}
                               bg_path={film.poster_path}
-                              overview={film.overview} vote={film.vote_average}/>
+                              overview={film.overview}
+                              vote={film.vote_average}
+                              date={film.release_date as string || film.first_air_date as string}
+                              country={film.origin_country}
+                              genres={film.genre_ids}
+                              type={cardTypes.type_1}/>
                 ) : <div className={"previewItem__plug"}>
                         <div></div>
                         <div></div>

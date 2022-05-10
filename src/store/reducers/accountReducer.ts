@@ -59,6 +59,19 @@ export const accountReducer = (state = init, action:accountActions ):accountStat
             }
         case accountActionCreators.FETCH_ERROR:
             return {...state,error:action.error}
+
+        case accountActionCreators.CLEAR_LISTS:
+            return {
+                ...state,
+                list: {
+                    ...state.list,
+                    payload:null,
+                },
+                myList: {
+                    ...state.myList,
+                    payload:null,
+                },
+            }
         default: return state
     }
 }

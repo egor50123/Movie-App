@@ -5,7 +5,7 @@ import {IFilterSettings} from "../models/categoriesM";
 import {
     IAccountLists,
     IAccountPayload,
-    ICategoriesPayload, IMoviePayload,
+    ICategoriesPayload, IMoviePayload, IMoviesTvsPayload,
     IPeoplePayload,
     ISimilarMoviesPayload, ITvPayload,
     TGenresPayload
@@ -140,7 +140,7 @@ export const accountAPI = {
         })
     },
     getList ({sessionId, acID, type}:IListParams) {
-        return instance.get<IAccountLists>(`/account/${acID}/${type}/movies?${API_KEY}&session_id=${sessionId}&language=ru&page=1`)
+        return instance.get<IMoviesTvsPayload>(`/account/${acID}/${type}/movies?${API_KEY}&session_id=${sessionId}&language=ru&page=1`)
     },
 }
 

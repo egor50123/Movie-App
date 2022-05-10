@@ -1,4 +1,4 @@
-import {IAccountLists, IAccountMyLists, IAccountPayload} from "../../models/payloadAPI_M";
+import {IAccountMyLists, IAccountPayload, IMoviesTvsPayload} from "../../models/payloadAPI_M";
 
 export interface accountState {
     error:string | null,
@@ -7,7 +7,7 @@ export interface accountState {
     }
     list: {
         isLoading: boolean
-        payload:IAccountLists | null
+        payload:IMoviesTvsPayload | null
     }
     myList: {
         isLoading: boolean,
@@ -21,7 +21,8 @@ export enum accountActionCreators {
     FETCH_ACCOUNT_LIST = "FETCH_ACCOUNT_LIST",
     FETCH_ACCOUNT_LIST_SUCCESS = "FETCH_ACCOUNT_LIST_SUCCESS",
     FETCH_ACCOUNT_MY_LIST = "FETCH_ACCOUNT_MY_LIST",
-    FETCH_ACCOUNT_MY_LIST_SUCCESS = "FETCH_ACCOUNT_MY_LIST_SUCCESS"
+    FETCH_ACCOUNT_MY_LIST_SUCCESS = "FETCH_ACCOUNT_MY_LIST_SUCCESS",
+    CLEAR_LISTS = "CLEAR_LISTS"
 }
 
 interface fetchAccountSuccessAction {
@@ -32,7 +33,7 @@ interface fetchAccountSuccessAction {
 interface fetchList {type:accountActionCreators.FETCH_ACCOUNT_LIST}
 interface fetchListSuccess {
     type:accountActionCreators.FETCH_ACCOUNT_LIST_SUCCESS,
-    payload: IAccountLists
+    payload: IMoviesTvsPayload
 }
 
 interface fetchMyList {type:accountActionCreators.FETCH_ACCOUNT_MY_LIST}
@@ -41,7 +42,9 @@ interface fetchMyListSuccess {
     payload: IAccountMyLists
 }
 
-
+interface clearLists {
+    type:accountActionCreators.CLEAR_LISTS
+}
 
 interface commonFetchError {
     type:accountActionCreators.FETCH_ERROR
@@ -49,4 +52,4 @@ interface commonFetchError {
 }
 
 export type accountActions = fetchAccountSuccessAction | commonFetchError | fetchList |
-    fetchListSuccess | fetchMyList | fetchMyListSuccess
+    fetchListSuccess | fetchMyList | fetchMyListSuccess | clearLists

@@ -1,10 +1,14 @@
 export interface ICategoriesPayload {
     results: [{
         title:string,
-        poster_path:string,
+        poster_path:string | null,
+        backdrop_path:string | null,
         release_date:string,
-        vote_average:string,
-        id:string
+        vote_average:number,
+        id:number,
+        genre_ids:number[],
+        original_language:string,
+        overview:string
     }]
 }
 
@@ -74,7 +78,6 @@ export interface ITvPayload extends commonPayloadTvMovie{
     status:string,
 }
 
-
 export interface IPeoplePayload {
     cast:[{
         name:string,
@@ -94,7 +97,7 @@ export interface ISimilarMoviesPayload {
 }
 
 export type TGenresPayload = [{
-    id:string,
+    id:number,
     name:string
 }]
 
@@ -144,6 +147,9 @@ export interface IMoviesTvsPayload {
         first_air_date?:string,
         title?:string,
         name?:string
-        id:number
+        id:number,
+        origin_country:string[],
+        genre_ids:number[]
+
     }]
 }
