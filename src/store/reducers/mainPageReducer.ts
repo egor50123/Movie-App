@@ -1,8 +1,13 @@
-import {MainPageActions, MainPageActionTypes, MainPageState} from "../types/mainPageT";
+import {genreTypes, MainPageActions, MainPageActionTypes, MainPageState} from "../types/mainPageT";
 
 const init:MainPageState = {
     switchType: {},
-    genres: {
+    [genreTypes.genresMovie]: {
+        isLoading:false,
+        error:null,
+        payload: null,
+    },
+    [genreTypes.genresTv]: {
         isLoading:false,
         error:null,
         payload: null,
@@ -22,16 +27,16 @@ export const mainPageReducer = (state = init, action:MainPageActions):MainPageSt
         case MainPageActionTypes.FETCH_GENRES:
             return {
                 ...state,
-                genres: {
-                    ...state.genres,
+                [action.typeGenre]: {
+                    ...state[action.typeGenre],
                     isLoading:true
                 }
             }
         case MainPageActionTypes.FETCH_GENRES_SUCCESS:
             return {
                 ...state,
-                genres: {
-                    ...state.genres,
+                [action.typeGenre]: {
+                    ...state[action.typeGenre],
                     isLoading: false,
                     payload:action.payload
                 }
@@ -39,8 +44,8 @@ export const mainPageReducer = (state = init, action:MainPageActions):MainPageSt
         case MainPageActionTypes.FETCH_GENRES_ERROR:
             return {
                 ...state,
-                genres: {
-                    ...state.genres,
+                [action.typeGenre]: {
+                    ...state[action.typeGenre],
                     isLoading:false,
                     error:action.error
                 }

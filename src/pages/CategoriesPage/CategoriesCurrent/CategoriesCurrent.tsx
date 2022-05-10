@@ -6,14 +6,18 @@ import {Link, useParams} from "react-router-dom";
 import {setCheckbox} from "../../../helpers/setCheckbox";
 import Card from "../../../components/Common/Card/Card";
 import {cardTypeAPI, cardTypes} from "../../../models/cardM";
+import {genreTypes} from "../../../store/types/mainPageT";
 
 
 const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
     let {fetchCategoriesItems} = useAction(),
         params = useParams()
+    console.log(type)
+    let movieTv = useTypedSelector(state => state.categories.payload?.results)
+    const genresMovie = useTypedSelector(state => state.mainPage[genreTypes.genresMovie].payload),
+        genresTv = useTypedSelector(state => state.mainPage[genreTypes.genresTv].payload)
 
-    let movieTv = useTypedSelector(state => state.categories.payload?.results),
-        genres = useTypedSelector(state => state.mainPage.genres.payload)
+    const currentGenres = type === "movie" ? genresMovie : genresTv
 
     let withReleaseType = "3";
     let defaultGenres = params.genresId === undefined ? "" : `${params.genresId}|`
@@ -52,14 +56,14 @@ const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
     useEffect(() => {
         let newSettings = {...filterSettings, type, sortType, withReleaseType, withGenres: defaultGenres}
         fetchCategoriesItems(newSettings)
-    }, [])
+    }, [type])
 
     useEffect(() => {
         if (params.genresId !== undefined) {
             let newSettings = {...filterSettings, type, sortType, withReleaseType, withGenres: defaultGenres}
             fetchCategoriesItems(newSettings)
         }
-    }, [params.genresId])
+    }, [params.genresId,type])
 
     function onCheckbox(e: React.ChangeEvent<HTMLInputElement>) {
         let {target, newGenres, isActive} = setCheckbox(e, withGenres)
@@ -99,7 +103,7 @@ const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
                 <div className={'filter__item'}>
                     <h2>Жанры</h2>
                     <div className={"genres"}>
-                        {genres?.map(item => <label key={item.id} id={item.id + ''}>
+                        {currentGenres?.map(item => <label key={item.id} id={item.id + ''}>
                                 <input type="checkbox" id={item.id + ''} name={item.name} onChange={onCheckbox}
                                        checked={checkboxes[item.name] === undefined ? false : checkboxes[item.name]}/>
                                 <span key={item.id} id={item.id + ''}>
@@ -134,14 +138,14 @@ const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
             </div>
             <div className={"categoriesPage__list categoriesList"}>
                 {movieTv?.map(item =>
-                    <Card title={item.title}
+                    <Card title={item.title || item.name}
                           overview={item.overview}
                           id={item.id}
                           vote={item.vote_average}
                           bg_path={item.poster_path || item.backdrop_path}
                           genres={item.genre_ids}
                           typeAPI={item.title === undefined ? cardTypeAPI.tv : cardTypeAPI.movie}
-                          type={cardTypes.type_1} date={item.release_date}/>
+                          type={cardTypes.type_1} date={item.release_date || item.first_air_date}/>
                 )}
             </div>
         </div>

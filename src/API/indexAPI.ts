@@ -12,6 +12,7 @@ import {
 } from "../models/payloadAPI_M";
 import {authPayload, deleteSessionPayload, sessionPayload} from "../store/types/authT";
 import {IFavorite, IListParams} from "../models/ProfileM";
+import {genreTypes, TGenreTypes} from "../store/types/mainPageT";
 
 export const API_KEY = "api_key=cb16c889cb26730cf04918e138034c54"
 export const BASE_URI = "&language=ru&page=1&region=ru"
@@ -37,7 +38,7 @@ export const movieAPI = {
         return instance.get<IMoviePayload>(`/movie/${id}?${API_KEY}${BASE_URI}&include_adult=false&append_to_response=videos,peoples`)
     },
     getSimilar(id: string) {
-        return instance.get<ISimilarMoviesPayload>(`/movie/${id}/similar?${API_KEY}${BASE_URI}`)
+        return instance.get<IMoviesTvsPayload>(`/movie/${id}/similar?${API_KEY}${BASE_URI}`)
     }
 }
 
@@ -92,7 +93,7 @@ export const categoriesAPI = {
         const genres = `&with_genres=${withGenres}`.slice(0, -1)
 
         const basicSettings = `&vote_count.gte=10&certification_country=RU`
-        return instance.get<ICategoriesPayload>(`discover/${type}?${API_KEY}&${BASE_URI}${dateStart}${dateEnd}${rankStart}${rankEnd}${genres}${runtimeStart}${runtimeEnd}${sortBy}${withRT}${genres}${basicSettings}`)
+        return instance.get<IMoviesTvsPayload>(`discover/${type}?${API_KEY}&${BASE_URI}${dateStart}${dateEnd}${rankStart}${rankEnd}${genres}${runtimeStart}${runtimeEnd}${sortBy}${withRT}${genres}${basicSettings}`)
     },
     getCountries() {
         return instance.get(`/configuration/countries?${API_KEY}`)
@@ -100,8 +101,9 @@ export const categoriesAPI = {
 }
 
 export const commonAPI = {
-    getGenres() {
-        return instance.get<IGenres>(`/genre/movie/list?${API_KEY}&${BASE_URI}`)
+    getGenres(type:TGenreTypes) {
+        let currentType = type === genreTypes.genresTv ? "tv" : "movie"
+        return instance.get<IGenres>(`/genre/${currentType}/list?${API_KEY}&${BASE_URI}`)
     }
 }
 

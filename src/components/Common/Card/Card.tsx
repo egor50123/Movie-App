@@ -6,6 +6,7 @@ import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import {ICard} from "../../../models/cardM";
 import {getCardClassType} from "../../../helpers/getCardClassType";
 import {useFavorite} from "../../../hooks/useFavorite";
+import {genreTypes} from "../../../store/types/mainPageT";
 
 const Card: FC<ICard> = ({title,
                              bg_path,
@@ -18,7 +19,8 @@ const Card: FC<ICard> = ({title,
                              typeAPI,
                              date}) => {
 
-    const genresTotal = useTypedSelector(state => state.mainPage.genres.payload)
+    const genresTv = useTypedSelector(state => state.mainPage[genreTypes.genresTv].payload)
+    const genresMovie = useTypedSelector(state => state.mainPage[genreTypes.genresMovie].payload)
     const setFavorite = useFavorite()
 
     const classType = getCardClassType()
@@ -44,7 +46,10 @@ const Card: FC<ICard> = ({title,
                     <button>del<span>удалить</span></button>
                 </div>
 
-                <div className={`${classType[type].card__genres}`}>{genresTotal?.find( item => genres && item.id === genres[0])?.name}</div>
+                <div className={`${classType[type].card__genres}`}>{
+                    typeAPI === "movie" ?
+                        genresMovie?.find( item => genres && item.id === genres[0])?.name :
+                        genresTv?.find( item => genres && item.id === genres[0])?.name}</div>
             </div>
 
         </NavLink>

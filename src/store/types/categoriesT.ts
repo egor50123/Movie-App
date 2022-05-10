@@ -1,7 +1,7 @@
-import {ICategoriesPayload} from "../../models/payloadAPI_M";
+import {IMoviesTvsPayload} from "../../models/payloadAPI_M";
 
 export interface categoriesState {
-    payload: ICategoriesPayload | null
+    payload: IMoviesTvsPayload | null
     isLoading: boolean,
     error: string | null
 }
@@ -19,7 +19,7 @@ interface FetchCategoriesAction {
 
 interface FetchCategoriesSuccessAction {
     type: CategoriesAC.FETCH_CATEGORIES_SUCCESS,
-    payload: ICategoriesPayload,
+    payload: IMoviesTvsPayload,
 }
 
 interface FetchCategoriesErrorAction {

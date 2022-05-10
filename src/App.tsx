@@ -11,15 +11,15 @@ import MainPage from "./pages/MainPage/MainPage";
 import AuthPage from "./pages/AuthPage/AuthPage";
 import MovieTvItem from "./pages/CategoriesPage/MovieTvItem/MovieTvItem";
 import {useTypedSelector} from "./hooks/useTypedSelector";
-import {MainPageState} from "./store/types/mainPageT";
+import {genreTypes} from "./store/types/mainPageT";
 import {useAction} from "./hooks/useAction";
 import MyLists from "./pages/ProfilePage/MyLists/MyLists";
 import ListsWrapper from "./pages/ProfilePage/ListsWrapper/ListsWrapper";
-import {ProfileLinksNames} from "./models/ProfileM";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 
 function App() {
-    let genres = useTypedSelector(state => (state.mainPage as MainPageState).genres.payload)
+    let genresMovie = useTypedSelector(state => state.mainPage[genreTypes.genresMovie].payload),
+        genresTv = useTypedSelector(state => state.mainPage[genreTypes.genresTv].payload)
     let token  = useTypedSelector(state => state.auth.payload?.request_token)
     let sessionId = useTypedSelector(state => state.auth.session.payload?.session_id)
     let wasTokenDeleted = useRef(false)
@@ -41,9 +41,7 @@ function App() {
     },[token])
 
     useEffect(() => {
-        console.log(sessionId)
         if (typeof sessionId === "string") {
-            console.log("here")
             fetchAccount(sessionId)
         }
     },[sessionId])
@@ -61,7 +59,7 @@ function App() {
                     <Route path={"/movie"} element={<CategoriesPage type={"movie"}/>}>
                         <Route index element={<CategoriesCurrent type={"movie"}/>}/>
                         <Route path={":movieId"} element={<MovieTvItem type={"movie"}/>}/>
-                        {genres?.map(item =>
+                        {genresMovie?.map(item =>
                             <Route key={item.id} path={"genres/:genresId"}
                                    element={<CategoriesCurrent type={"movie"}/>}/>)}
                     </Route>
@@ -69,6 +67,9 @@ function App() {
                     <Route path={"/tv"} element={<CategoriesPage type={"tv"}/>}>
                         <Route index element={<CategoriesCurrent type={"tv"}/>}/>
                         <Route path={":tvId"} element={<MovieTvItem type={"tv"}/>}/>
+                        {genresTv?.map(item =>
+                            <Route key={item.id} path={"genres/:genresId"}
+                                   element={<CategoriesCurrent type={"tv"}/>}/>)}
                     </Route>
 
                     <Route path={"/auth"} element={<AuthPage/>}/>

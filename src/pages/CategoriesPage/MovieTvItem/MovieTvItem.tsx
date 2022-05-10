@@ -4,8 +4,10 @@ import {useAction} from "../../../hooks/useAction";
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import "./movieTvItem.scss"
 import {YOUTUBE_URL} from "../../../API/indexAPI";
-import {IMoviePayload, IPeoplePayload, ISimilarMoviesPayload, ITvPayload} from "../../../models/payloadAPI_M";
+import {IMoviePayload, IMoviesTvsPayload, IPeoplePayload, ITvPayload} from "../../../models/payloadAPI_M";
 import {useFavorite} from "../../../hooks/useFavorite";
+import Card from "../../../components/Common/Card/Card";
+import {cardTypeAPI, cardTypes} from "../../../models/cardM";
 
 export type MovieTvItemType = "tv" | "movie"
 
@@ -21,7 +23,7 @@ const MovieTvItem:FC<IMovieTvItem> = ({type}) => {
 
     let movieTvPayload:IMoviePayload | ITvPayload | null = useTypedSelector(state => state.movieTvPerson.payload),
         peoplePayload:IPeoplePayload | null = useTypedSelector(state => state.movieTvPerson.people.payload),
-        similarPayload:ISimilarMoviesPayload | null = useTypedSelector(state => state.movieTvPerson.similar.payload);
+        similarPayload:IMoviesTvsPayload | null = useTypedSelector(state => state.movieTvPerson.similar.payload);
 
 
     let moviePayload:IMoviePayload | null= movieTvPayload as IMoviePayload,
@@ -98,7 +100,14 @@ const MovieTvItem:FC<IMovieTvItem> = ({type}) => {
             }</div>
             {similarPayload && <div className={"movieTvItem__similar"}>{similarPayload.results?.map(item => <div
                 className={"movieTvItem__similar-item"}>
-                {item.title}
+                <Card title={item.title || item.name}
+                      id={item.id}
+                      vote={item.vote_average}
+                      bg_path={item.poster_path || item.backdrop_path}
+                      type={cardTypes.type_1}
+                      typeAPI={item.title === undefined ? cardTypeAPI.tv : cardTypeAPI.movie}
+                      date={item.first_air_date || item.release_date}
+                      genres={item.genre_ids}/>
             </div>)}</div>}
             <div className={"movieTvItem__recommendations"}>рекомендации</div>
             <div className={"movieTvItem__collections"}></div>

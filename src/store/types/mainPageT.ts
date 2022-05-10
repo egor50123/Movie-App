@@ -5,11 +5,23 @@ export interface ISwitchCurrent {
     [key:string]:number
 }
 
+export enum genreTypes {
+    genresMovie = "genresMovie",
+    genresTv = "genresTv"
+}
+
+export type TGenreTypes =  "genresMovie" | "genresTv"
+
 export interface MainPageState {
     switchType: {
         [key:string]: number
     },
-    genres: {
+    [genreTypes.genresMovie]: {
+        isLoading: boolean,
+        error: string | null,
+        payload:null | TGenresPayload
+    }
+    [genreTypes.genresTv]: {
         isLoading: boolean,
         error: string | null,
         payload:null | TGenresPayload
@@ -31,15 +43,18 @@ interface SetSwitchAction {
 
 interface FetchGenresAction {
     type: MainPageActionTypes.FETCH_GENRES
+    typeGenre: TGenreTypes
 }
 
 interface FetchGenresSuccessAction {
     type: MainPageActionTypes.FETCH_GENRES_SUCCESS,
+    typeGenre: TGenreTypes
     payload:null | TGenresPayload
 }
 
 interface FetchGenresErrorAction {
     type: MainPageActionTypes.FETCH_GENRES_ERROR
+    typeGenre: TGenreTypes
     error:string
 }
 

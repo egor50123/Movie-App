@@ -10,7 +10,7 @@ $CATEGORIES_HEIGHT: 50px;
   z-index: 100;
   width: 100%;
   height: $HEADER_HEIGHT;
-  padding: 10px 50px;
+  padding: 0 50px;
   top:0;
   background-color: rgb(0, 0, 0);
   color: white;
@@ -18,13 +18,13 @@ $CATEGORIES_HEIGHT: 50px;
 }
 
 .header__left {
-  height: $CATEGORIES_HEIGHT;
+  height: 100%;
   display: flex;
   align-items: center;
 }
 
 .header__right {
-  height: $CATEGORIES_HEIGHT;
+  height: 100%;
   display: flex;
   gap: 20px;
   align-items: center;
@@ -35,32 +35,46 @@ $CATEGORIES_HEIGHT: 50px;
 }
 
 .header__logo {
+  display: flex;
+  align-items: center;
   margin-right: 20px;
   height: 100%;
 }
 
 .header__categories {
   display: flex;
-  gap: 20px;
   align-items: center;
   height: 100%;
 }
 
 .header__categories-item {
-  position: relative;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  padding: 0 10px;
+  position: relative;
 
   span {
     cursor: pointer;
   }
+
+  &[data-item="movie"]:hover .header__list {
+    display: block;
+  }
+  &[data-item="tv"]:hover .header__list {
+    display: block;
+  }
+  &[data-item="people"]:hover .header__list {
+    display: block;
+  }
 }
 
 .header__list {
+  z-index: 100;
   cursor: pointer;
-  display: block;
+  display: none;
   position: absolute;
-  top: $CATEGORIES_HEIGHT - 10px;
+  top: 100%;
   left: 0;
   height: min-content;
   width: 200px;

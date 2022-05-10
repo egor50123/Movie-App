@@ -1,5 +1,5 @@
 import {
-    IMoviePayload,
+    IMoviePayload, IMoviesTvsPayload,
     IPeoplePayload,
     ISimilarMoviesPayload,
     ITvPayload
@@ -28,7 +28,7 @@ export interface MovieTvPerson {
     similar: {
         isLoading: boolean,
         error: null | string,
-        payload: ISimilarMoviesPayload | null,
+        payload: IMoviesTvsPayload | null,
     }
 }
 
@@ -52,7 +52,7 @@ interface FetchSimilarAction {
 
 interface FetchSimilarSuccessAction {
     type: MovieTvPersonActionTypes.FETCH_SIMILAR_SUCCESS
-    payload: ISimilarMoviesPayload | null
+    payload: IMoviesTvsPayload | null
 }
 
 interface FetchSimilarErrorAction {

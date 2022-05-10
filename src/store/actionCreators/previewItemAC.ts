@@ -13,7 +13,6 @@ import {
 
 export const  fetchPreviewItems = (currentPreview:PreviewItemsTypes,switchType:string) => {
     return async (dispatch: Dispatch<PreviewAction>) => {
-        let time = 500
         let response = {} as AxiosResponse<any>
         try {
             dispatch({type: PreviewActionTypes.FETCH_PREVIEW,currentPreview})
@@ -36,9 +35,8 @@ export const  fetchPreviewItems = (currentPreview:PreviewItemsTypes,switchType:s
                 }
                 default:break
             }
-            setTimeout(() => {
-                dispatch({type: PreviewActionTypes.FETCH_PREVIEW_SUCCESS,payload: response.data,currentPreview})
-            },time)
+            dispatch({type: PreviewActionTypes.FETCH_PREVIEW_SUCCESS,payload: response.data,currentPreview})
+
         }catch (e) {
             dispatch({type: PreviewActionTypes.FETCH_PREVIEW_ERROR,error: "error",currentPreview})
         }
