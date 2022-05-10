@@ -5,7 +5,7 @@ import {CategoriesSortTypes, FilterRangeNames, ICategoriesPage, ICheckbox} from 
 import {Link, useParams} from "react-router-dom";
 import {setCheckbox} from "../../../helpers/setCheckbox";
 import Card from "../../../components/Common/Card/Card";
-import {cardTypes} from "../../../models/cardM";
+import {cardTypeAPI, cardTypes} from "../../../models/cardM";
 
 
 const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
@@ -140,6 +140,7 @@ const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
                           vote={item.vote_average}
                           bg_path={item.poster_path || item.backdrop_path}
                           genres={item.genre_ids}
+                          typeAPI={item.title === undefined ? cardTypeAPI.tv : cardTypeAPI.movie}
                           type={cardTypes.type_1} date={item.release_date}/>
                 )}
             </div>

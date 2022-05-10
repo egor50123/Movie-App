@@ -4,7 +4,7 @@ import {useAction} from "../../../../hooks/useAction";
 import {IPreviewItemPure} from "../../../../models/previewItem_SwitchM";
 import Card from "../../../../components/Common/Card/Card";
 import {IMoviesTvsPayload} from "../../../../models/payloadAPI_M";
-import {cardTypes} from "../../../../models/cardM";
+import {cardTypeAPI, cardTypes} from "../../../../models/cardM";
 
 
 const PreviewItemChild: FC<IPreviewItemPure> = ({title, type, previews, switchType, switchTitles}) => {
@@ -26,6 +26,7 @@ const PreviewItemChild: FC<IPreviewItemPure> = ({title, type, previews, switchTy
                     (previews[type].payload as IMoviesTvsPayload).results.map(film =>
                         <Card id={film.id}
                               title={film.title as string || film.name as string}
+                              typeAPI={film.title === undefined ? cardTypeAPI.tv : cardTypeAPI.movie }
                               bg_path={film.poster_path}
                               overview={film.overview}
                               vote={film.vote_average}

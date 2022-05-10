@@ -6,7 +6,7 @@ import {useAction} from "../../../hooks/useAction";
 import {useParams} from "react-router-dom";
 import {setTypeAPILists} from "../../../helpers/setTypeAPILists";
 import Card from "../../../components/Common/Card/Card";
-import {cardTypes} from "../../../models/cardM";
+import {cardTypeAPI, cardTypes} from "../../../models/cardM";
 
 const ListsWrapper:FC = () => {
 
@@ -37,6 +37,7 @@ const ListsWrapper:FC = () => {
                                             bg_path={item.backdrop_path || item.poster_path}
                                             type={cardTypes.type_2}
                                             date={item.release_date as string || item.first_air_date as string}
+                                            typeAPI={item.title === undefined ? cardTypeAPI.tv : cardTypeAPI.movie}
                                             genres={item.genre_ids}/>)}
         </div>
     );
