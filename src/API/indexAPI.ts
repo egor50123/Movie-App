@@ -3,11 +3,10 @@ import {MovieSwitchTypes, TrailersSwitchTypes, TrendsSwitchTypes, TvSwitchTypes}
 import {MovieTvItemType} from "../pages/CategoriesPage/MovieTvItem/MovieTvItem";
 import {IFilterSettings} from "../models/categoriesM";
 import {
-    IAccountLists,
     IAccountPayload,
-    ICategoriesPayload, IMoviePayload, IMoviesTvsPayload,
-    IPeoplePayload,
-    ISimilarMoviesPayload, ITvPayload,
+    IMoviePayload, IMoviesTvsPayload,
+    IPeoplePayload, ISearchPayload,
+    ITvPayload,
     TGenresPayload
 } from "../models/payloadAPI_M";
 import {authPayload, deleteSessionPayload, sessionPayload} from "../store/types/authT";
@@ -32,7 +31,7 @@ export const movieAPI = {
         return instance.get(`movie/${type}?${API_KEY}${BASE_URI}`)
     },
     getSearchedMovies(text: string) {
-        return instance.get(`/search/movie?${API_KEY}${BASE_URI}include_adult=false&query=${text}`)
+        return instance.get<ISearchPayload>(`/search/multi?${API_KEY}${BASE_URI}include_adult=false&query=${text}`)
     },
     getMovie(id: string) {
         return instance.get<IMoviePayload>(`/movie/${id}?${API_KEY}${BASE_URI}&include_adult=false&append_to_response=videos,peoples`)

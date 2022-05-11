@@ -1,5 +1,7 @@
+import {ISearchPayload} from "../../models/payloadAPI_M";
+
 export interface SearchState {
-    films: any[],
+    payload: ISearchPayload | null,
     isLoading: boolean,
     error: null | string
 }
@@ -17,7 +19,7 @@ interface FetchFilmAction {
 
 interface FetchFilmSuccessAction {
     type: FilmActionTypes.FETCH_FILMS_SUCCESS,
-    payload: any[],
+    payload: ISearchPayload,
 }
 
 interface FetchFilmErrorAction {

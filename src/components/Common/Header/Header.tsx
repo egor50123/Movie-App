@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import "./Header.scss"
 import {Link} from "react-router-dom";
 import logo from "../../../assest/image/logo.svg"
@@ -9,9 +9,6 @@ import {genreTypes} from "../../../store/types/mainPageT";
 
 const Header = () => {
     let isAuth = useTypedSelector(state => state.auth.session.payload?.success)
-    const movie = "movie",
-            tv = "tv",
-            people = "people"
 
     const genresMovie = useTypedSelector(state => state.mainPage[genreTypes.genresMovie].payload),
         genresTv = useTypedSelector(state => state.mainPage[genreTypes.genresTv].payload)

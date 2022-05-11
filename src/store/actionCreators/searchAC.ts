@@ -9,7 +9,7 @@ export const  fetchSearchFilms = (text = "a") => {
             dispatch({type: FilmActionTypes.FETCH_FILMS})
             const response = await movieAPI.getSearchedMovies(text)
             setTimeout(() => {
-                dispatch({type: FilmActionTypes.FETCH_FILMS_SUCCESS,payload: response.data.results})
+                dispatch({type: FilmActionTypes.FETCH_FILMS_SUCCESS,payload: response.data})
             },500)
         }catch (e) {
             dispatch({type: FilmActionTypes.FETCH_FILMS_ERROR,payload: "error"})

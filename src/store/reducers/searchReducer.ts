@@ -1,7 +1,7 @@
 import {FilmAction, FilmActionTypes, SearchState} from "../types/searchT";
 
 const init: SearchState = {
-    films: [],
+    payload: null,
     isLoading: false,
     error: null
 }
@@ -9,13 +9,13 @@ const init: SearchState = {
 export const searchReducer = (state = init,action:FilmAction):SearchState => {
     switch (action.type) {
         case FilmActionTypes.FETCH_FILMS:
-            return {isLoading:true,error:null,films:[]}
+            return {...state,isLoading:true,error:null}
         case FilmActionTypes.FETCH_FILMS_SUCCESS:
-            return {isLoading:false,error:null,films:action.payload}
+            return {...state,isLoading:false,error:null,payload:action.payload}
         case FilmActionTypes.FETCH_FILMS_ERROR:
-            return {isLoading:false,error:action.payload,films:[]}
+            return {...state,isLoading:false,error:action.payload}
         case FilmActionTypes.CLEAR_SEARCH:
-            return {...state,films:[]}
+            return {...state,payload:null}
         default: return state
     }
 }

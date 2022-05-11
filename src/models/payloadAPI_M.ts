@@ -50,6 +50,20 @@ export interface IMoviePayload extends commonPayloadTvMovie{
     } | null,
 }
 
+export interface ISearchItemPayload {
+    media_type:string,
+    id:number,
+    poster_path?:string,
+    backdrop_path?:string,
+    profile_path?:string,
+    name?:string
+    title?:string,
+}
+
+export interface ISearchPayload {
+    results: [ISearchItemPayload]
+}
+
 export interface ITvPayload extends commonPayloadTvMovie{
     episode_run_time: number[],
     last_episode_to_air: {
