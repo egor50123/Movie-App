@@ -30,15 +30,27 @@ export const movieAPI = {
     getMovies(type: MovieSwitchTypes) {
         return instance.get(`movie/${type}?${API_KEY}${BASE_URI}`)
     },
-    getSearchedMovies(text: string) {
-        return instance.get<ISearchPayload>(`/search/multi?${API_KEY}${BASE_URI}include_adult=false&query=${text}`)
-    },
     getMovie(id: string) {
         return instance.get<IMoviePayload>(`/movie/${id}?${API_KEY}${BASE_URI}&include_adult=false&append_to_response=videos,peoples`)
     },
     getSimilar(id: string) {
         return instance.get<IMoviesTvsPayload>(`/movie/${id}/similar?${API_KEY}${BASE_URI}`)
     }
+}
+
+export const searchAPI = {
+    getSearchedMulti(text: string) {
+        return instance.get<ISearchPayload>(`/search/multi?${API_KEY}${BASE_URI}include_adult=false&query=${text}`)
+    },
+    getSearchedMovie(text: string) {
+        return instance.get<ISearchPayload>(`/search/movie?${API_KEY}${BASE_URI}include_adult=false&query=${text}`)
+    },
+    getSearchedTv(text: string) {
+        return instance.get<ISearchPayload>(`/search/tv?${API_KEY}${BASE_URI}include_adult=false&query=${text}`)
+    },
+    getSearchedPerson(text: string) {
+        return instance.get<ISearchPayload>(`/search/person?${API_KEY}${BASE_URI}include_adult=false&query=${text}`)
+    },
 }
 
 export const tvAPI = {

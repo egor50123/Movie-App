@@ -4,31 +4,33 @@ export interface SearchState {
     payload: ISearchPayload | null,
     isLoading: boolean,
     error: null | string
+    text:string
 }
 
-export enum FilmActionTypes {
-    FETCH_FILMS = "FETCH_FILMS",
-    FETCH_FILMS_SUCCESS = "FETCH_FILMS_SUCCESS",
-    FETCH_FILMS_ERROR = "FETCH_FILMS_ERROR",
+export enum SearchActionTypes {
+    FETCH_SEARCH = "FETCH_SEARCH",
+    FETCH_SEARCH_SUCCESS = "FETCH_SEARCH_SUCCESS",
+    FETCH_SEARCH_ERROR = "FETCH_SEARCH_ERROR",
     CLEAR_SEARCH = "CLEAR_SEARCH"
 }
 
-interface FetchFilmAction {
-    type: FilmActionTypes.FETCH_FILMS,
+interface FetchSearchAction {
+    type: SearchActionTypes.FETCH_SEARCH,
 }
 
-interface FetchFilmSuccessAction {
-    type: FilmActionTypes.FETCH_FILMS_SUCCESS,
+interface FetchSearchSuccessAction {
+    type: SearchActionTypes.FETCH_SEARCH_SUCCESS,
     payload: ISearchPayload,
+    text:string,
 }
 
-interface FetchFilmErrorAction {
-    type: FilmActionTypes.FETCH_FILMS_ERROR,
+interface FetchSearchErrorAction {
+    type: SearchActionTypes.FETCH_SEARCH_ERROR,
     payload: string,
 }
 
 interface ClearSearchAction {
-    type: FilmActionTypes.CLEAR_SEARCH
+    type: SearchActionTypes.CLEAR_SEARCH
 }
 
-export type FilmAction = FetchFilmAction | FetchFilmSuccessAction | FetchFilmErrorAction | ClearSearchAction
+export type SearchAction = FetchSearchAction | FetchSearchSuccessAction | FetchSearchErrorAction | ClearSearchAction

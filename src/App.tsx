@@ -54,6 +54,8 @@ function App() {
                     <Route path={"/search"} element={<SearchPage/>}>
                         <Route index element={<SearchCurrent type={"movie"}/>}/>
                         <Route path={"tv"} element={<SearchCurrent type={"tv"}/>}/>
+                        <Route path={"person"} element={<SearchCurrent type={"person"}/>}/>
+                        <Route path={"collection"} element={<SearchCurrent type={"collection"}/>}/>
                     </Route>
 
                     <Route path={"/movie"} element={<CategoriesPage type={"movie"}/>}>

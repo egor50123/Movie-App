@@ -53,15 +53,18 @@ export interface IMoviePayload extends commonPayloadTvMovie{
 export interface ISearchItemPayload {
     media_type:string,
     id:number,
-    poster_path?:string,
-    backdrop_path?:string,
-    profile_path?:string,
-    name?:string
-    title?:string,
+    poster_path:string | null,
+    backdrop_path:string | null,
+    profile_path:string,
+    name:string
+    title:string,
 }
 
 export interface ISearchPayload {
-    results: [ISearchItemPayload]
+    results: [ISearchItemPayload],
+    total_results: number,
+    page:number,
+    total_pages:number
 }
 
 export interface ITvPayload extends commonPayloadTvMovie{

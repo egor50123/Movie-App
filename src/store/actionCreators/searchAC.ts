@@ -1,20 +1,36 @@
 import {Dispatch} from "react";
-import {FilmAction, FilmActionTypes} from "../types/searchT";
-import {movieAPI} from "../../API/indexAPI";
+import {searchAPI} from "../../API/indexAPI";
+import {SearchAction, SearchActionTypes} from "../types/searchT";
+import {AxiosResponse} from "axios";
 
 
-export const  fetchSearchFilms = (text = "a") => {
-    return async (dispatch: Dispatch<FilmAction>) => {
+export const  fetchSearch = (text:string,type:string) => {
+    return async (dispatch: Dispatch<SearchAction>) => {
         try {
-            dispatch({type: FilmActionTypes.FETCH_FILMS})
-            const response = await movieAPI.getSearchedMovies(text)
+            dispatch({type: SearchActionTypes.FETCH_SEARCH})
+            let response:null | AxiosResponse = null
+
+            if(type === "multi") {
+                response = await searchAPI.getSearchedMulti(text)
+            } else if (type === "movie")  {
+                response = await searchAPI.getSearchedMovie(text)
+            } else if (type === "tv")  {
+                response = await searchAPI.getSearchedTv(text)
+            } else if (type === "person")  {
+                response = await searchAPI.getSearchedPerson(text)
+            }
+            else {
+                response = await searchAPI.getSearchedMovie(text)
+                if (response && response.data.total_results === 0) response = await searchAPI.getSearchedTv(text)
+                if (response && response.data.total_results === 0) response = await searchAPI.getSearchedPerson(text)
+            }
             setTimeout(() => {
-                dispatch({type: FilmActionTypes.FETCH_FILMS_SUCCESS,payload: response.data})
+                dispatch({type: SearchActionTypes.FETCH_SEARCH_SUCCESS,payload: (response as AxiosResponse).data, text})
             },500)
         }catch (e) {
-            dispatch({type: FilmActionTypes.FETCH_FILMS_ERROR,payload: "error"})
+            dispatch({type: SearchActionTypes.FETCH_SEARCH_ERROR,payload: "error"})
         }
     }
 }
 
-export const clearSearch = () => ({type:FilmActionTypes.CLEAR_SEARCH})
+export const clearSearch = () => ({type:SearchActionTypes.CLEAR_SEARCH})
