@@ -30,7 +30,6 @@ export interface IFilterSettings {
     withReleaseType?: string,
     withGenres?: string,
     page?:number,
-    isClear: boolean
 }
 
 export interface ICheckbox {

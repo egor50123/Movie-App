@@ -24,7 +24,7 @@ const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
 
     const currentGenres = type === MTP.movie ? genresMovie : genresTv
 
-    let defaultGenres = params.genresId === undefined ? "" : `${params.genresId}|`
+    //let defaultGenres = params.genresId === undefined ? "" : `${params.genresId}|`
 
     let [sortType, setSortType] = useState(CategoriesSortTypes.popularityDown as string),
         [withGenres, setGenres] = useState(""),
@@ -42,7 +42,7 @@ const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
 
 
     function getSettings (isClear = false) {
-        return {...filterSettings, type, sortType, withGenres: defaultGenres, page, isClear}
+        return {...filterSettings, type, sortType, withGenres: withGenres, page, isClear}
     }
 
     function onChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -60,7 +60,7 @@ const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
 
     function onFind() {
         clearCategories()
-        fetchCategoriesItems( getSettings(true) )
+        fetchCategoriesItems( getSettings())
     }
 
     useEffect(() => {

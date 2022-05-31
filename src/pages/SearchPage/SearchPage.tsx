@@ -1,25 +1,36 @@
 import React from 'react';
 import "./SearchPage.scss"
 import {Link, Outlet} from "react-router-dom";
-import {useAction} from "../../hooks/useAction";
 import {useTypedSelector} from "../../hooks/useTypedSelector";
+import {MTP} from "../../constants/constants";
 
 const SearchPage = () => {
-    const text = useTypedSelector(state => state.search.text)
-    const {fetchSearch} = useAction()
 
-    function onFetch(type: string,text:string) {
-        fetchSearch(text, type)
-    }
+    const pageData = useTypedSelector( state => state.searchPage)
 
     return (
         <>
             <div className={"searchPage container"}>
                 <div className={"searchPage__menu"}>
                     <ul>
-                        <li onClick={() => onFetch("movie",text)}><Link to={""}>Фильмы</Link></li>
-                        <li onClick={() => onFetch("tv",text)}><Link to={"tv"}>Серииалы</Link></li>
-                        <li onClick={() => onFetch("person",text)}><Link to={"person"}>Люди</Link></li>
+                        <li>
+                            <Link to={""}>
+                                <div>Фильмы</div>
+                                <div>{pageData.movie.payload?.total_results} </div>
+                            </Link>
+                        </li>
+                        <li >
+                            <Link to={MTP.tv}>
+                                <div>Сериалы</div>
+                                <div>{pageData.tv.payload?.total_results} </div>
+                            </Link>
+                        </li>
+                        <li >
+                            <Link to={MTP.person}>
+                                <div>Люди</div>
+                                <div>{pageData.person.payload?.total_results} </div>
+                            </Link>
+                        </li>
                         <li>Коллекции</li>
                     </ul>
                 </div>

@@ -21,3 +21,5 @@ export enum MTP {
     tv = "tv",
     person = "person"
 }
+
+export type MTP_TYPES = MTP.tv | MTP.movie | MTP.person

@@ -61,7 +61,47 @@ export interface ISearchItemPayload {
 }
 
 export interface ISearchPayload {
-    results: [ISearchItemPayload],
+    results: [ISearchItemPayload] | [],
+    total_results: number,
+    page:number,
+    total_pages:number
+}
+
+export interface ISearchMoviePayload {
+    id:number,
+    poster_path:string | null,
+    backdrop_path:string | null,
+    title:string,
+    overview:string,
+    release_date: string
+}
+
+export interface ISearchTvPayload {
+    id:number,
+    poster_path:string | null,
+    backdrop_path:string | null,
+    name:string,
+    overview:string,
+    first_air_date: string
+}
+
+export interface ISearchPersonPayload {
+    id:number,
+    profile_path:string | null
+    name:string,
+}
+
+export interface ISearchCollectionsPayload {
+    id:number,
+    poster_path:string | null,
+    backdrop_path:string | null,
+    name:string,
+}
+
+export type ISearchPagePayloadTypes = ISearchMoviePayload | ISearchTvPayload | ISearchPersonPayload | ISearchCollectionsPayload
+
+export interface ISearchPagePayload <Type> {
+    results: [ISearchPagePayloadTypes | Type] | [],
     total_results: number,
     page:number,
     total_pages:number

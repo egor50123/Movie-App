@@ -9,6 +9,7 @@ import {posterReducer} from "./reducers/posterReducer";
 import {categoriesReducer} from "./reducers/categoriesReducer";
 import {authReducer} from "./reducers/authReducer";
 import {accountReducer} from "./reducers/accountReducer";
+import {searchPageReducer} from "./reducers/searchPageReducer";
 
 const  reducer = combineReducers(
     {
@@ -19,7 +20,8 @@ const  reducer = combineReducers(
         poster: posterReducer,
         categories: categoriesReducer,
         auth: authReducer,
-        account: accountReducer
+        account: accountReducer,
+        searchPage: searchPageReducer
     }
 )
 export type RootState = ReturnType<typeof reducer>

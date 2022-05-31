@@ -3,7 +3,7 @@ import {ISearchPayload} from "../../models/payloadAPI_M";
 export interface SearchState {
     payload: ISearchPayload | null,
     isLoading: boolean,
-    error: null | string
+    error: boolean
     text:string
 }
 
@@ -26,7 +26,7 @@ interface FetchSearchSuccessAction {
 
 interface FetchSearchErrorAction {
     type: SearchActionTypes.FETCH_SEARCH_ERROR,
-    payload: string,
+    payload: boolean,
 }
 
 interface ClearSearchAction {

@@ -6,6 +6,7 @@ import * as PosterAC from "./posterAC"
 import * as Categories from "./categoriesAC"
 import * as Auth from "./authAC"
 import * as AccountAC from "./accountAC"
+import * as SearchPageAC from "./searchPageAC"
 
 export default {
     ...SearchAC,
@@ -15,5 +16,6 @@ export default {
     ...PosterAC,
     ...Categories,
     ...Auth,
-    ...AccountAC
+    ...AccountAC,
+    ...SearchPageAC
 }
