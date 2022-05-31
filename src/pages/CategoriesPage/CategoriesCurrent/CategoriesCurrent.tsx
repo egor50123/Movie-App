@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useEffect, useRef, useState} from 'react';
 import {useAction} from "../../../hooks/useAction";
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import {CategoriesSortTypes, FilterRangeNames, ICategoriesPage, ICheckbox} from "../../../models/categoriesM";
@@ -7,19 +7,23 @@ import {setCheckbox} from "../../../helpers/setCheckbox";
 import Card from "../../../components/Common/Card/Card";
 import {cardTypeAPI, cardTypes} from "../../../models/cardM";
 import {genreTypes} from "../../../store/types/mainPageT";
+import {MTP} from "../../../constants/constants";
+import {useScroll} from "../../../hooks/useScroll";
 
 
 const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
-    let {fetchCategoriesItems} = useAction(),
+    const {fetchCategoriesItems,clearCategories} = useAction(),
         params = useParams()
-    console.log(type)
-    let movieTv = useTypedSelector(state => state.categories.payload?.results)
-    const genresMovie = useTypedSelector(state => state.mainPage[genreTypes.genresMovie].payload),
-        genresTv = useTypedSelector(state => state.mainPage[genreTypes.genresTv].payload)
 
-    const currentGenres = type === "movie" ? genresMovie : genresTv
+    const childRef = useRef<null | HTMLDivElement>(null)
 
-    let withReleaseType = "3";
+    const movieTv = useTypedSelector(state => state.categories.payloadResults),
+        genresMovie = useTypedSelector(state => state.mainPage[genreTypes.genresMovie].payload),
+        genresTv = useTypedSelector(state => state.mainPage[genreTypes.genresTv].payload),
+        page = useTypedSelector(state => state.categories.nextPage)
+
+    const currentGenres = type === MTP.movie ? genresMovie : genresTv
+
     let defaultGenres = params.genresId === undefined ? "" : `${params.genresId}|`
 
     let [sortType, setSortType] = useState(CategoriesSortTypes.popularityDown as string),
@@ -34,6 +38,12 @@ const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
             [FilterRangeNames.maxRuntime]: ""
         })
 
+    const intersected = useScroll(childRef,() => fetchCategoriesItems( getSettings()) )
+
+
+    function getSettings (isClear = false) {
+        return {...filterSettings, type, sortType, withGenres: defaultGenres, page, isClear}
+    }
 
     function onChange(e: React.ChangeEvent<HTMLInputElement>) {
         let targetId = e.target.id
@@ -49,19 +59,15 @@ const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
     }
 
     function onFind() {
-        let newSettings = {...filterSettings, type, sortType, withReleaseType, withGenres}
-        fetchCategoriesItems(newSettings)
+        clearCategories()
+        fetchCategoriesItems( getSettings(true) )
     }
 
     useEffect(() => {
-        let newSettings = {...filterSettings, type, sortType, withReleaseType, withGenres: defaultGenres}
-        fetchCategoriesItems(newSettings)
-    }, [type])
-
-    useEffect(() => {
-        if (params.genresId !== undefined) {
-            let newSettings = {...filterSettings, type, sortType, withReleaseType, withGenres: defaultGenres}
-            fetchCategoriesItems(newSettings)
+        clearCategories()
+        fetchCategoriesItems(getSettings())
+        return () => {
+            clearCategories()
         }
     }, [params.genresId,type])
 
@@ -137,8 +143,8 @@ const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
                 </div>
             </div>
             <div className={"categoriesPage__list categoriesList"}>
-                {movieTv?.map(item =>
-                    <Card title={item.title || item.name}
+                {movieTv.length > 0 ? movieTv.map(item =>
+                    <Card key={item.id} title={item.title || item.name}
                           overview={item.overview}
                           id={item.id}
                           vote={item.vote_average}
@@ -146,8 +152,9 @@ const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
                           genres={item.genre_ids}
                           typeAPI={item.title === undefined ? cardTypeAPI.tv : cardTypeAPI.movie}
                           type={cardTypes.type_1} date={item.release_date || item.first_air_date}/>
-                )}
+                ) : <div className={"test"}></div>}
             </div>
+            <div ref={childRef} style={{height: 20, background: "red"}}/>
         </div>
     );
 };

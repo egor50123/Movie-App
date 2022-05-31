@@ -8,13 +8,13 @@ import {IMoviePayload, IMoviesTvsPayload, IPeoplePayload, ITvPayload} from "../.
 import {useFavorite} from "../../../hooks/useFavorite";
 import Card from "../../../components/Common/Card/Card";
 import {cardTypeAPI, cardTypes} from "../../../models/cardM";
+import {MTP} from "../../../constants/constants";
 
 export type MovieTvItemType = "tv" | "movie"
 
 interface IMovieTvItem {
     [key:string]: MovieTvItemType
 }
-
 
 const MovieTvItem:FC<IMovieTvItem> = ({type}) => {
     let params = useParams()
@@ -26,14 +26,14 @@ const MovieTvItem:FC<IMovieTvItem> = ({type}) => {
         similarPayload:IMoviesTvsPayload | null = useTypedSelector(state => state.movieTvPerson.similar.payload);
 
 
-    let moviePayload:IMoviePayload | null= movieTvPayload as IMoviePayload,
-        tvPayload:ITvPayload | null = movieTvPayload as ITvPayload;
+    let moviePayload:IMoviePayload = movieTvPayload as IMoviePayload,
+        tvPayload:ITvPayload= movieTvPayload as ITvPayload;
 
     let id:string | undefined =  params.movieId
 
     switch (type) {
-        case "movie": id = params.movieId;break;
-        case "tv": id = params.tvId;break;
+        case MTP.movie: id = params.movieId;break;
+        case MTP.tv: id = params.tvId;break;
         default: break;
         //редирект страница не найдена
     }

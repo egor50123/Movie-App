@@ -91,7 +91,8 @@ export const categoriesAPI = {
                    maxRank,
                    sortType,
                    withReleaseType,
-                   withGenres
+                   withGenres,
+                   page = 1
                }: IFilterSettings) {
         const dateStart = `&primary_release_date.gte=${minYear}`
         const dateEnd = `&primary_release_date.lte=${maxYear}`
@@ -104,7 +105,7 @@ export const categoriesAPI = {
         const genres = `&with_genres=${withGenres}`.slice(0, -1)
 
         const basicSettings = `&vote_count.gte=10&certification_country=RU`
-        return instance.get<IMoviesTvsPayload>(`discover/${type}?${API_KEY}&${BASE_URI}${dateStart}${dateEnd}${rankStart}${rankEnd}${genres}${runtimeStart}${runtimeEnd}${sortBy}${withRT}${genres}${basicSettings}`)
+        return instance.get<IMoviesTvsPayload>(`discover/${type}?${API_KEY}&language=ru&page=${page}&region=ru${dateStart}${dateEnd}${rankStart}${rankEnd}${genres}${runtimeStart}${runtimeEnd}${sortBy}${withRT}${genres}${basicSettings}`)
     },
     getCountries() {
         return instance.get(`/configuration/countries?${API_KEY}`)

@@ -3,16 +3,17 @@ import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import Card from "../../../components/Common/Card/Card";
 import {cardTypeAPI, cardTypes} from "../../../models/cardM";
 import "../SearchPage.scss"
+import {MTP} from "../../../constants/constants";
 
 interface ISearchCurrent {
     type: "movie" | "tv" | "person" | "collection"
 }
 
 const SearchCurrent: FC<ISearchCurrent> = ({type}) => {
-    let text = "movie"
+    let text = MTP.movie
     switch (type) {
-        case "movie" : text = "movie";break;
-        case "tv": text = "tv";break;
+        case MTP.movie : text = MTP.movie;break;
+        case MTP.tv: text = MTP.tv;break;
     }
 
     let payload = useTypedSelector(state => state.search.payload?.results)

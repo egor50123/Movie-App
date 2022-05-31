@@ -3,10 +3,12 @@ import "./AuthPage.scss"
 import {useAction} from "../../hooks/useAction";
 import {useTypedSelector} from "../../hooks/useTypedSelector";
 import {useNavigate} from "react-router-dom";
+import * as authSelectors from "../../store/selectors/authSelecors"
+
 
 const AuthPage = () => {
-    let token = useTypedSelector(state => state.auth.payload?.request_token)
-    let sessionSuccess = useTypedSelector(state => state.auth.session.payload?.success)
+    let token = useTypedSelector(authSelectors.token)
+    let sessionSuccess = useTypedSelector(authSelectors.isAuth)
 
     let {createSession} = useAction()
     let navigate = useNavigate()
@@ -18,7 +20,6 @@ const AuthPage = () => {
     useEffect(() => {
         if (sessionSuccess) navigate('/')
     },[sessionSuccess])
-
 
     return (
         <div className={"authPage"}/>

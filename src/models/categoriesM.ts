@@ -26,9 +26,11 @@ export interface IFilterSettings {
     [FilterRangeNames.maxRank]:string,
     [FilterRangeNames.minRuntime]:string,
     [FilterRangeNames.maxRuntime]:string,
-    sortType: string,
-    withReleaseType: string,
-    withGenres: string
+    sortType?: string,
+    withReleaseType?: string,
+    withGenres?: string,
+    page?:number,
+    isClear: boolean
 }
 
 export interface ICheckbox {

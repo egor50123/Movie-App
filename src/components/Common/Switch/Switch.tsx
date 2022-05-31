@@ -3,6 +3,7 @@ import "./Switch.scss"
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import {useAction} from "../../../hooks/useAction";
 import {EPreviewItems, PreviewItemsTypes} from "../../../models/previewItem_SwitchM";
+import * as mainPageSelectors from "../../../store/selectors/mainPageSelectors";
 
 interface ISwitch {
     type:PreviewItemsTypes,
@@ -10,7 +11,7 @@ interface ISwitch {
 }
 
 const Switch:FC<ISwitch> = ({type,switchTitles}) => {
-    let currentSwitch = useTypedSelector(state => (state.mainPage as any).switchType)
+    let currentSwitch = useTypedSelector(mainPageSelectors.currentSwitch)
     let currentActive = currentSwitch[type] === undefined ? 1 : currentSwitch[type]
 
     const {setCurrentSwitch} = useAction()

@@ -15,3 +15,9 @@ export const tvSwitchTitles = [[ESwitch.popular,"Смотрят сейчас"],
 export const trendsSwitchTitles = [[ESwitch.day,"Сегодня"],
     [ESwitch.week,"На этой неделе"]
 ]
+
+export enum MTP {
+    movie = "movie",
+    tv = "tv",
+    person = "person"
+}

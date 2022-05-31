@@ -1,16 +1,18 @@
-import {IMoviesTvsPayload} from "../../models/payloadAPI_M";
+import {IMoviesTvsPayload, TMoviesTvsPayloadResults} from "../../models/payloadAPI_M";
 
 export interface categoriesState {
-    payload: IMoviesTvsPayload | null
+    payload: IMoviesTvsPayload | null,
+    payloadResults: TMoviesTvsPayloadResults | []
     isLoading: boolean,
-    error: string | null
+    error: string | null,
+    nextPage: number
 }
 
 export enum CategoriesAC {
     FETCH_CATEGORIES = "FETCH_CATEGORIES",
     FETCH_CATEGORIES_SUCCESS = "FETCH_CATEGORIES_SUCCESS",
     FETCH_CATEGORIES_ERROR = "FETCH_CATEGORIES_ERROR",
-
+    CLEAR_CATEGORIES = "CLEAR_CATEGORIES"
 }
 
 interface FetchCategoriesAction {
@@ -27,6 +29,10 @@ interface FetchCategoriesErrorAction {
     error: string,
 }
 
+interface ClearCategories {
+    type: CategoriesAC.CLEAR_CATEGORIES
+}
 
 
-export type CategoriesAction = FetchCategoriesAction | FetchCategoriesSuccessAction | FetchCategoriesErrorAction
+
+export type CategoriesAction = FetchCategoriesAction | FetchCategoriesSuccessAction | FetchCategoriesErrorAction | ClearCategories

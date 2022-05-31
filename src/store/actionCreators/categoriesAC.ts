@@ -9,11 +9,17 @@ export const  fetchCategoriesItems = (settings:IFilterSettings) => {
             dispatch({type:CategoriesAC.FETCH_CATEGORIES})
             let response = await categoriesAPI.getResults(settings);
             let payload = response.data
-            dispatch({type:CategoriesAC.FETCH_CATEGORIES_SUCCESS,payload})
+            setTimeout (() => {
+                ///!!!!!!!!!!!!!!!!!!
+                dispatch({type:CategoriesAC.FETCH_CATEGORIES_SUCCESS,payload})
+            },300)
+
         }
         catch (e) {
             dispatch({type:CategoriesAC.FETCH_CATEGORIES_ERROR,error:"error"})
         }
     }
 }
+
+export const clearCategories = () => ({type:CategoriesAC.CLEAR_CATEGORIES})
 

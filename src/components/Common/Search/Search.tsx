@@ -36,8 +36,6 @@ const Search = () => {
         fetchSearch(value,"")
     }
 
-
-
     return (
         <div className={"search"}>
             <input placeholder={"поиск..."} type="search" onChange={onChange} value={value}/>

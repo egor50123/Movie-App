@@ -6,7 +6,7 @@ import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import {ICard} from "../../../models/cardM";
 import {getCardClassType} from "../../../helpers/getCardClassType";
 import {useFavorite} from "../../../hooks/useFavorite";
-import {genreTypes} from "../../../store/types/mainPageT";
+import * as mainPageSelectors from "../../../store/selectors/mainPageSelectors";
 
 const Card: FC<ICard> = ({title,
                              bg_path,
@@ -19,12 +19,12 @@ const Card: FC<ICard> = ({title,
                              typeAPI,
                              date}) => {
 
-    const genresTv = useTypedSelector(state => state.mainPage[genreTypes.genresTv].payload)
-    const genresMovie = useTypedSelector(state => state.mainPage[genreTypes.genresMovie].payload)
+    const genresTv = useTypedSelector(mainPageSelectors.genresTv)
+    const genresMovie = useTypedSelector(mainPageSelectors.genresMovie)
     const setFavorite = useFavorite()
 
     const classType = getCardClassType()
-    console.log()
+
     return (
         <NavLink className={`${classType[type].card} `} to={`/${typeAPI}/${id} `}>
             <div className={`${classType[type].card__header}`}>

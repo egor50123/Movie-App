@@ -47,5 +47,11 @@ export enum ESwitch {
     tv = "tv"
 }
 
+export interface IPreviewItem {
+    title:string,
+    type:PreviewItemsTypes,
+    switchTitles:string[][]
+}
+
 
 
