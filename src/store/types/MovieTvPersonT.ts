@@ -1,11 +1,9 @@
 import {
     IMoviePayload, IMoviesTvsPayload,
     IPeoplePayload,
-    ISimilarMoviesPayload,
     ITvPayload
 } from "../../models/payloadAPI_M";
-
-export type itemType = "movie" | "tv"
+import {MTP_TYPES} from "../../constants/constants";
 
 export interface MovieTvPerson {
     tv?: {
@@ -63,7 +61,7 @@ interface FetchSimilarErrorAction {
 
 interface FetchMovieTvPersonAction {
     type: MovieTvPersonActionTypes.FETCH_ITEM,
-    itemType:itemType
+    itemType:MTP_TYPES
 }
 
 interface FetchMovieTvPersonSuccessAction {

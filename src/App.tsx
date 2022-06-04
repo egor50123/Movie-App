@@ -16,6 +16,7 @@ import {useAction} from "./hooks/useAction";
 import MyLists from "./pages/ProfilePage/MyLists/MyLists";
 import ListsWrapper from "./pages/ProfilePage/ListsWrapper/ListsWrapper";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
+import {MTP} from "./constants/constants";
 
 function App() {
     let genresMovie = useTypedSelector(state => state.mainPage[genreTypes.genresMovie].payload),
@@ -56,20 +57,18 @@ function App() {
                         <Route path={":searchCurrent"} element={<SearchCurrent type={"tv"}/>}/>
                     </Route>
 
-                    <Route path={"/movie"} element={<CategoriesPage type={"movie"}/>}>
-                        <Route index element={<CategoriesCurrent type={"movie"}/>}/>
-                        <Route path={":movieId"} element={<MovieTvItem type={"movie"}/>}/>
-                        {genresMovie?.map(item =>
-                            <Route key={item.id} path={"genres/:genresId"}
-                                   element={<CategoriesCurrent type={"movie"}/>}/>)}
+                    <Route path={"/movie"} element={<CategoriesPage type={MTP.movie}/>}>
+                        <Route index element={<CategoriesCurrent type={MTP.movie}/>}/>
+                        <Route path={":movieId"} element={<MovieTvItem type={MTP.movie}/>}/>
+                        <Route path={"genres/:genresId"}
+                               element={<CategoriesCurrent type={MTP.movie}/>}/>
                     </Route>
 
-                    <Route path={"/tv"} element={<CategoriesPage type={"tv"}/>}>
-                        <Route index element={<CategoriesCurrent type={"tv"}/>}/>
-                        <Route path={":tvId"} element={<MovieTvItem type={"tv"}/>}/>
-                        {genresTv?.map(item =>
-                            <Route key={item.id} path={"genres/:genresId"}
-                                   element={<CategoriesCurrent type={"tv"}/>}/>)}
+                    <Route path={"/tv"} element={<CategoriesPage type={MTP.tv}/>}>
+                        <Route index element={<CategoriesCurrent type={MTP.tv}/>}/>
+                        <Route path={":tvId"} element={<MovieTvItem type={MTP.tv}/>}/>
+                        <Route path={"genres/:genresId"}
+                               element={<CategoriesCurrent type={MTP.tv}/>}/>
                     </Route>
 
                     <Route path={"/auth"} element={<AuthPage/>}/>

@@ -8,12 +8,11 @@ import {IMoviePayload, IMoviesTvsPayload, IPeoplePayload, ITvPayload} from "../.
 import {useFavorite} from "../../../hooks/useFavorite";
 import Card from "../../../components/Common/Card/Card";
 import {cardTypeAPI, cardTypes} from "../../../models/cardM";
-import {MTP} from "../../../constants/constants";
+import {MTP, MTP_TYPES} from "../../../constants/constants";
 
-export type MovieTvItemType = "tv" | "movie"
 
 interface IMovieTvItem {
-    [key:string]: MovieTvItemType
+    [key:string]: MTP_TYPES
 }
 
 const MovieTvItem:FC<IMovieTvItem> = ({type}) => {

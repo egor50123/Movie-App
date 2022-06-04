@@ -1,4 +1,4 @@
-import {MovieTvItemType} from "../pages/CategoriesPage/MovieTvItem/MovieTvItem";
+import {MTP_TYPES} from "../constants/constants";
 
 export enum CategoriesSortTypes {
     popularityDown = "popularity.desc",
@@ -19,16 +19,16 @@ export enum FilterRangeNames {
 }
 
 export interface IFilterSettings {
-    type: MovieTvItemType,
-    [FilterRangeNames.minYear]:string,
-    [FilterRangeNames.maxYear]:string,
-    [FilterRangeNames.minRank]:string,
-    [FilterRangeNames.maxRank]:string,
-    [FilterRangeNames.minRuntime]:string,
-    [FilterRangeNames.maxRuntime]:string,
+    type: MTP_TYPES,
+    [FilterRangeNames.minYear]?:string,
+    [FilterRangeNames.maxYear]?:string,
+    [FilterRangeNames.minRank]?:string,
+    [FilterRangeNames.maxRank]?:string,
+    [FilterRangeNames.minRuntime]?:string,
+    [FilterRangeNames.maxRuntime]?:string,
     sortType?: string,
     withReleaseType?: string,
-    withGenres?: string,
+    withGenres: string,
     page?:number,
 }
 
@@ -37,5 +37,5 @@ export interface ICheckbox {
 }
 
 export interface ICategoriesPage {
-    type: "movie" | "tv"
+    type: MTP_TYPES
 }

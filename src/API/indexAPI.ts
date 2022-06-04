@@ -1,6 +1,5 @@
 import axios from "axios";
 import {MovieSwitchTypes, TrailersSwitchTypes, TrendsSwitchTypes, TvSwitchTypes} from "../models/previewItem_SwitchM";
-import {MovieTvItemType} from "../pages/CategoriesPage/MovieTvItem/MovieTvItem";
 import {IFilterSettings} from "../models/categoriesM";
 import {
     IAccountPayload,
@@ -12,6 +11,7 @@ import {
 import {authPayload, deleteSessionPayload, sessionPayload} from "../store/types/authT";
 import {IFavorite, IListParams} from "../models/ProfileM";
 import {genreTypes, TGenreTypes} from "../store/types/mainPageT";
+import {MTP_TYPES} from "../constants/constants";
 
 export const API_KEY = "api_key=cb16c889cb26730cf04918e138034c54"
 export const BASE_URI = "&language=ru&page=1&region=ru"
@@ -75,7 +75,7 @@ export const trailersAPI = {
 }
 
 export const peopleAPI = {
-    getPeople(type: MovieTvItemType, id: string) {
+    getPeople(type: MTP_TYPES, id: string) {
         return instance.get<IPeoplePayload>(`${type}/${id}/credits?${API_KEY}&${BASE_URI}`)
     }
 }
@@ -83,16 +83,16 @@ export const peopleAPI = {
 export const categoriesAPI = {
     getResults({
                    type,
-                   maxRuntime,
-                   minRuntime,
-                   minRank,
-                   maxYear,
-                   minYear,
-                   maxRank,
-                   sortType,
-                   withReleaseType,
-                   withGenres,
-                   page = 1
+                   maxRuntime = "",
+                   minRuntime = "",
+                   minRank = "",
+                   maxYear = "",
+                   minYear = "",
+                   maxRank = "",
+                   sortType = "popularity.desc",
+                   withReleaseType = "3",
+                   withGenres = "",
+                   page
                }: IFilterSettings) {
         const dateStart = `&primary_release_date.gte=${minYear}`
         const dateEnd = `&primary_release_date.lte=${maxYear}`
@@ -105,7 +105,7 @@ export const categoriesAPI = {
         const genres = `&with_genres=${withGenres}`.slice(0, -1)
 
         const basicSettings = `&vote_count.gte=10&certification_country=RU`
-        return instance.get<IMoviesTvsPayload>(`discover/${type}?${API_KEY}&language=ru&page=${page}&region=ru${dateStart}${dateEnd}${rankStart}${rankEnd}${genres}${runtimeStart}${runtimeEnd}${sortBy}${withRT}${genres}${basicSettings}`)
+        return instance.get<IMoviesTvsPayload>(`discover/${type}?${API_KEY}&language=ru&page=${page}&region=ru${dateStart}${dateEnd}${rankStart}${rankEnd}${runtimeStart}${runtimeEnd}${sortBy}${withRT}${genres}${basicSettings}`)
     },
     getCountries() {
         return instance.get(`/configuration/countries?${API_KEY}`)

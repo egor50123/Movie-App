@@ -10,7 +10,6 @@ export const  fetchCategoriesItems = (settings:IFilterSettings) => {
             let response = await categoriesAPI.getResults(settings);
             let payload = response.data
             setTimeout (() => {
-                ///!!!!!!!!!!!!!!!!!!
                 dispatch({type:CategoriesAC.FETCH_CATEGORIES_SUCCESS,payload})
             },300)
 
@@ -21,5 +20,5 @@ export const  fetchCategoriesItems = (settings:IFilterSettings) => {
     }
 }
 
-export const clearCategories = () => ({type:CategoriesAC.CLEAR_CATEGORIES})
+export const clearCategories = ():CategoriesAction => ({type:CategoriesAC.CLEAR_CATEGORIES})
 

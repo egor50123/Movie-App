@@ -7,6 +7,7 @@ import * as Categories from "./categoriesAC"
 import * as Auth from "./authAC"
 import * as AccountAC from "./accountAC"
 import * as SearchPageAC from "./searchPageAC"
+import * as CategoriesFilter from "./categoriesFilterAC"
 
 export default {
     ...SearchAC,
@@ -17,5 +18,6 @@ export default {
     ...Categories,
     ...Auth,
     ...AccountAC,
-    ...SearchPageAC
+    ...SearchPageAC,
+    ...CategoriesFilter
 }

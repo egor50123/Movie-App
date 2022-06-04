@@ -1,11 +1,11 @@
 import {Dispatch} from "react";
 import {movieAPI, peopleAPI, tvAPI} from "../../API/indexAPI";
 import {MovieTvPersonAction, MovieTvPersonActionTypes} from "../types/MovieTvPersonT";
-import {MovieTvItemType} from "../../pages/CategoriesPage/MovieTvItem/MovieTvItem";
 import {AxiosResponse} from "axios";
 import {IMoviePayload, ITvPayload} from "../../models/payloadAPI_M";
+import {MTP_TYPES} from "../../constants/constants";
 
-export const  fetchItem = (id:string,type:MovieTvItemType) => {
+export const  fetchItem = (id:string,type:MTP_TYPES) => {
     return async (dispatch: Dispatch<MovieTvPersonAction>) => {
         try {
             dispatch({type: MovieTvPersonActionTypes.FETCH_ITEM, itemType:type})
@@ -26,7 +26,7 @@ export const  fetchItem = (id:string,type:MovieTvItemType) => {
     }
 }
 
-export const fetchPeople = (id:string,type:MovieTvItemType) => {
+export const fetchPeople = (id:string,type:MTP_TYPES) => {
     return async (dispatch: Dispatch<MovieTvPersonAction>) => {
         try {
             dispatch({type: MovieTvPersonActionTypes.FETCH_PEOPLE})
