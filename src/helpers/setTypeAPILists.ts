@@ -1,18 +1,18 @@
-import {TListAPIParamType} from "../models/ProfileM";
+import {ListAPIParam, TListAPIParamType} from "../models/ProfileM";
 
 export const setTypeAPILists = (currentList:string | undefined) => {
-    let typeAPI:TListAPIParamType = "favorite"
+    let typeAPI:TListAPIParamType = ListAPIParam.favorite
     switch (currentList) {
         case "favorites":
-            typeAPI = "favorite";
+            typeAPI = ListAPIParam.favorite;
             break;
         case "ratings":
-            typeAPI = "rated";
+            typeAPI = ListAPIParam.rated;
             break;
         case "watchlist":
-            typeAPI = "watchlist";
+            typeAPI = ListAPIParam.watchlist;
             break;
-        default: typeAPI = "favorite";break;
+        default: typeAPI = ListAPIParam.favorite;break;
     }
     return typeAPI
 }

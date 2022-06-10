@@ -7,7 +7,7 @@ import {YOUTUBE_URL} from "../../../API/indexAPI";
 import {IMoviePayload, IMoviesTvsPayload, IPeoplePayload, ITvPayload} from "../../../models/payloadAPI_M";
 import {useFavorite} from "../../../hooks/useFavorite";
 import Card from "../../../components/Common/Card/Card";
-import {cardTypeAPI, cardTypes} from "../../../models/cardM";
+import {cardTypes} from "../../../models/cardM";
 import {MTP, MTP_TYPES} from "../../../constants/constants";
 
 
@@ -104,7 +104,7 @@ const MovieTvItem:FC<IMovieTvItem> = ({type}) => {
                       vote={item.vote_average}
                       bg_path={item.poster_path || item.backdrop_path}
                       type={cardTypes.type_1}
-                      typeAPI={item.title === undefined ? cardTypeAPI.tv : cardTypeAPI.movie}
+                      typeAPI={item.title === undefined ? MTP.tv : MTP.movie}
                       date={item.first_air_date || item.release_date}
                       genres={item.genre_ids}/>
             </div>)}</div>}

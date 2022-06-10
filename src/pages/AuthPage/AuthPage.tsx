@@ -18,7 +18,7 @@ const AuthPage = () => {
     },[token])
 
     useEffect(() => {
-        if (sessionSuccess) navigate('/')
+        if (sessionSuccess) {navigate('/')}
     },[sessionSuccess])
 
     return (

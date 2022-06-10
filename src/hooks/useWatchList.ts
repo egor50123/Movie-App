@@ -1,14 +1,14 @@
 import {useTypedSelector} from "./useTypedSelector";
 import {useAction} from "./useAction";
-import {IUseFavorite} from "../models/hooksM";
+import {IUseWatchList} from "../models/hooksM";
 
-export const useFavorite = () => {
+export const useWatchList = () => {
     let sessionId = useTypedSelector(state => state.auth.session.payload?.session_id)
     let acID = useTypedSelector(state => state.account.details.payload?.id)
-    let {postFavorite} = useAction()
+    let {postWatchList} = useAction()
 
-    return ({itemId}:IUseFavorite) => {
+    return ({itemId}:IUseWatchList) => {
         if (sessionId && itemId && acID)
-            postFavorite({itemId,acID,sessionId,isToAdd:true})
+            postWatchList({itemId,isToAdd:true,acID,sessionId})
     }
 }

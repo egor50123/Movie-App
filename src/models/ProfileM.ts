@@ -7,7 +7,12 @@ export enum ProfileLinksNames {
 
 export type ListWrapperTypes = "watchlist" | "ratings" | "favorites"
 
-export type TListAPIParamType = "favorite" | "rated" | "watchlist"
+export enum ListAPIParam {
+    favorite = "favorite",
+    rated = "rated",
+    watchlist = "watchlist"
+}
+export type TListAPIParamType = ListAPIParam.rated | ListAPIParam.favorite | ListAPIParam.watchlist
 
 export interface IListParams {
     sessionId:string,
@@ -21,9 +26,15 @@ export interface IListParamsPre {
     type: string | null
 }
 
-export interface IFavorite {
+export interface IAccountCommon {
     sessionId:string,
     itemId:number,
     acID:number,
-    isFavorite:boolean
+    isToAdd:boolean
+}
+
+
+export interface IMarkedLists {
+    account_id:number,
+    session_id:number,
 }

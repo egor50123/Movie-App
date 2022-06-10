@@ -10,6 +10,8 @@ $HEIGHT_HEADER: 200px;
   min-height: 220px;
   font-size: 14px;
   transition: transform ease-out 200ms;
+  border: 1px solid red;
+  border-radius: 10px;
 
   &--list{
     display: grid;
@@ -20,7 +22,7 @@ $HEIGHT_HEADER: 200px;
     max-height: 200px;
   }
   &:hover {
-    transform: scale(0.95);
+    transform: scale(0.96);
   }
 
   &:hover .card__header.card__header--common::before {
@@ -29,7 +31,7 @@ $HEIGHT_HEADER: 200px;
     content: "";
     height: 100%;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.47);
+    background-color: rgba(0, 0, 0, 0.8);
   }
 
   &:hover .card__btns.card__btns--common {
@@ -138,6 +140,7 @@ $HEIGHT_HEADER: 200px;
 }
 
 .card__main {
+
   padding: 10px;
   background-color: rgba(184, 134, 11, 0.25);
   width: 100%;

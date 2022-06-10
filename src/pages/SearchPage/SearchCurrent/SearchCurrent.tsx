@@ -1,9 +1,9 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC} from 'react';
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import Card from "../../../components/Common/Card/Card";
-import {cardTypeAPI, cardTypes} from "../../../models/cardM";
+import {cardTypes} from "../../../models/cardM";
 import "../SearchPage.scss"
-import {MTP} from "../../../constants/constants";
+import {MTP, MTP_TYPES} from "../../../constants/constants";
 import {useParams} from "react-router-dom";
 import {TMoviesTvsPayloadResults} from "../../../models/payloadAPI_M";
 
@@ -11,14 +11,12 @@ interface ISearchCurrent {
     type: "movie" | "tv" | "person" | "collection"
 }
 
-type a = "movie" | "tv" | "person"
-
 
 const SearchCurrent: FC<ISearchCurrent> = ({type}) => {
 
     const params = useParams()
-    let searchCurrent = params.searchCurrent as a
-    searchCurrent = searchCurrent === undefined ? "movie" : searchCurrent
+    let searchCurrent = params.searchCurrent as MTP_TYPES
+    searchCurrent = searchCurrent === undefined ? MTP.movie : searchCurrent
     let payload = useTypedSelector(state => state.searchPage[searchCurrent].payload?.results)
     let error = useTypedSelector( state => state.search.error)
 
@@ -37,7 +35,7 @@ const SearchCurrent: FC<ISearchCurrent> = ({type}) => {
                                         id={item.id}
                                         bg_path={item.poster_path}
                                         type={cardTypes.type_1}
-                                        typeAPI={cardTypeAPI.movie}/>) : <div>Нет результатов</div>}
+                                        typeAPI={MTP.movie}/>) : <div>Нет результатов</div>}
         </div>
     );
 };

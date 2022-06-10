@@ -213,3 +213,10 @@ export interface IMoviesTvsPayload {
     page:number
     results: TMoviesTvsPayloadResults
 }
+
+export interface IAccountStatesPayload {
+    id:number,
+    favorite:boolean,
+    rated:boolean,
+    watchlist:boolean
+}

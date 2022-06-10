@@ -1,27 +1,22 @@
 import {Link} from "react-router-dom";
-import {CategoriesSortTypes, FilterRangeNames, ICheckbox} from "../../../models/categoriesM";
+import {CategoriesSortTypes, FilterRangeNames, ICategoriesFilter, ICheckbox} from "../../../models/categoriesM";
 import React, {FC, useEffect, useState} from "react";
 import {setCheckbox} from "../../../helpers/setCheckbox";
 import {useAction} from "../../../hooks/useAction";
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
-import {genreTypes} from "../../../store/types/mainPageT";
-import {MTP, MTP_TYPES} from "../../../constants/constants";
-
-export interface ICategoriesFilter {
-    type: MTP_TYPES,
-    withDefaultGenres?: boolean
-}
+import {MTP} from "../../../constants/constants";
+import {moviesGenres, tvsGenres} from "../../../store/selectors/commonSelectors";
 
 const CategoriesFilter:FC<ICategoriesFilter> = ({type}) => {
 
     const {categoriesFilterUpdate, categoriesFilterReset} = useAction()
 
-    const genresMovie = useTypedSelector(state => state.mainPage[genreTypes.genresMovie].payload),
-        genresTv = useTypedSelector(state => state.mainPage[genreTypes.genresTv].payload)
+    const genresMovie = useTypedSelector(moviesGenres),
+        genresTv = useTypedSelector(tvsGenres)
 
     const currentGenres = type === MTP.movie ? genresMovie : genresTv
 
-    let [sortType, setSortType] = useState(CategoriesSortTypes.popularityDown as string),
+    let [sortType, setSortType] = useState<string>(CategoriesSortTypes.popularityDown),
         [withGenres, setGenres] = useState(""),
         [checkboxes, setActive] = useState<ICheckbox>({}),
         [filterSettings, changeFilterSettings] = useState({

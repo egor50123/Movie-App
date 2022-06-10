@@ -4,10 +4,10 @@ import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import {ICategoriesPage} from "../../../models/categoriesM";
 import {useParams} from "react-router-dom";
 import Card from "../../../components/Common/Card/Card";
-import {cardTypeAPI, cardTypes} from "../../../models/cardM";
+import {cardTypes} from "../../../models/cardM";
 import {useScroll} from "../../../hooks/useScroll";
 import {categoriesFilter, payload} from "../../../store/selectors/categoriesPageSelectors";
-import {MTP_TYPES} from "../../../constants/constants";
+import {MTP, MTP_TYPES} from "../../../constants/constants";
 
 
 
@@ -51,7 +51,7 @@ const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
                           vote={item.vote_average}
                           bg_path={item.poster_path || item.backdrop_path}
                           genres={item.genre_ids}
-                          typeAPI={item.title === undefined ? cardTypeAPI.tv : cardTypeAPI.movie}
+                          typeAPI={item.title === undefined ? MTP.tv : MTP.movie}
                           type={cardTypes.type_1} date={item.release_date || item.first_air_date}/>
                 ) : <div className={"test"}></div>}
             </div>

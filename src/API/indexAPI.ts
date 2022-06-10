@@ -2,16 +2,17 @@ import axios from "axios";
 import {MovieSwitchTypes, TrailersSwitchTypes, TrendsSwitchTypes, TvSwitchTypes} from "../models/previewItem_SwitchM";
 import {IFilterSettings} from "../models/categoriesM";
 import {
-    IAccountPayload,
+    IAccountPayload, IAccountStatesPayload,
     IMoviePayload, IMoviesTvsPayload,
     IPeoplePayload, ISearchPayload,
     ITvPayload,
     TGenresPayload
 } from "../models/payloadAPI_M";
 import {authPayload, deleteSessionPayload, sessionPayload} from "../store/types/authT";
-import {IFavorite, IListParams} from "../models/ProfileM";
+import {IAccountCommon, IListParams} from "../models/ProfileM";
 import {genreTypes, TGenreTypes} from "../store/types/mainPageT";
 import {MTP_TYPES} from "../constants/constants";
+import {IAccountStates} from "../models/cardM";
 
 export const API_KEY = "api_key=cb16c889cb26730cf04918e138034c54"
 export const BASE_URI = "&language=ru&page=1&region=ru"
@@ -59,6 +60,12 @@ export const tvAPI = {
     },
     getTvItem(id: string) {
         return instance.get<ITvPayload>(`/tv/${id}?${API_KEY}${BASE_URI}&include_adult=false&append_to_response=videos,peoples`)
+    }
+}
+
+export const MTPAPI = {
+    getAccountStates({type, id, sessionId}:IAccountStates) {
+        return instance.get<IAccountStatesPayload>(`/${type}/${id}/account_states?${API_KEY}&session_id=${sessionId}`)
     }
 }
 
@@ -142,20 +149,33 @@ export const accountAPI = {
     getAccount(sessionId: string) {
         return instance.get<IAccountPayload>(`/account?${API_KEY}&session_id=${sessionId}`)
     },
-    setFavorite({sessionId, acID, itemId, isFavorite}:IFavorite) {
+    setFavorite({sessionId, acID, itemId, isToAdd}:IAccountCommon) {
         return instance.post(`https://api.themoviedb.org/3/account/${acID}/favorite?${API_KEY}&session_id=${sessionId}`, {
             "media_type": "movie",
             "media_id": itemId,
-            "favorite": isFavorite
+            "favorite": isToAdd
         }, {
             headers: {
                 "Content-Type": "application/json;charset=utf-8"
             }
         })
     },
+    setWatchList({sessionId, acID, itemId, isToAdd}:IAccountCommon) {
+        return instance.post(`https://api.themoviedb.org/3/account/${acID}/watchlist?${API_KEY}&session_id=${sessionId}`, {
+            "media_type": "movie",
+            "media_id": itemId,
+            "watchlist": isToAdd
+        }, {
+            headers: {
+                "Content-Type": "application/json;charset=utf-8"
+            }
+        })
+    },
+
     getList ({sessionId, acID, type}:IListParams) {
         return instance.get<IMoviesTvsPayload>(`/account/${acID}/${type}/movies?${API_KEY}&session_id=${sessionId}&language=ru&page=1`)
     },
+
 }
 
 

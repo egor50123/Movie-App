@@ -39,3 +39,8 @@ export interface ICheckbox {
 export interface ICategoriesPage {
     type: MTP_TYPES
 }
+
+export interface ICategoriesFilter {
+    type: MTP_TYPES,
+    withDefaultGenres?: boolean
+}

@@ -6,7 +6,8 @@ import {useAction} from "../../../hooks/useAction";
 import {useParams} from "react-router-dom";
 import {setTypeAPILists} from "../../../helpers/setTypeAPILists";
 import Card from "../../../components/Common/Card/Card";
-import {cardTypeAPI, cardTypes} from "../../../models/cardM";
+import {cardTypes} from "../../../models/cardM";
+import {MTP} from "../../../constants/constants";
 
 const ListsWrapper:FC = () => {
 
@@ -30,14 +31,15 @@ const ListsWrapper:FC = () => {
 
     return (
         <div className={"list"}>
-            {data && data.map(item => <Card title={item.title as string}
+            {data && data.map(item => <Card key={item.id} title={item.title as string}
                                             overview={item.overview}
                                             id={item.id}
                                             vote={item.vote_average}
                                             bg_path={item.backdrop_path || item.poster_path}
                                             type={cardTypes.type_2}
                                             date={item.release_date as string || item.first_air_date as string}
-                                            typeAPI={item.title === undefined ? cardTypeAPI.tv : cardTypeAPI.movie}
+                                            typeAPI={item.title === undefined ? MTP.tv : MTP.movie}
+                                            listType={currentList}
                                             genres={item.genre_ids}/>)}
         </div>
     );

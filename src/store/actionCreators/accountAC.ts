@@ -1,7 +1,8 @@
 import {Dispatch} from "react";
-import {accountAPI} from "../../API/indexAPI";
+import {accountAPI, MTPAPI} from "../../API/indexAPI";
 import {accountActionCreators, accountActions} from "../types/accountT";
-import {IFavorite, IListParams} from "../../models/ProfileM";
+import {IAccountCommon, IListParams} from "../../models/ProfileM";
+import {MTP} from "../../constants/constants";
 
 export const  fetchAccount = (sessionId:string) => {
     return async (dispatch: Dispatch<accountActions>) => {
@@ -15,10 +16,29 @@ export const  fetchAccount = (sessionId:string) => {
     }
 }
 
-export const postFavorite = (settings:IFavorite) => {
+export const postFavorite = (settings:IAccountCommon) => {
     return async (dispatch: Dispatch<accountActions>) => {
         try {
+            let response = await MTPAPI.getAccountStates({type:MTP.movie,id:settings.itemId,sessionId:settings.sessionId})
+            if (response.data.favorite) {
+                settings.isToAdd = false
+            }
             await accountAPI.setFavorite(settings);
+        }
+        catch (e) {
+            alert("error")
+        }
+    }
+}
+
+export const postWatchList = (settings:IAccountCommon) => {
+    return async (dispatch: Dispatch<accountActions>) => {
+        try {
+            let response = await MTPAPI.getAccountStates({type:MTP.movie,id:settings.itemId,sessionId:settings.sessionId})
+            if (response.data.watchlist) {
+                settings.isToAdd = false
+            }
+            await accountAPI.setWatchList(settings);
         }
         catch (e) {
             alert("error")
