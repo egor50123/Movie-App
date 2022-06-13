@@ -2,18 +2,19 @@
 
 html,body {
   height: 100%;
+  color: white;
 }
 
 body {
   display: grid;
   margin: 0;
   padding-top: $HEADER_HEIGHT;
-  background-color: rgb(235, 235, 235);
+  background-color: rgba(0, 0, 0, 0.91);
   //background-image: url("./assest/image/bg3.jpg");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
+  //background-size: cover;
+  //background-position: center;
+  //background-attachment: fixed;
+  //background-repeat: no-repeat;
   font-family: Roboto, Arial,sans-serif;
   font-size: 16px;
 }
