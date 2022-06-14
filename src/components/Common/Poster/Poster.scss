@@ -1,3 +1,5 @@
+@import "src/assest/constants";
+
 .poster {
   margin: 20px auto;
   min-height: 300px;
@@ -5,6 +7,8 @@
   overflow-x: hidden;
   width: 1000px;
   border-radius: 10px;
+  box-shadow: 0 0  6px 8px $CONTRAST_COLOR;
+  background: #4f4e4e;
 }
 
 .poster__slider {
@@ -35,10 +39,10 @@
   position: absolute;
   top: 0;
   left: 0;
-  z-index: -1;
 }
 
 .poster_item-container {
+  z-index: 1;
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 20px;
@@ -51,9 +55,15 @@
 }
 
 .poster__info{
+  padding: 15px;
+  //background-color: rgba(0, 0, 0, 0.68);
   color: white;
+  height: 280px;
+  text-shadow: white;
   margin: 0 auto;
   min-width: 300px;
+  overflow: hidden;
+  border-radius: 20px;
 
   & h2 {
     font-size: 30px;
@@ -61,7 +71,7 @@
     margin-bottom: 30px;
   }
   & p{
-    font-size: 12px;
+    font-size: 14px;
     line-height: 1.5em;
     margin-bottom: 15px;
   }

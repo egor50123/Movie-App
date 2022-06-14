@@ -1,9 +1,10 @@
 import React, {FC} from 'react';
-import "./PreviewItem.scss"
+import "./PreviewItem.module.scss"
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import {shallowEqual} from "react-redux";
 import PreviewItemChild from "./PreviewItemChild/PreviewItemChild";
 import {IPreviewItem} from "../../../models/previewItem_SwitchM";
+import styles from "./PreviewItem.module.scss"
 
 const PreviewItem:FC<IPreviewItem> = ({title,type,switchTitles}) => {
     const currentSwitch = useTypedSelector(state => state.mainPage.switchType,shallowEqual)
@@ -16,7 +17,7 @@ const PreviewItem:FC<IPreviewItem> = ({title,type,switchTitles}) => {
         return <h1>error</h1>
     }
     return (
-        <div className={"previewItem"}>
+        <div className={styles.previewItem}>
             <PreviewItemChild title={title} type={type} switchType={switchType} previews={previews} switchTitles={switchTitles}/>
         </div>
     );

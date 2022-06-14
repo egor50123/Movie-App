@@ -30,7 +30,7 @@ const Poster = () => {
                             <div className={"poster__box"}>
                                 <div className={"poster__info"}>
                                     <h2>{item.title}</h2>
-                                    <p>{item.overview}</p>
+                                    <p>{item.overview.length > 320 ? item.overview.slice(0,320) + "..." : item.overview}</p>
                                     <div className={"poster__btn-box"}>
                                         <button className={"poster_btn"}>Подробнее</button>
                                         <button className={"poster_btn"}>Смотреть трейлер</button>

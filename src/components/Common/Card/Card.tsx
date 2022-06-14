@@ -15,6 +15,7 @@ import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 import FavoriteBorderTwoToneIcon from '@mui/icons-material/FavoriteBorderTwoTone';
 import BookmarkBorderTwoToneIcon from '@mui/icons-material/BookmarkBorderTwoTone';
 import FormatListBulletedTwoToneIcon from '@mui/icons-material/FormatListBulletedTwoTone';
+import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 
 import {createTheme} from '@mui/material/styles';
 
@@ -84,7 +85,8 @@ const Card: FC<ICard> = ({
         <NavLink to={`/${typeAPI}/${id} `} ref={cardRef}  onMouseOver={() => setHover(true)} onMouseLeave={() => setHover(false)} className={styles.card}>
             <div className={styles.card_box}>
                 <div className={styles.card_img}>
-                    {bg_path && <img src={`${BASE_IMG_URL}${bg_path}`} alt=""/>}
+                    {bg_path !== null ? <img src={`${BASE_IMG_URL}${bg_path}`} alt=""/> :
+                        <SvgIcon  sx={{ fontSize: 90 }} component={InsertPhotoIcon} inheritViewBox />}
                 </div>
 
                 {isHover && <div className={styles.hover}>
@@ -127,7 +129,7 @@ const Card: FC<ICard> = ({
                 </div>}
 
                 <div className={styles.card_title_box}>
-                    <h2>{title}</h2>
+                    <h2>{title && title?.length > 30 ? title?.slice(0,30) : title}</h2>
                 </div>
             </div>
         </NavLink>

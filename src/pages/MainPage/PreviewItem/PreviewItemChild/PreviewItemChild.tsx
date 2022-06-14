@@ -6,6 +6,7 @@ import Card from "../../../../components/Common/Card/Card";
 import {IMoviesTvsPayload} from "../../../../models/payloadAPI_M";
 import {cardTypes} from "../../../../models/cardM";
 import {MTP} from "../../../../constants/constants";
+import styles from "../PreviewItem.module.scss"
 
 
 const PreviewItemChild: FC<IPreviewItemPure> = ({title, type, previews, switchType, switchTitles}) => {
@@ -17,12 +18,12 @@ const PreviewItemChild: FC<IPreviewItemPure> = ({title, type, previews, switchTy
 
     return (
         <>
-            <div>
+            <div className={styles.previewItem__switch}>
                 <h2>{title}</h2>
                 <Switch type={type} switchTitles={switchTitles}/>
             </div>
 
-            {<div className={"previewItem__list"}>
+            {<div className={styles.previewItem__list}>
                 {(previews[type] !== undefined && !previews[type].isLoading && previews[type].payload) ?
                     (previews[type].payload as IMoviesTvsPayload).results.map(film =>
                         <Card key={film.id} id={film.id}
@@ -35,7 +36,7 @@ const PreviewItemChild: FC<IPreviewItemPure> = ({title, type, previews, switchTy
                               country={film.origin_country}
                               genres={film.genre_ids}
                               type={cardTypes.type_1}/>
-                ) : <div className={"previewItem__plug"}>
+                ) : <div className={styles.previewItem__plug}>
                         <div></div>
                         <div></div>
                         <div></div>

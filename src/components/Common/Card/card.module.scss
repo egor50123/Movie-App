@@ -28,6 +28,9 @@ $BORDER_RADIUS: 10px;
 }
 
 .card_img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: $IMG_BOX;
   width: 100%;
   overflow: hidden;
@@ -97,7 +100,7 @@ $BORDER_RADIUS: 10px;
   border-radius: 50%;
   background-color: white;
   box-shadow: red 0 0 12px 2px;
-  margin-bottom: 6px;
+  margin-bottom: 10px;
 }
 
 .genres {

@@ -1,3 +1,5 @@
+@import "../../../assest/constants";
+
 .previewItem {
   display: flex;
   flex-direction: column;
@@ -6,7 +8,14 @@
   width: 100%;
   min-height: 300px;
   height: min-content;
-  //background-color: rgba(255, 255, 255, 0.21);
+  font-weight: 700;
+}
+
+.previewItem__switch {
+  padding: 0 15px;
+  h2 {
+    margin-bottom: 10px;
+  }
 }
 
 .previewItem__list {
@@ -17,14 +26,14 @@
   min-height: 250px;
   height: min-content;
   overflow-x: scroll;
-  padding: 15px;
+  padding: 15px 15px 20px;
 
   &::-webkit-scrollbar {
     height: 10px;
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.58);
+    background-color: $CONTRAST_COLOR;
     border-radius: 5px;
 
   }

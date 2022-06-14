@@ -17,7 +17,7 @@ import {IAccountStates} from "../models/cardM";
 export const API_KEY = "api_key=cb16c889cb26730cf04918e138034c54"
 export const BASE_URI = "&language=ru&page=1&region=ru"
 export const BASE_IMG_URL = 'https://www.themoviedb.org/t/p/w220_and_h330_face'
-export const BIG_IMG_URL = "https://www.themoviedb.org/t/p/w1920_and_h600_multi_faces_filter(duotone,032541,01b4e4)/"
+export const BIG_IMG_URL = "https://www.themoviedb.org/t/p/w1920_and_h600_multi_faces_filter(duotone,032541,5b5a5a)/"
 export const YOUTUBE_URL = "https://www.youtube.com/embed/"
 export const instance = axios.create({
     baseURL: "https://api.themoviedb.org/3/",

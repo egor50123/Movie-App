@@ -1,9 +1,10 @@
 import React, {FC} from 'react';
-import "./Switch.scss"
+import "./switch.module.scss"
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import {useAction} from "../../../hooks/useAction";
 import {EPreviewItems, PreviewItemsTypes} from "../../../models/previewItem_SwitchM";
 import * as mainPageSelectors from "../../../store/selectors/mainPageSelectors";
+import s from "./switch.module.scss"
 
 interface ISwitch {
     type:PreviewItemsTypes,
@@ -27,10 +28,10 @@ const Switch:FC<ISwitch> = ({type,switchTitles}) => {
     }
 
     return (
-        <div className={"switch"}>
-            <div className={"switch__list"}>
+        <div className={s.switch}>
+            <div className={s.switch__list}>
                 {switchTitles.map((item,index) =>
-                    <span id={`${type}${index+1}`} key={`${type}${index+1}`} onClick={changeType} className={currentActive === index+1 ? "active" : ""}>{item[1]}</span>
+                    <span id={`${type}${index+1}`} key={`${type}${index+1}`} onClick={changeType} className={currentActive === index+1 ? s.active : ""}>{item[1]}</span>
                 )}
             </div>
         </div>
