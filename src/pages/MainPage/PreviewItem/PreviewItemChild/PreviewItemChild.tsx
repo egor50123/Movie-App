@@ -7,6 +7,7 @@ import {IMoviesTvsPayload} from "../../../../models/payloadAPI_M";
 import {cardTypes} from "../../../../models/cardM";
 import {MTP} from "../../../../constants/constants";
 import styles from "../PreviewItem.module.scss"
+import Plug from "../../../../components/Common/Plug/Plug";
 
 
 const PreviewItemChild: FC<IPreviewItemPure> = ({title, type, previews, switchType, switchTitles}) => {
@@ -36,15 +37,7 @@ const PreviewItemChild: FC<IPreviewItemPure> = ({title, type, previews, switchTy
                               country={film.origin_country}
                               genres={film.genre_ids}
                               type={cardTypes.type_1}/>
-                ) : <div className={styles.previewItem__plug}>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                    </div>}
+                ) : <Plug/>}
             </div>}
         </>
     );

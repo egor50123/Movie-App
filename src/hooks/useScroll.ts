@@ -3,6 +3,7 @@ import {useEffect, useRef} from "react";
 export const useScroll = (childRef:any,callback: () => void) => {
     const observer:any = useRef()
     useEffect(() => {
+        console.log("scroll")
         const child = childRef.current
         const options = {
             root: null,

@@ -1,0 +1,111 @@
+@import "src/assest/constants";
+
+.search {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.search__list_box {
+  background-color: white;
+  padding: 10px 5px 10px 10px;
+  position: absolute;
+  top: calc(100% + 20px);
+  right: 0;
+  height: min-content;
+  max-height: 300px;
+  min-width: 250px;
+  border-radius: 6px;
+}
+
+.search__list {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  gap: 10px;
+  color: black;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $CONTRAST_COLOR;
+    border-radius: 5px;
+  }
+}
+
+.inputBox {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.input {
+  display: flex;
+  align-items: center;
+  height: 30px;
+  width: 230px;
+  padding: 10px 10px 6px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  transition: box-shadow ease-out 200ms;
+  //box-shadow:  0 0 3px 4px red;
+  box-shadow: 0 0 0 0 white;
+
+  &:focus {
+    box-shadow: 0 0 0 3px $CONTRAST_COLOR;
+  }
+}
+
+.searchIcon {
+  display: flex;
+  align-items: center;
+}
+
+.search_item {
+  background-color: white;
+  position: relative;
+  display: flex;
+  gap: 15px;
+  width: 100%;
+  min-height: 50px;
+  max-height: 50px;
+
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    width: calc(100% - 8px);
+    height: 1px;
+    background-color: $CONTRAST_COLOR;
+  }
+}
+
+.search_imgBox {
+  height: 50px;
+  min-width: 50px;
+  max-width: 50px;
+  background-color: black;
+  border-radius: 6px;
+  overflow: hidden;
+
+  & img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.search_mainBox {
+  display: flex;
+  align-items: center;
+  //background-color: rgba(255, 255, 255, 0.24);
+  font-size: 13px;
+  & h2 {
+    font-size: 15px;
+  }
+
+
+}

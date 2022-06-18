@@ -1,0 +1,78 @@
+.root {
+  display: flex;
+  width: 920px;
+  height: 329px;
+  gap: 13px;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 284px;
+  min-width: 160px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.img {
+  position: relative;
+  height: 220px;
+  width: 100%;
+  background-color: #232323;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.bottom {
+  overflow: hidden;
+  position: relative;
+  padding: 10px;
+  border-radius: 10px;
+  height: calc(100% - 220px - 5px);
+  background-color: #232323;
+}
+
+.img::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 150px;
+  transform: skewX(-5deg); // Наклон
+  left: -150%;
+  background: linear-gradient(90deg, rgba(35, 35, 35, 0.82), rgb(46, 46, 46));
+  animation: flareAnimation 3.5s infinite linear; // Время и тип анимации можно менять
+}
+
+.bottom::before{
+  z-index: 0;
+  content: "";
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 150px;
+  transform: skewX(-5deg); // Наклон
+  left: -10%;
+  background: linear-gradient(90deg, rgba(35, 35, 35, 0.82), rgb(46, 46, 46));
+  animation: flareAnimation 3.5s infinite linear 100ms; // Время и тип анимации можно менять
+}
+
+.bottom::after {
+  position: absolute;
+  top: 10px;
+  content: "";
+  width: 130px;
+  height: 17px;
+  background-color: #3d3d3d;
+  z-index: 100;
+}
+
+@keyframes flareAnimation {
+  0% {
+    left: -150%;
+  }
+  100% {
+    left: 150%;
+  }
+}

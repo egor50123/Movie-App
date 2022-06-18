@@ -2,10 +2,11 @@ import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import {useAction} from "../../../hooks/useAction";
 import {NavLink, useNavigate} from "react-router-dom";
-import "./Search.scss"
 import SearchItem from "./SearchItem";
 import {useDebounce} from "../../../hooks/useDebounce";
 import {MTP} from "../../../constants/constants";
+import SearchIcon from '@mui/icons-material/Search';
+import s from "./search.module.scss"
 
 const Search = () => {
     const {payload,isLoading,error} = useTypedSelector(state => state.search)
@@ -40,6 +41,10 @@ const Search = () => {
         if (listRef.current) (listRef.current as HTMLDivElement).style.display = "flex"
     },[value])
 
+    useEffect( () => {
+        if (listRef.current) (listRef.current as HTMLDivElement).style.display = "none"
+    },[])
+
     function onChange(e:React.ChangeEvent<HTMLInputElement>) {
         let value = e.target.value
         setValue(value)
@@ -53,16 +58,21 @@ const Search = () => {
 
 
     return (
-        <div className={"search"}>
-            <input ref={inputRef} placeholder={"поиск..."} type="search" onChange={onChange} value={value}/>
-            <NavLink to={"/search"} onClick={getSearchResults}>Найти</NavLink>
-            <div ref={listRef} className={"search__list"}>
-                {!isLoading ?
-                    error ? <span>Ничего не нашлось</span> :
-                        payload?.results.map(item => <SearchItem key={item.id}  data={item}/>) :
-                    <span>Загрузка</span>}
+        <div className={s.search}>
+            <div className={s.inputBox}>
+                <input ref={inputRef} className={s.input} placeholder={"поиск..."} type="search" onChange={onChange} value={value}/>
+                <NavLink to={"/search"} className={s.searchIcon} onClick={getSearchResults}><SearchIcon/></NavLink>
             </div>
-            <button onClick={onClose}>close</button>
+
+            <div ref={listRef} className={s.search__list_box}>
+                <div className={s.search__list}>
+                    {!isLoading ?
+                        error ? <span >Ничего не нашлось</span> :
+                            payload?.results.map(item => <SearchItem key={item.id}  data={item}/>) :
+                        <span>Загрузка...</span>}
+                </div>
+
+            </div>
         </div>
     );
 };
