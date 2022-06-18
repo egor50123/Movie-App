@@ -8,8 +8,8 @@ import {cardTypes} from "../../../models/cardM";
 import {useScroll} from "../../../hooks/useScroll";
 import {categoriesFilter, payload} from "../../../store/selectors/categoriesPageSelectors";
 import {MTP, MTP_TYPES} from "../../../constants/constants";
-
-
+import CategoriesFilter from "../CategoriesFilter/CategoriesFilter";
+import s from "./categoriesCurrent.module.scss"
 
 const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
     const {fetchCategoriesItems,clearCategories} = useAction()
@@ -42,8 +42,11 @@ const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
 
 
     return (
-        <div>
-            <div className={"categoriesPage__list categoriesList"}>
+        <div className={s.root}>
+            <div className={s.filterBox}>
+                <CategoriesFilter type={type}/>
+            </div>
+            <div className={s.main}>
                 {movieTv.length > 0 ? movieTv.map(item =>
                     <Card key={item.id} title={item.title || item.name}
                           overview={item.overview}
@@ -53,7 +56,7 @@ const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
                           genres={item.genre_ids}
                           typeAPI={item.title === undefined ? MTP.tv : MTP.movie}
                           type={cardTypes.type_1} date={item.release_date || item.first_air_date}/>
-                ) : <div className={"test"}></div>}
+                ) : <div className={s.test}></div>}
             </div>
             <div ref={childRef} style={{height: 20, background: "red"}}/>
         </div>

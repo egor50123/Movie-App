@@ -1,0 +1,17 @@
+.root {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 20px;
+}
+
+.filterBox {
+  width: 100%;
+  height: min-content;
+}
+
+.main {
+  display: grid;
+  justify-content: center;
+  gap:15px;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}

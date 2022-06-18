@@ -5,7 +5,6 @@ import {BASE_IMG_URL} from "../../../API/indexAPI";
 import styles from "./card.module.scss"
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import {ICard} from "../../../models/cardM";
-import {getCardClassType} from "../../../helpers/getCardClassType";
 import {useFavorite} from "../../../hooks/useFavorite";
 import * as mainPageSelectors from "../../../store/selectors/mainPageSelectors";
 import {useWatchList} from "../../../hooks/useWatchList";
@@ -16,26 +15,6 @@ import FavoriteBorderTwoToneIcon from '@mui/icons-material/FavoriteBorderTwoTone
 import BookmarkBorderTwoToneIcon from '@mui/icons-material/BookmarkBorderTwoTone';
 import FormatListBulletedTwoToneIcon from '@mui/icons-material/FormatListBulletedTwoTone';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
-
-import {createTheme} from '@mui/material/styles';
-
-
-const theme = createTheme({
-    status: {
-        danger: '#e53e3e',
-    },
-    palette: {
-        primary: {
-            main: '#0971f1',
-            // @ts-ignore
-            darker: '#053e85',
-        },
-        neutral: {
-            main: '#64748B',
-            contrastText: '#fff',
-        },
-    },
-});
 
 const Card: FC<ICard> = ({
                              title,
@@ -55,8 +34,6 @@ const Card: FC<ICard> = ({
     const setFavorite = useFavorite()
     const setWatchList = useWatchList()
     const cardRef = useRef<null | HTMLAnchorElement>(null)
-
-    const classType = getCardClassType()
 
     const addFavourite = (e: React.MouseEvent<Element, MouseEvent>): void => {
         e.preventDefault()
