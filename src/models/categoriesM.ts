@@ -42,5 +42,6 @@ export interface ICategoriesPage {
 
 export interface ICategoriesFilter {
     type: MTP_TYPES,
-    withDefaultGenres?: boolean
+    withDefaultGenres?: boolean,
+    isResetFilter:boolean
 }

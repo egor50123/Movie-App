@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useRef} from 'react';
+import React, {FC, useEffect, useRef, useState} from 'react';
 import {useAction} from "../../../hooks/useAction";
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import {ICategoriesPage} from "../../../models/categoriesM";
@@ -6,19 +6,20 @@ import {useParams} from "react-router-dom";
 import Card from "../../../components/Common/Card/Card";
 import {cardTypes} from "../../../models/cardM";
 import {useScroll} from "../../../hooks/useScroll";
-import {categoriesFilter, payload} from "../../../store/selectors/categoriesPageSelectors";
 import {MTP, MTP_TYPES} from "../../../constants/constants";
 import CategoriesFilter from "../CategoriesFilter/CategoriesFilter";
 import s from "./categoriesCurrent.module.scss"
+import * as selectors from "../../../store/selectors/categoriesPageSelectors"
 
 const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
     const {fetchCategoriesItems,clearCategories} = useAction()
     const params = useParams()
     const defaultGenres = params.genresId === undefined ? "" : `${params.genresId}|`
 
-    const filterSettings = useTypedSelector(categoriesFilter)
-    const movieTv = useTypedSelector(payload)
-    const nextPage = useTypedSelector(state => state.categories.nextPage)
+    const filterSettings = useTypedSelector(selectors.categoriesFilter)
+    const movieTv = useTypedSelector(selectors.payload)
+    const isLoading = useTypedSelector(selectors.isLoading)
+    const nextPage = useTypedSelector(selectors.nextPage)
 
     const childRef = useRef<null | HTMLDivElement>(null)
 
@@ -29,22 +30,26 @@ const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
             return {...filterSettings, type, page}
         }
     }
+    const [isResetFilter,resetFilter] = useState(false)
 
-    useScroll(childRef,() => fetchCategoriesItems( getSettings(type,filterSettings,defaultGenres,nextPage)) )
+    useScroll(childRef,() => fetchCategoriesItems( getSettings(type,filterSettings,defaultGenres,nextPage)),isLoading )
 
     useEffect(() => {
         clearCategories()
         fetchCategoriesItems(getSettings(type,filterSettings,defaultGenres,1))
+        console.log("fetch from Effect")
+        resetFilter(prev => !prev)
         return () => {
             clearCategories()
         }
     }, [defaultGenres,type,filterSettings])
 
 
+
     return (
         <div className={s.root}>
             <div className={s.filterBox}>
-                <CategoriesFilter type={type}/>
+                <CategoriesFilter isResetFilter={isResetFilter} type={type}/>
             </div>
             <div className={s.main}>
                 {movieTv.length > 0 ? movieTv.map(item =>
