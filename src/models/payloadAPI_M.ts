@@ -211,7 +211,9 @@ export type TMoviesTvsPayloadResults = [{
 
 export interface IMoviesTvsPayload {
     page:number
-    results: TMoviesTvsPayloadResults
+    results: TMoviesTvsPayloadResults,
+    total_pages:number,
+    total_results:number
 }
 
 export interface IAccountStatesPayload {

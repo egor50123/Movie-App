@@ -1,11 +1,14 @@
 import {IMoviesTvsPayload, TMoviesTvsPayloadResults} from "../../models/payloadAPI_M";
+import {MTP_TYPES} from "../../constants/constants";
 
 export interface categoriesState {
     payload: IMoviesTvsPayload | null,
     payloadResults: TMoviesTvsPayloadResults | []
     isLoading: boolean,
     error: string | null,
-    nextPage: number
+    nextPage: number,
+    isEnd: boolean
+    type: MTP_TYPES | null
 }
 
 export enum CategoriesAC {
@@ -22,6 +25,7 @@ interface FetchCategoriesAction {
 interface FetchCategoriesSuccessAction {
     type: CategoriesAC.FETCH_CATEGORIES_SUCCESS,
     payload: IMoviesTvsPayload,
+    typeMTP: MTP_TYPES
 }
 
 interface FetchCategoriesErrorAction {

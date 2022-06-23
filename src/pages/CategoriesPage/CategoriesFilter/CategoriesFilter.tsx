@@ -1,5 +1,5 @@
 import {ICategoriesFilter} from "../../../models/categoriesM";
-import React, {FC, useState} from "react";
+import React, {FC, useEffect, useRef, useState} from "react";
 import s from "./categoriesFilter.module.scss"
 import {useFilterData} from "../../../hooks/useFilterData";
 import SortFilter from "./SortFilter";
@@ -7,18 +7,27 @@ import RateFilter from "./RateFilter";
 import GenresFilter from "./GenresFilter";
 import DateFilter from "./dateFilter";
 import {Link} from "react-router-dom";
+import {useAction} from "../../../hooks/useAction";
+import {setSettings} from "../../../helpers/setSettings";
 
 const CategoriesFilter: FC<ICategoriesFilter> = ({type,isResetFilter}) => {
-    const [isReady,setReady] = useState(false)
-    const {data,setRef} = useFilterData(isReady)
+    const [isFind,setFind] = useState(false)
+    const {data,setRef} = useFilterData(isFind)
+    const {categoriesFilterUpdate} = useAction()
 
 
     function onFind() {
         window.scrollTo(0, 0)
-        setReady(prev => !prev)
-        console.log(data.current)
-        //categoriesFilterUpdate(data)
+        setFind(true)
     }
+
+    useEffect( () => {
+        if (isFind) {
+            setFind(false)
+            categoriesFilterUpdate(data.current)
+        }
+    },[isFind])
+
 
     return (
         <div className={s.filter}>
@@ -34,7 +43,7 @@ const CategoriesFilter: FC<ICategoriesFilter> = ({type,isResetFilter}) => {
             <div className={s.filter__item}>
                 <RateFilter isResetFilter={isResetFilter} setRef={setRef}/>
             </div>
-            <button className={s.buttonSearch} onClick={onFind}><Link to={`/${type}`}>Поиск</Link></button>
+            <Link className={s.buttonSearch} onClick={onFind} to={`/${type}`}>Поиск</Link>
         </div>
     )
 }

@@ -1,5 +1,6 @@
 import {categoriesFilterAC, categoriesFilterAction, categoriesFilterState} from "../types/categoriesFilterT";
 import {CategoriesSortTypes} from "../../models/categoriesM";
+import {setSettings} from "../../helpers/setSettings";
 
 const init: categoriesFilterState = {
     settings: {
@@ -8,8 +9,6 @@ const init: categoriesFilterState = {
         maxYear: "",
         minRank: "",
         maxRank: "",
-        minRuntime: "",
-        maxRuntime: "",
         sortType: `${CategoriesSortTypes.popularityDown}`
     }
 }
@@ -17,11 +16,12 @@ const init: categoriesFilterState = {
 export const categoriesFilterReducer = (state = init, action: categoriesFilterAction): categoriesFilterState => {
     switch (action.type) {
         case categoriesFilterAC.UPDATE_FILTER:
+            let newSettings = setSettings(action.settings)
             return {
                 ...state,
                 settings: {
                     ...state.settings,
-                    ...action.settings
+                    ...newSettings
                 }
             }
         case categoriesFilterAC.RESET_FILTER: {

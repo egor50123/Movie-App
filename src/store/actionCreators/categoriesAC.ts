@@ -10,7 +10,7 @@ export const  fetchCategoriesItems = (settings:IFilterSettings) => {
             let response = await categoriesAPI.getResults(settings);
             let payload = response.data
             setTimeout (() => {
-                dispatch({type:CategoriesAC.FETCH_CATEGORIES_SUCCESS,payload})
+                dispatch({type:CategoriesAC.FETCH_CATEGORIES_SUCCESS,payload,typeMTP:settings.type})
             },300)
 
         }

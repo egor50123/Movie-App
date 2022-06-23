@@ -1,23 +1,23 @@
 import {useCallback, useRef} from "react";
+import {filterData} from "../models/filterM";
 
-interface IFilter {
-    [index:string]: string
-}
-
-export const useFilterData = (isReady:boolean) => {
-    const data = useRef<IFilter>({})
+export const useFilterData = (ifFind:boolean) => {
+    const data = useRef<filterData>({})
 
     const setData = (element:HTMLElement) => {
         if (!element) return
 
-        let info = element.dataset.info as string
-        let id:string = element.id
+        let info = element.dataset.info
+        let id = element.id
+        // @ts-ignore
         data.current[id] = info
     }
 
-    const setRef = useCallback( (element) => {
-        setData(element)
-    },[isReady])
+    const setRef = useCallback( (element:HTMLElement) => {
+        if (ifFind) {
+            setData(element)
+        }
+    },[ifFind])
 
     return {data,setRef}
 }

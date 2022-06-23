@@ -20,6 +20,8 @@ const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
     const movieTv = useTypedSelector(selectors.payload)
     const isLoading = useTypedSelector(selectors.isLoading)
     const nextPage = useTypedSelector(selectors.nextPage)
+    const isEnd = useTypedSelector(selectors.isEnd)
+    const typeMTP = useTypedSelector(selectors.typeMTP)
 
     const childRef = useRef<null | HTMLDivElement>(null)
 
@@ -32,17 +34,19 @@ const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
     }
     const [isResetFilter,resetFilter] = useState(false)
 
-    useScroll(childRef,() => fetchCategoriesItems( getSettings(type,filterSettings,defaultGenres,nextPage)),isLoading )
+    useScroll(childRef,() => fetchCategoriesItems( getSettings(type,filterSettings,defaultGenres,nextPage)),isLoading,isEnd )
 
     useEffect(() => {
         clearCategories()
         fetchCategoriesItems(getSettings(type,filterSettings,defaultGenres,1))
-        console.log("fetch from Effect")
-        resetFilter(prev => !prev)
         return () => {
             clearCategories()
         }
     }, [defaultGenres,type,filterSettings])
+
+    useEffect(() => {
+        resetFilter(prev => !prev)
+    },[type,params.genresId])
 
 
 
@@ -63,7 +67,7 @@ const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
                           type={cardTypes.type_1} date={item.release_date || item.first_air_date}/>
                 ) : <div className={s.test}></div>}
             </div>
-            <div ref={childRef} style={{height: 20, background: "red"}}/>
+            {<div ref={childRef} style={{height: 20, background: "red"}}/>}
         </div>
 
     );

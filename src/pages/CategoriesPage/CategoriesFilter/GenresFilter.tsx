@@ -20,9 +20,13 @@ interface IGenresFilter {
     type: MTP_TYPES
 }
 
+interface state {
+    [id:number]: boolean
+}
+
 const GenresFilter: FC<IGenresFilter> = ({setRef,isResetFilter,type}) => {
 
-    const [withGenres, setGenres] = useState({})
+    const [withGenres, setGenres] = useState<state>({})
 
     const genresMovie = useTypedSelector(moviesGenres),
         genresTv = useTypedSelector(tvsGenres)
@@ -57,7 +61,7 @@ const GenresFilter: FC<IGenresFilter> = ({setRef,isResetFilter,type}) => {
                                 {currentGenres?.map(item =>
                                     <div className={s.genreWrapper} key={item.id + "gen"}>
                                         <FormControlLabel
-                                            control={<Checkbox onChange={onCheckbox} name={`${item.id}`}/>}
+                                            control={<Checkbox checked={withGenres[item.id] === undefined ? false : withGenres[item.id]} onChange={onCheckbox} name={`${item.id}`}/>}
                                             label={item.name}/>
                                     </div>
                                 )}

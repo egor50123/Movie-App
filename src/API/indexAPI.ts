@@ -110,7 +110,7 @@ export const categoriesAPI = {
         const runtimeEnd = `&with_runtime.lte=${maxRuntime}`
         const sortBy = `&sort_by=${sortType}`
         const withRT = `&with_release_type=${withReleaseType}`
-        const genres = `&with_genres=${withGenres}`.slice(0, -1)
+        const genres = `&with_genres=${withGenres}`
 
         const basicSettings = `&vote_count.gte=10&certification_country=RU`
         return instance.get<IMoviesTvsPayload>(`discover/${type}?${API_KEY}&language=ru&page=${page}&region=ru${dateStart}${dateEnd}${rankStart}${rankEnd}${runtimeStart}${runtimeEnd}${sortBy}${withRT}${genres}${basicSettings}`)

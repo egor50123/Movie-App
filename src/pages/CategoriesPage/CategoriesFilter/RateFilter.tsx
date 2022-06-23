@@ -21,7 +21,7 @@ const RateFilter:FC<any> = ({setRef,isResetFilter}) => {
     };
 
     useEffect(() => {
-        setRate([0,100])
+        setRate([0,10])
     },[isResetFilter])
 
 

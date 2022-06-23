@@ -6,7 +6,9 @@ const init: categoriesState = {
     error:null,
     payload: null,
     payloadResults: [],
-    nextPage:1
+    nextPage:1,
+    isEnd:false,
+    type: null
 }
 
 export const categoriesReducer = (state = init, action: CategoriesAction): categoriesState => {
@@ -17,14 +19,18 @@ export const categoriesReducer = (state = init, action: CategoriesAction): categ
             return {...state,isLoading:false,
                 payload:action.payload,
                 payloadResults: [...state.payloadResults, ...action.payload.results] as TMoviesTvsPayloadResults,
-                nextPage: action.payload.page + 1}
+                nextPage: action.payload.page + 1,
+                isEnd: action.payload.total_pages === action.payload.page,
+                type: action.typeMTP}
         case CategoriesAC.FETCH_CATEGORIES_ERROR:
             return {...state,isLoading:false,error:action.error}
         case CategoriesAC.CLEAR_CATEGORIES:
             return {
                 ...state,
                 payloadResults: [],
-                nextPage: 1
+                nextPage: 1,
+                isEnd:false,
+                type: null
             }
         default:
             return state

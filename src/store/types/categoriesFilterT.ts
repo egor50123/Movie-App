@@ -5,8 +5,6 @@ export interface categoriesFilterState {
         maxYear: string,
         minRank: string,
         maxRank: string,
-        minRuntime: string,
-        maxRuntime: string,
         sortType: string
     }
 }

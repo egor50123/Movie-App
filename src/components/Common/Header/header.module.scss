@@ -23,6 +23,10 @@ $CATEGORIES_HEIGHT: 50px;
   height: 100%;
   display: flex;
   align-items: center;
+
+  & h2 {
+    color: red
+  }
 }
 
 .userLink {

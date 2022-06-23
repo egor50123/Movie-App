@@ -4,4 +4,6 @@ export const categoriesFilter = (state:RootState) => state.categoriesFilter.sett
 export const payload = (state:RootState) => state.categories.payloadResults
 export const isLoading = (state:RootState) => state.categories.isLoading
 export const nextPage = (state:RootState) => state.categories.nextPage
+export const isEnd = (state:RootState) => state.categories.isEnd
+export const typeMTP = (state:RootState) => state.categories.type
 

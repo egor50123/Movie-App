@@ -13,7 +13,6 @@ const SortFilter:FC<any> = ({setRef,isResetFilter}) => {
 
     useEffect(() => {
         setSortType(CategoriesSortTypes.popularityDown)
-        console.log("sort rerender")
     },[isResetFilter])
 
 

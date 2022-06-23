@@ -39,6 +39,7 @@ const Header = () => {
         <div className={s.header}>
             <div className={s.header__left}>
                 <Link className={s.header__logo} to={""}><img src={logo} alt="" width={180} height={50}/></Link>
+
                 <div className={s.header__categories}>
                     <CategoriesList/>
                 </div>
