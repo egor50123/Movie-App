@@ -11,16 +11,14 @@ import MainPage from "./pages/MainPage/MainPage";
 import AuthPage from "./pages/AuthPage/AuthPage";
 import MovieTvItem from "./pages/CategoriesPage/MovieTvItem/MovieTvItem";
 import {useTypedSelector} from "./hooks/useTypedSelector";
-import {genreTypes} from "./store/types/mainPageT";
 import {useAction} from "./hooks/useAction";
 import MyLists from "./pages/ProfilePage/MyLists/MyLists";
 import ListsWrapper from "./pages/ProfilePage/ListsWrapper/ListsWrapper";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import {MTP} from "./constants/constants";
+import Snackbar from "./components/Common/Snackbar/Snackbar";
 
 function App() {
-    let genresMovie = useTypedSelector(state => state.mainPage[genreTypes.genresMovie].payload),
-        genresTv = useTypedSelector(state => state.mainPage[genreTypes.genresTv].payload)
     let token  = useTypedSelector(state => state.auth.payload?.request_token)
     let sessionId = useTypedSelector(state => state.auth.session.payload?.session_id)
     let wasTokenDeleted = useRef(false)
@@ -78,6 +76,7 @@ function App() {
                         <Route path={`:currentList`} element={<ListsWrapper/>}/>
                     </Route>
                 </Routes>
+                <Snackbar/>
             </div>
             <Footer/>
         </div>

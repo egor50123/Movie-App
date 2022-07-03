@@ -9,16 +9,15 @@ $BORDER_RADIUS: 10px;
   min-height: 250px;
   min-width: 160px;
   max-width: 180px;
-  background-color: rgba(0, 0, 0, 0.02);
-  transition: transform ease-out 200ms,
-  background-color ease-out 200ms;
+  transition: transform ease-out 200ms;
   border-radius: $BORDER_RADIUS;
+  opacity: 1;
   &:hover {
-    transform: scale(1.05);
-    //transition: background-color ease-out 200ms;
-    & .hover {
-      background-color: rgba(0, 0, 0, 0.77);
-    }
+    //transform: scale(1.05);
+  }
+
+  &__hover {
+    z-index: 100;
   }
 }
 
@@ -61,13 +60,14 @@ $BORDER_RADIUS: 10px;
   height: $IMG_BOX;
   width: 100%;
   transition: background-color ease-out 200ms;
-  background-color: inherit;
+  background-color: rgba(0, 0, 0, 0);
   padding: 10px;
   border-radius: 10px;
   color: white;
 
+
   &:hover {
-    //background-color: rgba(0, 0, 0, 0.77);
+    background-color: rgba(0, 0, 0, 0.77);
   }
 }
 
@@ -80,8 +80,10 @@ $BORDER_RADIUS: 10px;
 }
 
 .button {
+  position: relative;
   background-color: rgb(255, 255, 255);
   border-radius: 50%;
+  z-index: 100;
 }
 
 .hover_data {
@@ -111,4 +113,14 @@ $BORDER_RADIUS: 10px;
 
 .date {
   font-size: 12px;
+}
+
+.rateMenu {
+  position: absolute;
+  background-color: white;
+
+  padding: 2px 6px 0;
+  border-radius: 15px;
+  top: 0;
+  right: calc(100% + 10px);
 }

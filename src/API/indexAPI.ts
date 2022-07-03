@@ -9,7 +9,7 @@ import {
     TGenresPayload
 } from "../models/payloadAPI_M";
 import {authPayload, deleteSessionPayload, sessionPayload} from "../store/types/authT";
-import {IAccountCommon, IListParams} from "../models/ProfileM";
+import {IAccountCommon, IListAddAPI, IListParams, IMarkedLists, IRateAPI} from "../models/ProfileM";
 import {genreTypes, TGenreTypes} from "../store/types/mainPageT";
 import {MTP_TYPES} from "../constants/constants";
 import {IAccountStates} from "../models/cardM";
@@ -151,7 +151,7 @@ export const accountAPI = {
         return instance.get<IAccountPayload>(`/account?${API_KEY}&session_id=${sessionId}`)
     },
     setFavorite({sessionId, acID, itemId, isToAdd}:IAccountCommon) {
-        return instance.post(`https://api.themoviedb.org/3/account/${acID}/favorite?${API_KEY}&session_id=${sessionId}`, {
+        return instance.post(`/account/${acID}/favorite?${API_KEY}&session_id=${sessionId}`, {
             "media_type": "movie",
             "media_id": itemId,
             "favorite": isToAdd
@@ -162,7 +162,7 @@ export const accountAPI = {
         })
     },
     setWatchList({sessionId, acID, itemId, isToAdd}:IAccountCommon) {
-        return instance.post(`https://api.themoviedb.org/3/account/${acID}/watchlist?${API_KEY}&session_id=${sessionId}`, {
+        return instance.post(`/account/${acID}/watchlist?${API_KEY}&session_id=${sessionId}`, {
             "media_type": "movie",
             "media_id": itemId,
             "watchlist": isToAdd
@@ -173,10 +173,29 @@ export const accountAPI = {
         })
     },
 
+    setRate({sessionId,itemId,type,rate}:IRateAPI) {
+        return instance.post(`/${type}/${itemId}/rating?${API_KEY}&session_id=${sessionId}`, {
+            "value": rate
+        })
+    },
+
     getList ({sessionId, acID, type}:IListParams) {
         return instance.get<IMoviesTvsPayload>(`/account/${acID}/${type}/movies?${API_KEY}&session_id=${sessionId}&language=ru&page=1`)
     },
 
+    addListItem({itemId,listId,type,sessionId}:IListAddAPI) {
+        return instance.post(`list/${listId}/add_item?${API_KEY}&session_id=${sessionId}`,{
+            "media_id": itemId
+        },{
+            headers: {
+                "Content-Type": "application/json;charset=utf-8"
+            }
+        })
+    },
+
+    getCreatedLists({acID,sessionId}:IMarkedLists) {
+        return instance.get(`/account/${acID}/lists?${API_KEY}&session_id=${sessionId}`)
+    }
 }
 
 

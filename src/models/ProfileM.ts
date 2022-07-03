@@ -1,3 +1,6 @@
+import {MT_TYPES} from "../constants/constants";
+import {IListBtnCurrentList} from "../components/Common/Buttons/ListBtn";
+
 export enum ProfileLinksNames {
     watchlist = "watchlist",
     ratings = "ratings",
@@ -33,8 +36,29 @@ export interface IAccountCommon {
     isToAdd:boolean
 }
 
+export interface IRateAPI {
+    type: MT_TYPES,
+    sessionId:string,
+    itemId:number,
+    rate: number
+}
+
+export interface IListAddAPI {
+    type: MT_TYPES,
+    sessionId:string,
+    itemId:number,
+    listId: string | number
+}
+
+export interface IListAddSettings {
+    type: MT_TYPES,
+    sessionId:string,
+    itemId:number,
+    listData: IListBtnCurrentList
+}
+
 
 export interface IMarkedLists {
-    account_id:number,
-    session_id:number,
+    acID:number,
+    sessionId:string,
 }

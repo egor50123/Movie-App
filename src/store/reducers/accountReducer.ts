@@ -1,4 +1,4 @@
-import {accountActionCreators, accountActions,accountState} from "../types/accountT";
+import {accountActionCreators, accountActions, accountState} from "../types/accountT";
 
 const init:accountState = {
     error: null,
@@ -12,6 +12,14 @@ const init:accountState = {
     myList: {
         payload:null,
         isLoading: false,
+    },
+    snackbars: {
+        isOpen: false,
+        message: ""
+    },
+    createdList: {
+        isLoading: false,
+        payload: null,
     }
 }
 
@@ -71,6 +79,31 @@ export const accountReducer = (state = init, action:accountActions ):accountStat
                     ...state.myList,
                     payload:null,
                 },
+            }
+        case accountActionCreators.SET_SNACKBARS:
+            return {
+                ...state,
+                snackbars: {
+                    isOpen: action.isOpen,
+                    message: action.message
+                }
+            }
+        case accountActionCreators.FETCH_CREATED_LIST:
+            return {
+                ...state,
+                createdList: {
+                    ...state.createdList,
+                    isLoading: true
+                }
+            }
+        case accountActionCreators.FETCH_CREATED_LIST_SUCCESS:
+            return {
+                ...state,
+                createdList: {
+                    ...state.createdList,
+                    isLoading: false,
+                    payload: action.payload
+                }
             }
         default: return state
     }

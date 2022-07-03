@@ -1,0 +1,33 @@
+@import "src/assest/constants";
+
+.root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  min-width: 1px;
+  min-height: 1px;
+  border-radius: 15px;
+  background-color: $CONTRAST_COLOR;
+  color: white;
+  transition: opacity ease-out 300ms,
+  min-width ease-out 300ms,
+  min-height ease-out 300ms,
+  font-size ease-out 300ms,
+  padding ease-out 300ms;
+  white-space: nowrap;
+  opacity: 0;
+  box-shadow: 0 0 13px 2px white;
+  padding: 0 0;
+
+  &__active {
+    min-width: 150px;
+    min-height: 30px;
+    opacity: 1;
+    padding: 6px 16px;
+    font-size: 18px;
+  }
+}

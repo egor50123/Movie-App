@@ -222,3 +222,18 @@ export interface IAccountStatesPayload {
     rated:boolean,
     watchlist:boolean
 }
+
+export interface IAccountCreatedListPayload {
+    page: number,
+    results: [{
+        description:string,
+        favorite_count:number,
+        id: number,
+        item_count: number,
+        list_type:string,
+        name: string,
+        poster_path: null | string
+    }]
+    total_pages: number,
+    total_results:number,
+}

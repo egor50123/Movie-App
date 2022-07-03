@@ -1,8 +1,16 @@
 import {Dispatch} from "react";
 import {accountAPI, MTPAPI} from "../../API/indexAPI";
 import {accountActionCreators, accountActions} from "../types/accountT";
-import {IAccountCommon, IListParams} from "../../models/ProfileM";
+import {
+    IAccountCommon,
+    IListAddAPI,
+    IListAddSettings,
+    IListParams,
+    IMarkedLists,
+    IRateAPI
+} from "../../models/ProfileM";
 import {MTP} from "../../constants/constants";
+const DELAY_SNACKBAR = 2000
 
 export const  fetchAccount = (sessionId:string) => {
     return async (dispatch: Dispatch<accountActions>) => {
@@ -24,6 +32,13 @@ export const postFavorite = (settings:IAccountCommon) => {
                 settings.isToAdd = false
             }
             await accountAPI.setFavorite(settings);
+            let message = settings.isToAdd ? `Добавлено в избранное!` : "Удалено из избранных"
+            dispatch({type:accountActionCreators.SET_SNACKBARS,message:message,isOpen:true})
+
+            setTimeout(() => {
+                dispatch({type:accountActionCreators.SET_SNACKBARS,message:``,isOpen:false})
+            },DELAY_SNACKBAR)
+
         }
         catch (e) {
             alert("error")
@@ -39,9 +54,67 @@ export const postWatchList = (settings:IAccountCommon) => {
                 settings.isToAdd = false
             }
             await accountAPI.setWatchList(settings);
+            let message = settings.isToAdd ? `Добавлено в закладки!` : "Удалено из закладок"
+            dispatch({type:accountActionCreators.SET_SNACKBARS,message:message,isOpen:true})
+
+            setTimeout(() => {
+                dispatch({type:accountActionCreators.SET_SNACKBARS,message:``,isOpen:false})
+            },DELAY_SNACKBAR)
         }
         catch (e) {
             alert("error")
+        }
+    }
+}
+
+export const postRate = (settings:IRateAPI) => {
+    return async (dispatch: Dispatch<accountActions>) => {
+        try {
+            await accountAPI.setRate(settings);
+            dispatch({type:accountActionCreators.SET_SNACKBARS,message:`Ваша оценка: ${settings.rate}`,isOpen:true})
+
+            setTimeout(() => {
+                dispatch({type:accountActionCreators.SET_SNACKBARS,message:``,isOpen:false})
+            },DELAY_SNACKBAR)
+        }
+        catch (e) {
+            alert("error")
+        }
+    }
+}
+
+export const postListItems = (settings:IListAddSettings) => {
+    return async (dispatch: Dispatch<accountActions>) => {
+        try {
+            for (let [id,data] of Object.entries(settings.listData)) {
+                if (!data.flag) continue
+                let settingsAPI:IListAddAPI = {
+                    itemId: settings.itemId,
+                    sessionId: settings.sessionId,
+                    type: settings.type,
+                    listId: id
+                }
+                console.log(id)
+                await accountAPI.addListItem(settingsAPI);
+            }
+
+
+            if (settings.type === MTP.tv) {
+                throw new Error()
+            }
+
+
+            dispatch({type:accountActionCreators.SET_SNACKBARS,message:`Добавлено`,isOpen:true})
+
+            setTimeout(() => {
+                dispatch({type:accountActionCreators.SET_SNACKBARS,message:``,isOpen:false})
+            },DELAY_SNACKBAR)
+        }
+        catch (e) {
+            dispatch({type:accountActionCreators.SET_SNACKBARS,message:`Этот элемент уже в списке`,isOpen:true})
+            setTimeout(() => {
+                dispatch({type:accountActionCreators.SET_SNACKBARS,message:`Этот элемент уже в списке`,isOpen:false})
+            },DELAY_SNACKBAR)
         }
     }
 }
@@ -58,5 +131,19 @@ export const getList = (settings:IListParams) => {
         }
     }
 }
+
+export const getCreatedList = (settings:IMarkedLists) => {
+    return async (dispatch: Dispatch<accountActions>) => {
+        try {
+            dispatch({type:accountActionCreators.FETCH_CREATED_LIST})
+            let response = await accountAPI.getCreatedLists(settings);
+            dispatch({type:accountActionCreators.FETCH_CREATED_LIST_SUCCESS,payload:response.data})
+        }
+        catch (e) {
+            dispatch({type:accountActionCreators.FETCH_ERROR,error:"error"})
+        }
+    }
+}
+
 
 export const clearLists = () => ({type:accountActionCreators.CLEAR_LISTS})

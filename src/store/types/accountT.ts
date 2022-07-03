@@ -1,4 +1,9 @@
-import {IAccountMyLists, IAccountPayload, IMoviesTvsPayload} from "../../models/payloadAPI_M";
+import {
+    IAccountCreatedListPayload,
+    IAccountMyLists,
+    IAccountPayload,
+    IMoviesTvsPayload
+} from "../../models/payloadAPI_M";
 
 export interface accountState {
     error:string | null,
@@ -12,6 +17,14 @@ export interface accountState {
     myList: {
         isLoading: boolean,
         payload:IAccountMyLists | null
+    },
+    snackbars: {
+        isOpen: boolean,
+        message:string
+    }
+    createdList: {
+        isLoading: boolean,
+        payload: IAccountCreatedListPayload | null
     }
 }
 
@@ -22,7 +35,10 @@ export enum accountActionCreators {
     FETCH_ACCOUNT_LIST_SUCCESS = "FETCH_ACCOUNT_LIST_SUCCESS",
     FETCH_ACCOUNT_MY_LIST = "FETCH_ACCOUNT_MY_LIST",
     FETCH_ACCOUNT_MY_LIST_SUCCESS = "FETCH_ACCOUNT_MY_LIST_SUCCESS",
-    CLEAR_LISTS = "CLEAR_LISTS"
+    CLEAR_LISTS = "CLEAR_LISTS",
+    SET_SNACKBARS = "SET_SNACKBARS",
+    FETCH_CREATED_LIST = "FETCH_CREATED_LIST",
+    FETCH_CREATED_LIST_SUCCESS = "FETCH_CREATED_LIST_SUCCESS",
 }
 
 interface fetchAccountSuccessAction {
@@ -31,12 +47,14 @@ interface fetchAccountSuccessAction {
 }
 
 interface fetchList {type:accountActionCreators.FETCH_ACCOUNT_LIST}
+
 interface fetchListSuccess {
     type:accountActionCreators.FETCH_ACCOUNT_LIST_SUCCESS,
     payload: IMoviesTvsPayload
 }
 
 interface fetchMyList {type:accountActionCreators.FETCH_ACCOUNT_MY_LIST}
+
 interface fetchMyListSuccess {
     type:accountActionCreators.FETCH_ACCOUNT_MY_LIST_SUCCESS,
     payload: IAccountMyLists
@@ -51,5 +69,20 @@ interface commonFetchError {
     error:string
 }
 
+interface setSnackbars {
+    type: accountActionCreators.SET_SNACKBARS,
+    message:string,
+    isOpen:boolean
+}
+
+interface fetchCreatedList {
+    type: accountActionCreators.FETCH_CREATED_LIST
+}
+interface fetchCreatedListSuccess {
+    type: accountActionCreators.FETCH_CREATED_LIST_SUCCESS
+    payload: IAccountCreatedListPayload
+}
+
 export type accountActions = fetchAccountSuccessAction | commonFetchError | fetchList |
-    fetchListSuccess | fetchMyList | fetchMyListSuccess | clearLists
+    fetchListSuccess | fetchMyList | fetchMyListSuccess | clearLists | setSnackbars |
+    fetchCreatedList | fetchCreatedListSuccess
