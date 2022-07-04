@@ -1,4 +1,4 @@
-import {MT_TYPES} from "../constants/constants";
+import {MT_TYPES, MTP_TYPES} from "../constants/constants";
 import {IListBtnCurrentList} from "../components/Common/Buttons/ListBtn";
 
 export interface IUseFavorite {
@@ -12,7 +12,7 @@ export interface IUseWatchList {
 }
 
 export interface IRate {
-    type: MT_TYPES,
+    type: MTP_TYPES,
     rate: number,
     itemId: number,
 }

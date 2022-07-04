@@ -2,11 +2,11 @@ import React, {FC, useState} from 'react';
 import styles from "../Card/card.module.scss";
 import {IconButton, Rating, SvgIcon, Tooltip} from "@mui/material";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
-import {MT_TYPES} from "../../../constants/constants";
+import {MT_TYPES, MTP_TYPES} from "../../../constants/constants";
 import {useAccountBtns} from "../../../hooks/useAccountBtns";
 
 interface IRateBtn {
-    typeAPI: MT_TYPES,
+    typeAPI: MTP_TYPES,
     itemId: number
     className: string
 }

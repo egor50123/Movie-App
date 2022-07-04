@@ -1,4 +1,4 @@
-import {MT_TYPES} from "../constants/constants";
+import {MT_TYPES, MTP_TYPES} from "../constants/constants";
 import {IListBtnCurrentList} from "../components/Common/Buttons/ListBtn";
 
 export enum ProfileLinksNames {
@@ -37,7 +37,7 @@ export interface IAccountCommon {
 }
 
 export interface IRateAPI {
-    type: MT_TYPES,
+    type: MTP_TYPES,
     sessionId:string,
     itemId:number,
     rate: number

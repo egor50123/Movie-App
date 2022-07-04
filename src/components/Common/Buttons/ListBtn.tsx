@@ -18,7 +18,7 @@ import s from "./buttons.module.scss"
 import {useAccountBtns} from "../../../hooks/useAccountBtns";
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import * as accountSelectors from "../../../store/selectors/accountSelectors"
-import {MT_TYPES, MTP} from "../../../constants/constants";
+import {MT_TYPES, MTP, MTP_TYPES} from "../../../constants/constants";
 
 
 const ITEM_HEIGHT = 48;
@@ -41,7 +41,7 @@ export interface IListBtnCurrentList {
 
 interface Props {
     itemId: number,
-    typeAPI: MT_TYPES
+    typeAPI: MTP_TYPES
     className: string
 }
 

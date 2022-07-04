@@ -1,7 +1,9 @@
 .root {
   display: grid;
   grid-template-columns: 300px 1fr;
-  gap: 20px;
+  gap: 100px;
+  width: 1280px;
+  margin: 0 auto;
 }
 
 .filterBox {

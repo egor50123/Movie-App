@@ -6,8 +6,8 @@ import {ProfileLinksNames} from "../../../models/ProfileM";
 import s from "./buttons.module.scss"
 
 interface IWatchListBtn {
-    cardRef:null | HTMLDivElement
-    listType: string | null,
+    cardRef?:null | HTMLDivElement
+    listType?: string | null,
     itemId: number,
     className: string
 }

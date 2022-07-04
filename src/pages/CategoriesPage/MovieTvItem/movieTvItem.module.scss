@@ -1,0 +1,349 @@
+@import "src/assest/constants";
+
+.container {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  width: 100%;
+}
+
+.headerContainer {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  max-width: $WIDTH_1920;
+  margin: 0 auto;
+  min-height: 400px;
+  height: min-content;
+  box-shadow: 0 15px 10px -7px $CONTRAST_COLOR;
+
+}
+
+.header {
+  position: relative;
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 50px;
+  margin: 0 auto;
+  width: $WIDTH_1280;
+  padding: 20px;
+}
+
+.bgImage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-color: #5b5a5a;
+  z-index: -1;
+
+  & img {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.posterBox {
+  height: 400px;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+
+  & img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.headerBox {
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.headerTittleBox {
+  width: 100%;
+}
+
+.titleMain{
+  font-weight: 700;
+  font-size: 30px;
+  margin-bottom: 4px;
+}
+
+.titleFooter {
+  display: flex;
+  gap: 5px;
+  justify-content: start;
+  font-size: 14px;
+  span {
+    position: relative;
+    padding: 0 7px;
+    &::after {
+      content: "";
+      top: 5px;
+      right: -5px;
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: $CONTRAST_COLOR;
+    }
+  }
+}
+
+.headerFunctionsBox {
+  padding: 10px 0;
+  display: flex;
+  gap: 25px;
+  align-items: center;
+}
+
+.voteBox {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  & .vote {
+    font-weight: 700;
+    font-size: 18px;
+    font-family: "Roboto", Arial, sans-serif;
+    display: flex;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #380000;
+    //border: 2px solid red;
+    box-shadow: red 0 0 12px 2px,
+    inset red 0 0 2px 2px;
+  }
+
+  h3 {
+    font-size: 15px;
+  }
+}
+
+
+.btnBox {
+  position: relative;
+  display: flex;
+  gap: 15px;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background-color: rgb(255, 255, 255);
+  border-radius: 50%;
+  z-index: 100;
+  height: 30px;
+  width: 30px;
+}
+
+.headerOverviewBox {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  & h2 {
+    font-size: 22px;
+  }
+
+
+
+}
+
+.overviewMain {
+  font-size: 14px;
+  line-height: 1.5em;
+}
+
+.tagline {
+  font-style: italic;
+  font-size: 14px;
+  color: #cbcbcb;
+}
+
+
+.footer {
+  $GAP:30px;
+  $ASIDE_WIDTH: 310px;
+  display: grid;
+  grid-template-columns: $WIDTH_1280 - $GAP - $ASIDE_WIDTH $ASIDE_WIDTH;
+  gap: $GAP;
+  width: $WIDTH_1280;
+  margin: 0 auto;
+}
+
+.footerColumn1 {
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  gap: 30px;
+  padding: 20px;
+  min-height: 200px;
+  width: 100%;
+}
+
+.footerColumn2 {
+  padding-top: 65px;
+  width: 100%;
+}
+
+.footerColumn2Box {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 30px 20px;
+  background-color: white;
+  color: black;
+  border-radius: 10px;
+}
+
+.footerColumnBoxItem {
+  display: flex;
+  flex-direction: column;
+  padding: 6px;
+  gap: 3px;
+  box-shadow: 0 3px 3px -2px #585858;
+  & h3 {
+    font-weight: 500;
+    font-size: 16px;
+  }
+
+  & p {
+    padding-left: 20px;
+    font-size: 14px;
+  };
+}
+
+//.movieTvItem {
+//  display: flex;
+//  flex-direction: column;
+//  gap:20px;
+//  background-color: rgba(13, 56, 238, 0.38);
+//}
+//
+//.movieTvItem__pre{
+//  width: 100%;
+//  height: 100px;
+//  background-color: rgba(165, 42, 42, 0.43);
+//}
+//
+//.movieTvItem__main {
+//  display: grid;
+//  grid-template-columns: 2fr 1fr;
+//  padding: 20px;
+//  gap: 20px;
+//  justify-content: center;
+//  min-height: 600px;
+//  background-color: rgba(240, 248, 255, 0.53);
+//}
+//
+//.movieTvItem__preview {
+//  display: flex;
+//  flex-direction: column;
+//  gap: 20px;
+//  padding: 20px;
+//  background-color: rgba(0, 191, 255, 0.39);
+//  height: 100%;
+//}
+//
+//.movieTvItem__trailer{
+//  background-color: rgba(165, 42, 42, 0.6);
+//  width: 100%;
+//  height: 50%;
+//
+//  & iframe {
+//    width: 100%;
+//    height: 100%;
+//  }
+//}
+//
+//.movieTvItem__trailer_btns{
+//  display: flex;
+//  gap:20px;
+//  align-items: start;
+//  background-color: rgba(165, 42, 42, 0.67);
+//  height: 20%;
+//  width: 100%;
+//}
+//
+//.previewItem__decs_box {
+//  display: flex;
+//  flex-direction: column;
+//  gap: 20px;
+//  background-color: rgba(0, 0, 139, 0.33);
+//  padding: 20px;
+//
+//  & h1 {
+//    background-color: rgba(0, 0, 0, 0.15);
+//    height: min-content;
+//  }
+//
+//  & p {
+//    background-color: rgba(165, 42, 42, 0.42);
+//    min-height: 200px;
+//  }
+//
+//}
+//
+//.previewItem__decs_info {
+//  background-color: rgba(165, 42, 42, 0.54);
+//  min-height: 80px;
+//}
+//
+//.movieTvItem__actors {
+//  display: flex;
+//  gap:20px;
+//  overflow-x: scroll;
+//  flex-wrap: nowrap;
+//  padding: 10px;
+//  background-color: rgba(184, 134, 11, 0.59);
+//  width: 100%;
+//  height: 250px;
+//}
+//
+//.movieTvItem__actors-item {
+//  background-color: rgba(255, 255, 255, 0.48);
+//  min-width: 150px;
+//  height: 200px;
+//}
+//
+//.movieTvItem__similar {
+//  display: flex;
+//  overflow-x: scroll;
+//  flex-wrap: nowrap;
+//  gap:20px;
+//  padding: 10px;
+//  background-color: rgba(184, 134, 11, 0.59);
+//  width: 100%;
+//  min-height: 250px;
+//}
+//
+//.movieTvItem__similar-item {
+//  min-height: 200px;
+//  min-width: 150px;
+//
+//  background-color: rgba(210, 105, 30, 0.55);
+//}
+//
+//.movieTvItem__collections {
+//  background-color: rgba(184, 134, 11, 0.59);
+//  width: 100%;
+//  height: 250px;
+//}
+//
+//.movieTvItem__recommendations{
+//  background-color: rgba(184, 134, 11, 0.59);
+//  width: 100%;
+//  height: 250px;
+//}

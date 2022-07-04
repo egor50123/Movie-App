@@ -31,5 +31,13 @@
     src: local("Roboto"), url("assest/fonts/Roboto700.woff2") format("woff2");
 }
 
+@font-face {
+    font-weight: 500;
+    font-family: "Roboto";
+    font-style: normal;
+    font-display: swap;
+    src: local("Roboto"), url("assest/fonts/Roboto500.woff2") format("woff2");
+}
+
 
 

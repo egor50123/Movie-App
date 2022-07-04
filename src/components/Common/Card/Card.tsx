@@ -5,14 +5,14 @@ import styles from "./card.module.scss"
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import {ICard} from "../../../models/cardM";
 import * as mainPageSelectors from "../../../store/selectors/mainPageSelectors";
-import {Rating, SvgIcon} from "@mui/material";
+import {SvgIcon} from "@mui/material";
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import WatchListBtn from "../Buttons/WatchListBtn";
 import FavouriteBtn from "../Buttons/FavouriteBtn";
 import RateBtn from "../Buttons/RateBtn";
 import ListBtn from "../Buttons/ListBtn";
 import classNames from "classnames";
-import {Navigate, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 const Card: FC<ICard> = ({
                              title,
@@ -51,13 +51,11 @@ const Card: FC<ICard> = ({
     }
 
     return (
-        // сделать обычный div с обработчиком на редирект
         <div ref={cardRef} onClick={(e) => onLink(e)} onMouseOver={() => setHover(true)} onMouseLeave={() => setHover(false)}
              className={cardClassName}>
-            {/*to={`/${typeAPI}/${id} `}*/}
             <div className={styles.card_box}>
                 <div className={styles.card_img}>
-                    {bg_path !== null ? <img src={`${BASE_IMG_URL}${bg_path}`} alt=""/> :
+                    {bg_path !== null ? <img src={`${BASE_IMG_URL}${bg_path}`} alt="" loading={"lazy"}/> :
                         <SvgIcon sx={{fontSize: 90}} component={InsertPhotoIcon} inheritViewBox/>}
                 </div>
 
@@ -69,7 +67,7 @@ const Card: FC<ICard> = ({
                     <WatchListBtn listType={listType} cardRef={cardRef.current} itemId={id} className={styles.button}/>
                   </div>
                   <div>
-                    <div className={styles.vote}>{vote}</div>
+                    <div className={(styles.vote)}>{vote?.toFixed(1)}</div>
                     <div className={styles.genres}>{mainGenres}</div>
                     <div className={styles.date}>{date}</div>
                   </div>

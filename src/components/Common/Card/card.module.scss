@@ -6,7 +6,7 @@ $BORDER_RADIUS: 10px;
   flex-direction: column;
   cursor: pointer;
   position: relative;
-  min-height: 250px;
+  min-height: 100%;
   min-width: 160px;
   max-width: 180px;
   transition: transform ease-out 200ms;
@@ -22,6 +22,8 @@ $BORDER_RADIUS: 10px;
 }
 
 .card_box {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100%;
 }
@@ -47,7 +49,7 @@ $BORDER_RADIUS: 10px;
   padding: 10px;
   background-color: rgba(255, 255, 255, 0.04);
   border-radius: $BORDER_RADIUS;
-  height: calc(100% - 220px);
+  flex-grow: 1;
   h2 {
     font-size: 13px;
     line-height: 1.5em;

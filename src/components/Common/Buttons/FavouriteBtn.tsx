@@ -6,8 +6,8 @@ import {ProfileLinksNames} from "../../../models/ProfileM";
 import {useAccountBtns} from "../../../hooks/useAccountBtns";
 
 interface IFavouriteBtn {
-    cardRef:null | HTMLDivElement
-    listType: string | null,
+    cardRef?:null | HTMLDivElement
+    listType?: string | null,
     itemId: number,
     className: string
 }
