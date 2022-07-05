@@ -1,17 +1,13 @@
 import React, {FC, useState} from 'react';
-import styles from "../Card/card.module.scss";
+import s from "./buttons.module.scss"
 import {IconButton, Rating, SvgIcon, Tooltip} from "@mui/material";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import {MT_TYPES, MTP_TYPES} from "../../../constants/constants";
 import {useAccountBtns} from "../../../hooks/useAccountBtns";
+import {IProps} from "./types";
 
-interface IRateBtn {
-    typeAPI: MTP_TYPES,
-    itemId: number
-    className: string
-}
 
-const RateBtn:FC<IRateBtn> = ({typeAPI,itemId,className}) => {
+const RateBtn:FC<IProps> = ({typeAPI,itemId,className,size="small"}) => {
     const {setRate} = useAccountBtns()
     const [isRateMenuOpen, setRateMenu] = useState(false);
     const [rate, setRateState] = useState<number | null>(1)
@@ -23,13 +19,13 @@ const RateBtn:FC<IRateBtn> = ({typeAPI,itemId,className}) => {
     return (
         <div className={className}>
             <Tooltip title={"Оценить"} onClick={(e) => onRate(e)} placement={"right"}>
-                <div>
-                    <IconButton color={'default'} size={"small"}>
+                <div className={s.box}>
+                    <IconButton color={'default'} size={size}>
                         <SvgIcon sx={{fontSize: 15}} component={StarBorderOutlinedIcon} inheritViewBox/>
                     </IconButton>
                 </div>
             </Tooltip>
-            {isRateMenuOpen && <div className={styles.rateMenu}>
+            {isRateMenuOpen && <div className={s.rateMenu}>
               <Rating
                   size={"small"}
                   precision={0.5}

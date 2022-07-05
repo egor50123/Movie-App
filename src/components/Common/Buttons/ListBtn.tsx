@@ -19,6 +19,7 @@ import {useAccountBtns} from "../../../hooks/useAccountBtns";
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import * as accountSelectors from "../../../store/selectors/accountSelectors"
 import {MT_TYPES, MTP, MTP_TYPES} from "../../../constants/constants";
+import {IProps} from "./types";
 
 
 const ITEM_HEIGHT = 48;
@@ -39,13 +40,8 @@ export interface IListBtnCurrentList {
     }
 }
 
-interface Props {
-    itemId: number,
-    typeAPI: MTP_TYPES
-    className: string
-}
 
-const ListBtn:FC<Props> = ({itemId,typeAPI,className}) => {
+const ListBtn:FC<IProps> = ({itemId,typeAPI,className,size = "small"}) => {
     const isLoading = useTypedSelector(accountSelectors.createdListLoading)
     const createdLists = useTypedSelector(accountSelectors.createdLists)
     const [currentLists, setCurrentLists] = useState<IListBtnCurrentList>({})
@@ -82,10 +78,10 @@ const ListBtn:FC<Props> = ({itemId,typeAPI,className}) => {
 
 
     return (
-        <div>
+        <div className={s.button}>
             <Tooltip title={"Добавить в список"} placement={"right"}>
                 <div onClick={(e) => onOpen(e)} className={className}>
-                    <IconButton color={'default'} size={"small"}>
+                    <IconButton color={'default'} size={size}>
                         <SvgIcon sx={{fontSize: 15}} component={FormatListBulletedTwoToneIcon} inheritViewBox/>
                     </IconButton>
                 </div>

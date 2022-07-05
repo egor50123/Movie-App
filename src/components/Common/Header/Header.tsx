@@ -12,6 +12,7 @@ import FaceTwoToneIcon from '@mui/icons-material/FaceTwoTone';
 import * as authSelectors from "../../../store/selectors/authSelecors";
 import s from "./header.module.scss"
 import {Tooltip} from "@mui/material";
+import {ProfileLinksNames} from "../../../models/ProfileM";
 
 const Header = () => {
     const isAuth = useTypedSelector(authSelectors.isAuth)
@@ -63,9 +64,10 @@ const Header = () => {
                             {isProfileOpen && <ul className={s.profileMenu}>
                                 <li className={s.profileMenu__item}>
                                     <Link className={s.profileLinks} to={"/profile"}>Профиль</Link>
-                                    <Link className={s.profileLinks} to={"/profile"}>Списки</Link>
-                                    <Link className={s.profileLinks} to={"/profile"}>Избранное</Link>
-                                    <Link className={s.profileLinks} to={"/profile"}>Закладки</Link>
+                                    <Link className={s.profileLinks} to={`/profile/${ProfileLinksNames.lists}`}>Списки</Link>
+                                    <Link className={s.profileLinks} to={`/profile/${ProfileLinksNames.favorites}`}>Избранное</Link>
+                                    <Link className={s.profileLinks} to={`/profile/${ProfileLinksNames.watchlist}`}>Закладки</Link>
+                                  <Link className={s.profileLinks} to={`/profile/${ProfileLinksNames.ratings}`}>Рейтинги</Link>
                                 </li>
                                 <li className={s.profileMenu__item}>
                                     <button className={s.logout} onClick={onLogOut}>Выйти</button>

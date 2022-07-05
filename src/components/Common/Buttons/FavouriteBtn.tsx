@@ -4,15 +4,10 @@ import s from "./buttons.module.scss";
 import FavoriteBorderTwoToneIcon from "@mui/icons-material/FavoriteBorderTwoTone";
 import {ProfileLinksNames} from "../../../models/ProfileM";
 import {useAccountBtns} from "../../../hooks/useAccountBtns";
+import {IProps} from "./types";
 
-interface IFavouriteBtn {
-    cardRef?:null | HTMLDivElement
-    listType?: string | null,
-    itemId: number,
-    className: string
-}
 
-const FavouriteBtn:FC<IFavouriteBtn> = ({cardRef,listType,itemId,className}) => {
+const FavouriteBtn:FC<IProps> = ({cardRef,listType,itemId,className,size = "small",typeAPI}) => {
     const {setFavorite} = useAccountBtns()
 
     function deleteOrSaveCard(type: string) {
@@ -31,7 +26,7 @@ const FavouriteBtn:FC<IFavouriteBtn> = ({cardRef,listType,itemId,className}) => 
         <div className={className}>
             <Tooltip title={"В избранное"} placement={"right"}>
                 <div onClick={(e) => addFavourite(e)} >
-                    <IconButton color={'default'} size={"small"}>
+                    <IconButton color={'default'} size={size}>
                         <SvgIcon sx={{fontSize: 15}} component={FavoriteBorderTwoToneIcon} inheritViewBox/>
                     </IconButton>
                 </div>

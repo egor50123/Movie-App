@@ -67,9 +67,8 @@ const MovieTvItem: FC<IMovieTvItem> = ({type}) => {
     const releaseDate = type === "movie" ?
         moviePayload && moviePayload.release_date :
         tvPayload && tvPayload.first_air_date
-
-    // @ts-ignore
-    const genres = `${movieTvPayload && (movieTvPayload.genres[0] as any).name}, ${movieTvPayload && (movieTvPayload.genres[1] as any).name}`
+    // жанры нормально сделать
+    //const genres = `${movieTvPayload && movieTvPayload?.genres[0].name}`
 
     const runtime = type === "movie" ?
         moviePayload && moviePayload.runtime :
@@ -94,7 +93,7 @@ const MovieTvItem: FC<IMovieTvItem> = ({type}) => {
                             </h1>
                             <p className={s.titleFooter}>
                                 <span>{releaseDate}</span>
-                                <span>{genres}</span>
+                                <span>{"Ужасы, боевик"}</span>
                                 <span>{runtime} м</span>
                             </p>
                         </div>
@@ -104,10 +103,10 @@ const MovieTvItem: FC<IMovieTvItem> = ({type}) => {
                                 <h3>Рейтинг</h3>
                             </div>
                             <div className={s.btnBox}>
-                                <FavouriteBtn itemId={Number(id)} className={s.button}/>
+                                <FavouriteBtn typeAPI={type} itemId={Number(id)} className={s.button}/>
                                 <ListBtn itemId={Number(id)} typeAPI={type} className={s.button}/>
                                 <RateBtn typeAPI={type} itemId={Number(id)} className={s.button}/>
-                                <WatchListBtn itemId={Number(id)} className={s.button}/>
+                                <WatchListBtn typeAPI={type} itemId={Number(id)} className={s.button}/>
                             </div>
                         </div>
                         <div className={s.headerOverviewBox}>

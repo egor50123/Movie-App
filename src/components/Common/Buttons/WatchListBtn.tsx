@@ -4,15 +4,10 @@ import BookmarkBorderTwoToneIcon from "@mui/icons-material/BookmarkBorderTwoTone
 import {useAccountBtns} from "../../../hooks/useAccountBtns";
 import {ProfileLinksNames} from "../../../models/ProfileM";
 import s from "./buttons.module.scss"
+import {IProps} from "./types";
 
-interface IWatchListBtn {
-    cardRef?:null | HTMLDivElement
-    listType?: string | null,
-    itemId: number,
-    className: string
-}
 
-const WatchListBtn:FC<IWatchListBtn> = ({cardRef,listType,itemId,className}) => {
+const WatchListBtn:FC<IProps> = ({cardRef,listType,itemId,className,size = "small",typeAPI}) => {
     const {setWatchList} = useAccountBtns()
 
     function deleteOrSaveCard(type: string) {

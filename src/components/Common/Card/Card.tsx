@@ -44,8 +44,6 @@ const Card: FC<ICard> = ({
     })
 
     function onLink (e:React.MouseEvent<HTMLElement>) {
-        console.log(e.target)
-        console.log((e.target as HTMLElement).closest(`.${styles.button}`))
         if ((e.target as HTMLElement).closest(`.${styles.button}`)) return
         navigate(`/${typeAPI}/${id} `)
     }
@@ -62,9 +60,9 @@ const Card: FC<ICard> = ({
                 {isHover && <div className={styles.hover}>
                   <div className={styles.buttons_box}>
                     <RateBtn itemId={id} typeAPI={typeAPI} className={styles.button}/>
-                    <FavouriteBtn listType={listType} cardRef={cardRef.current} itemId={id} className={styles.button}/>
+                    <FavouriteBtn typeAPI={typeAPI} listType={listType} cardRef={cardRef.current} itemId={id} className={styles.button}/>
                     <ListBtn typeAPI={typeAPI} itemId={id} className={styles.button}/>
-                    <WatchListBtn listType={listType} cardRef={cardRef.current} itemId={id} className={styles.button}/>
+                    <WatchListBtn typeAPI={typeAPI} listType={listType} cardRef={cardRef.current} itemId={id} className={styles.button}/>
                   </div>
                   <div>
                     <div className={(styles.vote)}>{vote?.toFixed(1)}</div>

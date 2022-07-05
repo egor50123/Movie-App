@@ -1,13 +1,14 @@
 import React, {FC, useEffect} from 'react';
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import {TListAPIParamType} from "../../../models/ProfileM";
-import "./ListWrapper.scss"
 import {useAction} from "../../../hooks/useAction";
 import {useParams} from "react-router-dom";
 import {setTypeAPILists} from "../../../helpers/setTypeAPILists";
 import Card from "../../../components/Common/Card/Card";
 import {cardTypes} from "../../../models/cardM";
 import {MTP} from "../../../constants/constants";
+import s from "../profilePage.module.scss"
+import BigCard from "../../../components/Common/BigCard/BigCard";
 
 const ListsWrapper:FC = () => {
 
@@ -30,17 +31,14 @@ const ListsWrapper:FC = () => {
     },[currentList])
 
     return (
-        <div className={"list"}>
-            {data && data.map(item => <Card key={item.id} title={item.title as string}
-                                            overview={item.overview}
-                                            id={item.id}
-                                            vote={item.vote_average}
-                                            bg_path={item.backdrop_path || item.poster_path}
-                                            type={cardTypes.type_2}
-                                            date={item.release_date as string || item.first_air_date as string}
-                                            typeAPI={item.title === undefined ? MTP.tv : MTP.movie}
-                                            listType={currentList}
-                                            genres={item.genre_ids}/>)}
+        <div className={s.list}>
+            {data && data.map(item => <BigCard title={item.title || item.name}
+                                               id={item.id}
+                                               vote={item.vote_average}
+                                               bg_path={item.poster_path}
+                                               type={cardTypes.type_1}
+                                               overview={item.overview}
+                                               typeAPI={item.title === undefined ? MTP.tv : MTP.movie}/>)}
         </div>
     );
 };
