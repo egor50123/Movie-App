@@ -4,12 +4,13 @@ import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import {ICategoriesPage} from "../../../models/categoriesM";
 import {useParams} from "react-router-dom";
 import Card from "../../../components/Common/Card/Card";
-import {cardTypes} from "../../../models/cardM";
 import {useScroll} from "../../../hooks/useScroll";
 import {MTP, MTP_TYPES} from "../../../constants/constants";
 import CategoriesFilter from "../CategoriesFilter/CategoriesFilter";
 import s from "./categoriesCurrent.module.scss"
 import * as selectors from "../../../store/selectors/categoriesPageSelectors"
+import BigCard from "../../../components/Common/Card/BigCard/BigCard";
+import SmallCard from "../../../components/Common/Card/SmallCard/SmallCard";
 
 const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
     const {fetchCategoriesItems,clearCategories} = useAction()
@@ -57,14 +58,17 @@ const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
             </div>
             <div className={s.main}>
                 {movieTv.length > 0 ? movieTv.map(item =>
-                    <Card key={item.id} title={item.title || item.name}
-                          overview={item.overview}
-                          id={item.id}
-                          vote={item.vote_average}
-                          bg_path={item.poster_path || item.backdrop_path}
-                          genres={item.genre_ids}
+                    <Card id={item.id}
                           typeAPI={item.title === undefined ? MTP.tv : MTP.movie}
-                          type={cardTypes.type_1} date={item.release_date || item.first_air_date}/>
+                          renderCard={() => <SmallCard  key={item.id} id={item.id}
+                                                        title={item.title as string || item.name as string}
+                                                        typeAPI={item.title === undefined ? MTP.tv : MTP.movie }
+                                                        bg_path={item.poster_path}
+                                                        overview={item.overview}
+                                                        vote={item.vote_average}
+                                                        date={item.release_date as string || item.first_air_date as string}
+                                                        country={item.origin_country}
+                                                        genres={item.genre_ids}/>}/>
                 ) : <div className={s.test}></div>}
             </div>
             {<div ref={childRef} style={{height: 20, background: "red"}}/>}

@@ -1,18 +1,19 @@
-
 .root {
   display: grid;
   grid-template-columns: 130px 1fr;
   gap: 20px;
   background-color: white;
-  height: 200px;
+  height: 220px;
   border-radius: 10px;
   color: #232323;
   cursor: pointer;
 }
 
+.notLink {}
+
 .imgBox {
   overflow: hidden;
- border-bottom-left-radius: 10px;
+  border-bottom-left-radius: 10px;
   border-top-left-radius: 10px;
   width: 100%;
 
@@ -37,7 +38,7 @@
   gap: 20px;
 
   & h2  {
-      padding-top: 5px;
+    padding-top: 5px;
   }
 }
 
@@ -62,13 +63,12 @@
   font-size: 18px;
   font-family: "Roboto", Arial, sans-serif;
   display: flex;
-  color: white;
+  color: #232323;
   align-items: center;
   justify-content: center;
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: #380000;
-  box-shadow: red 0 0 12px 2px,
-  inset red 0 0 2px 2px;
+  background-color: #f2f2f2;
+  box-shadow: red 0 0 7px 2px;
 }

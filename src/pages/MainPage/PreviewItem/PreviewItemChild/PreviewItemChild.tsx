@@ -4,10 +4,10 @@ import {useAction} from "../../../../hooks/useAction";
 import {IPreviewItemPure} from "../../../../models/previewItem_SwitchM";
 import Card from "../../../../components/Common/Card/Card";
 import {IMoviesTvsPayload} from "../../../../models/payloadAPI_M";
-import {cardTypes} from "../../../../models/cardM";
 import {MTP} from "../../../../constants/constants";
 import styles from "../PreviewItem.module.scss"
 import Plug from "../../../../components/Common/Plug/Plug";
+import SmallCard from "../../../../components/Common/Card/SmallCard/SmallCard";
 
 
 const PreviewItemChild: FC<IPreviewItemPure> = ({title, type, previews, switchType, switchTitles}) => {
@@ -27,16 +27,17 @@ const PreviewItemChild: FC<IPreviewItemPure> = ({title, type, previews, switchTy
             {<div className={styles.previewItem__list}>
                 {(previews[type] !== undefined && !previews[type].isLoading && previews[type].payload) ?
                     (previews[type].payload as IMoviesTvsPayload).results.map(film =>
-                        <Card key={film.id} id={film.id}
-                              title={film.title as string || film.name as string}
-                              typeAPI={film.title === undefined ? MTP.tv : MTP.movie }
-                              bg_path={film.poster_path}
-                              overview={film.overview}
-                              vote={film.vote_average}
-                              date={film.release_date as string || film.first_air_date as string}
-                              country={film.origin_country}
-                              genres={film.genre_ids}
-                              type={cardTypes.type_1}/>
+                    <Card id={film.id}
+                          typeAPI={film.title === undefined ? MTP.tv : MTP.movie}
+                          renderCard={() => <SmallCard  key={film.id} id={film.id}
+                                                      title={film.title as string || film.name as string}
+                                                      typeAPI={film.title === undefined ? MTP.tv : MTP.movie }
+                                                      bg_path={film.poster_path}
+                                                      overview={film.overview}
+                                                      vote={film.vote_average}
+                                                      date={film.release_date as string || film.first_air_date as string}
+                                                      country={film.origin_country}
+                                                      genres={film.genre_ids}/>}/>
                 ) : <Plug/>}
             </div>}
         </>

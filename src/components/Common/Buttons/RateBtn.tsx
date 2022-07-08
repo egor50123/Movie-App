@@ -2,30 +2,29 @@ import React, {FC, useState} from 'react';
 import s from "./buttons.module.scss"
 import {IconButton, Rating, SvgIcon, Tooltip} from "@mui/material";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
-import {MT_TYPES, MTP_TYPES} from "../../../constants/constants";
+import {accountBtnsTypes, MT_TYPES, MTP_TYPES} from "../../../constants/constants";
 import {useAccountBtns} from "../../../hooks/useAccountBtns";
 import {IProps} from "./types";
+import useButtonClick from "../../../hooks/useButtonClick";
 
 
 const RateBtn:FC<IProps> = ({typeAPI,itemId,className,size="small"}) => {
     const {setRate} = useAccountBtns()
-    const [isRateMenuOpen, setRateMenu] = useState(false);
+    // const [isRateMenuOpen, setRateMenu] = useState(false);
     const [rate, setRateState] = useState<number | null>(1)
-    const onRate = (e: React.MouseEvent<Element, MouseEvent>): void => {
-        e.preventDefault()
-        setRateMenu(prev => !prev)
-    }
+
+    const [isMenuOpen,onMenuOpen] = useButtonClick(accountBtnsTypes.rate)
 
     return (
         <div className={className}>
-            <Tooltip title={"Оценить"} onClick={(e) => onRate(e)} placement={"right"}>
+            <Tooltip title={"Оценить"} onClick={(e) => onMenuOpen({e,itemId})} placement={"right"}>
                 <div className={s.box}>
                     <IconButton color={'default'} size={size}>
                         <SvgIcon sx={{fontSize: 15}} component={StarBorderOutlinedIcon} inheritViewBox/>
                     </IconButton>
                 </div>
             </Tooltip>
-            {isRateMenuOpen && <div className={s.rateMenu}>
+            {isMenuOpen && <div className={s.rateMenu}>
               <Rating
                   size={"small"}
                   precision={0.5}

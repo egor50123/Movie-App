@@ -5,10 +5,9 @@ import {useAction} from "../../../hooks/useAction";
 import {useParams} from "react-router-dom";
 import {setTypeAPILists} from "../../../helpers/setTypeAPILists";
 import Card from "../../../components/Common/Card/Card";
-import {cardTypes} from "../../../models/cardM";
 import {MTP} from "../../../constants/constants";
 import s from "../profilePage.module.scss"
-import BigCard from "../../../components/Common/BigCard/BigCard";
+import BigCard from "../../../components/Common/Card/BigCard/BigCard";
 
 const ListsWrapper:FC = () => {
 
@@ -32,13 +31,14 @@ const ListsWrapper:FC = () => {
 
     return (
         <div className={s.list}>
-            {data && data.map(item => <BigCard title={item.title || item.name}
-                                               id={item.id}
-                                               vote={item.vote_average}
-                                               bg_path={item.poster_path}
-                                               type={cardTypes.type_1}
-                                               overview={item.overview}
-                                               typeAPI={item.title === undefined ? MTP.tv : MTP.movie}/>)}
+            {data && data.map(item => <Card id={item.id}
+                                            typeAPI={item.title === undefined ? MTP.tv : MTP.movie}
+                                            renderCard={() => <BigCard  title={item.title || item.name}
+                                                                        id={item.id}
+                                                                        vote={item.vote_average}
+                                                                        bg_path={item.poster_path}
+                                                                        overview={item.overview}
+                                                                        typeAPI={item.title === undefined ? MTP.tv : MTP.movie}/>}/>)}
         </div>
     );
 };

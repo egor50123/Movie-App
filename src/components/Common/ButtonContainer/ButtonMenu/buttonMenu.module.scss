@@ -1,0 +1,29 @@
+.menu {
+  position: absolute;
+}
+
+.bottom {
+  top: calc(100% + 10px);
+}
+
+.right {
+  top: 0;
+  left: calc(100% + 10px);
+}
+
+.rateMenu {
+  background-color: white;
+  padding: 2px 6px 0;
+  border-radius: 15px;
+}
+
+.listMenu {
+  width: min-content;
+  height: min-content;
+  background-color: #ffffff;
+  color: #333333;
+  z-index: 1000;
+  top: 0;
+  border-radius: 5px;
+  padding: 15px 10px 5px;
+}

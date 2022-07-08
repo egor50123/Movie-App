@@ -25,3 +25,22 @@ export enum MTP {
 export type MTP_TYPES = MTP.tv | MTP.movie | MTP.person
 
 export type MT_TYPES = MTP.tv | MTP.movie
+
+export enum accountBtnsTypes {
+    favourite = "favourite",
+    list = "list",
+    rate = "rate",
+    watchList = "watchList"
+}
+
+export enum buttonsSize {
+    small = "small",
+    medium = "medium",
+    large = "large"
+}
+
+export enum tooltipPlacementC {
+    left = "left",
+    bottom = "bottom",
+    top = "top"
+}

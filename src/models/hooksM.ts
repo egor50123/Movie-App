@@ -20,5 +20,5 @@ export interface IRate {
 export interface IList {
     type: MT_TYPES,
     itemId: number,
-    listData: IListBtnCurrentList
+    listId: number
 }

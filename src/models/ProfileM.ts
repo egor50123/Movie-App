@@ -50,12 +50,6 @@ export interface IListAddAPI {
     listId: string | number
 }
 
-export interface IListAddSettings {
-    type: MT_TYPES,
-    sessionId:string,
-    itemId:number,
-    listData: IListBtnCurrentList
-}
 
 
 export interface IMarkedLists {

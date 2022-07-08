@@ -3,18 +3,21 @@ import {useParams} from "react-router-dom";
 import {useAction} from "../../../hooks/useAction";
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import s from "./movieTvItem.module.scss"
-import {BASE_IMG_URL, BIG_IMG_FILTER_URL, BIG_IMG_URL, YOUTUBE_URL} from "../../../API/indexAPI";
+import {BASE_IMG_URL, BIG_IMG_FILTER_URL} from "../../../API/indexAPI";
 import {IMoviePayload, IMoviesTvsPayload, IPeoplePayload, ITvPayload} from "../../../models/payloadAPI_M";
-import {useFavorite} from "../../../hooks/useFavorite";
 import Card from "../../../components/Common/Card/Card";
-import {cardTypes} from "../../../models/cardM";
-import {MTP, MTP_TYPES} from "../../../constants/constants";
-import FavouriteBtn from "../../../components/Common/Buttons/FavouriteBtn";
-import ListBtn from "../../../components/Common/Buttons/ListBtn";
-import RateBtn from "../../../components/Common/Buttons/RateBtn";
-import WatchListBtn from "../../../components/Common/Buttons/WatchListBtn";
+import {accountBtnsTypes, buttonsSize, MTP, MTP_TYPES, tooltipPlacementC} from "../../../constants/constants";
 import CarouselBox from "../../../components/Common/CarouselBox/CarouselBox";
 import ActorCard from "../../../components/Common/ActorCard/ActorCard";
+import SmallCard from "../../../components/Common/Card/SmallCard/SmallCard";
+import ButtonContainer from "../../../components/Common/ButtonContainer/ButtonContainer";
+import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
+import ButtonMenu from "../../../components/Common/ButtonContainer/ButtonMenu/ButtonMenu";
+import RateMenu from "../../../components/Common/ButtonContainer/ButtonMenu/RateMenu/RateMenu";
+import FavoriteBorderTwoToneIcon from "@mui/icons-material/FavoriteBorderTwoTone";
+import FormatListBulletedTwoToneIcon from "@mui/icons-material/FormatListBulletedTwoTone";
+import ListMenu from "../../../components/Common/ButtonContainer/ButtonMenu/ListMenu/ListMenu";
+import BookmarkBorderTwoToneIcon from "@mui/icons-material/BookmarkBorderTwoTone";
 
 
 interface IMovieTvItem {
@@ -33,14 +36,14 @@ const MovieTvItem: FC<IMovieTvItem> = ({type}) => {
     let moviePayload: IMoviePayload = movieTvPayload as IMoviePayload,
         tvPayload: ITvPayload = movieTvPayload as ITvPayload;
 
-    let id = params.movieId
+    let id = params.movieId as string
 
     switch (type) {
         case MTP.movie:
-            id = params.movieId;
+            id = params.movieId as string;
             break;
         case MTP.tv:
-            id = params.tvId;
+            id = params.tvId as string;
             break;
         default:
             break;
@@ -103,10 +106,32 @@ const MovieTvItem: FC<IMovieTvItem> = ({type}) => {
                                 <h3>Рейтинг</h3>
                             </div>
                             <div className={s.btnBox}>
-                                <FavouriteBtn typeAPI={type} itemId={Number(id)} className={s.button}/>
-                                <ListBtn itemId={Number(id)} typeAPI={type} className={s.button}/>
-                                <RateBtn typeAPI={type} itemId={Number(id)} className={s.button}/>
-                                <WatchListBtn typeAPI={type} itemId={Number(id)} className={s.button}/>
+                                <ButtonContainer btnType={accountBtnsTypes.rate}
+                                                 itemId={+id} size={buttonsSize.large}
+                                                 className={s.button}
+                                                 notLink={s.notLink}
+                                                 tooltipPlacement={tooltipPlacementC.top}
+                                                 iconComponentRender={() => StarBorderOutlinedIcon}
+                                                 menuRender={() => <ButtonMenu placement={"bottom"} notLink={s.notLink} render={() => <RateMenu typeAPI={type} itemId={+id}/>}/>}/>
+                                <ButtonContainer btnType={accountBtnsTypes.favourite}
+                                                 itemId={+id} size={buttonsSize.large}
+                                                 className={s.button}
+                                                 tooltipPlacement={tooltipPlacementC.top}
+                                                 notLink={s.notLink}
+                                                 iconComponentRender={() => FavoriteBorderTwoToneIcon}/>
+                                <ButtonContainer btnType={accountBtnsTypes.list}
+                                                 itemId={+id} size={buttonsSize.large}
+                                                 className={s.button}
+                                                 notLink={s.notLink}
+                                                 tooltipPlacement={tooltipPlacementC.top}
+                                                 iconComponentRender={() => FormatListBulletedTwoToneIcon}
+                                                 menuRender={() => <ButtonMenu placement={"bottom"} notLink={s.notLink} render={() => <ListMenu typeAPI={type} itemId={+id}/>}/>}/>
+                                <ButtonContainer btnType={accountBtnsTypes.watchList}
+                                                 itemId={+id} size={buttonsSize.large}
+                                                 className={s.button}
+                                                 tooltipPlacement={tooltipPlacementC.top}
+                                                 notLink={s.notLink}
+                                                 iconComponentRender={() => BookmarkBorderTwoToneIcon}/>
                             </div>
                         </div>
                         <div className={s.headerOverviewBox}>
@@ -123,16 +148,17 @@ const MovieTvItem: FC<IMovieTvItem> = ({type}) => {
                     <CarouselBox title={"Рекомендации"} render={(boxClassName: any) => <div className={boxClassName}>
                         {similarPayload && similarPayload.results?.map(item => <div
                             className={s.movieTvItem__similarItem}>
-                            <Card key={item.id} id={item.id}
-                                  title={item.title as string || item.name as string}
+                            <Card id={item.id}
                                   typeAPI={item.title === undefined ? MTP.tv : MTP.movie}
-                                  bg_path={item.poster_path}
-                                  overview={item.overview}
-                                  vote={item.vote_average}
-                                  date={item.release_date as string || item.first_air_date as string}
-                                  country={item.origin_country}
-                                  genres={item.genre_ids}
-                                  type={cardTypes.type_1}/>
+                                  renderCard={() => <SmallCard  key={item.id} id={item.id}
+                                                                title={item.title as string || item.name as string}
+                                                                typeAPI={item.title === undefined ? MTP.tv : MTP.movie }
+                                                                bg_path={item.poster_path}
+                                                                overview={item.overview}
+                                                                vote={item.vote_average}
+                                                                date={item.release_date as string || item.first_air_date as string}
+                                                                country={item.origin_country}
+                                                                genres={item.genre_ids}/>}/>
                         </div>)}
                     </div>
                     }/>
@@ -179,63 +205,6 @@ const MovieTvItem: FC<IMovieTvItem> = ({type}) => {
             </div>
 
         </div>
-        // <div className={s.movieTvItem}>
-        //     <div className={s.movieTvItem__pre}>
-        //         <span>тип</span><br/>
-        //         <span>{movieTvPayload && movieTvPayload.genres[0].name}</span>
-        //     </div>
-        //     <div className={s.movieTvItem__main}>
-        //         <div className={s.movieTvItem__preview}>
-        //             <div className={s.movieTvItem__trailer}>
-        //                 {movieTvPayload && movieTvPayload.videos?.results[0] && <iframe src={`${YOUTUBE_URL}${movieTvPayload.videos.results[0].key}`}
-        //                                                           title={movieTvPayload.videos.results[0].name} allowFullScreen/>}
-        //             </div>
-        //             <div className={s.movieTvItem__trailer_btns}>
-        //                 <button>добавить в список</button>
-        //                 <button onClick={() => onFavorite(movieTvPayload?.id,true)}>избранное</button>
-        //                 <button>закладки</button>
-        //                 <button>оценить</button>
-        //                 <button onClick={getFavorite}>получить любимые</button>
-        //             </div>
-        //         </div>
-        //         <div className={s.previewItem__decs_info}>
-        //             <h1>{
-        //                 type === "movie" ?
-        //                     moviePayload && moviePayload.title :
-        //                     tvPayload && tvPayload.name
-        //             }</h1>
-        //             <div className={s.previewItem__decsInfo}>
-        //                 <span>{
-        //                     type === "movie" ?
-        //                         moviePayload && moviePayload.release_date :
-        //                         tvPayload && tvPayload.first_air_date
-        //                 }</span><br/>
-        //                 <span>{movieTvPayload && movieTvPayload.vote_average}</span><br/>
-        //                 <span>{movieTvPayload && movieTvPayload.tagline}</span><br/>
-        //                 <span>{movieTvPayload && movieTvPayload.genres.map(item => <div key={item.id}>{item.name}</div>)}</span><br/>
-        //             </div>
-        //             <p>{movieTvPayload && movieTvPayload.overview}</p>
-        //         </div>
-        //     </div>
-        //     <div className={s.movieTvItem__actors}>{
-        //         peoplePayload && peoplePayload.cast.map(item => <div className={s.movieTvItem__actorsItem} key={item.id}>{item.name}</div>)
-        //     }</div>
-        //     {similarPayload && <div className={s.movieTvItem__similar}>{similarPayload.results?.map(item => <div
-        //         className={s.movieTvItem__similarItem}>
-        //         <Card key={item.id} id={item.id}
-        //               title={item.title as string || item.name as string}
-        //               typeAPI={item.title === undefined ? MTP.tv : MTP.movie }
-        //               bg_path={item.poster_path}
-        //               overview={item.overview}
-        //               vote={item.vote_average}
-        //               date={item.release_date as string || item.first_air_date as string}
-        //               country={item.origin_country}
-        //               genres={item.genre_ids}
-        //               type={cardTypes.type_1}/>
-        //     </div>)}</div>}
-        //     <div className={s.movieTvItem__recommendations}>рекомендации</div>
-        //     <div className={s.movieTvItem__collections}></div>
-        // </div>
     );
 };
 

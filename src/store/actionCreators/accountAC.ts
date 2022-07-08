@@ -4,7 +4,6 @@ import {accountActionCreators, accountActions} from "../types/accountT";
 import {
     IAccountCommon,
     IListAddAPI,
-    IListAddSettings,
     IListParams,
     IMarkedLists,
     IRateAPI
@@ -83,21 +82,10 @@ export const postRate = (settings:IRateAPI) => {
     }
 }
 
-export const postListItems = (settings:IListAddSettings) => {
+export const postListItem = (settings:IListAddAPI) => {
     return async (dispatch: Dispatch<accountActions>) => {
         try {
-            for (let [id,data] of Object.entries(settings.listData)) {
-                if (!data.flag) continue
-                let settingsAPI:IListAddAPI = {
-                    itemId: settings.itemId,
-                    sessionId: settings.sessionId,
-                    type: settings.type,
-                    listId: id
-                }
-                console.log(id)
-                await accountAPI.addListItem(settingsAPI);
-            }
-
+                await accountAPI.addListItem(settings);
 
             if (settings.type === MTP.tv) {
                 throw new Error()

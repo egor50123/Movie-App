@@ -8,18 +8,6 @@
   //z-index: 100;
 }
 
-.listMenu {
-  position: absolute;
-  width: min-content;
-  height: min-content;
-  background-color: #ffffff;
-  color: #333333;
-  z-index: 1000;
-  left: calc(100% + 5px);
-  top: 0;
-  border-radius: 5px;
-  padding: 15px 10px 5px;
-}
 
 .submitBtn {
   position: sticky;
@@ -44,14 +32,4 @@
   justify-content: center;
   height: 100%;
   width: 100%;
-}
-
-.rateMenu {
-  position: absolute;
-  background-color: white;
-
-  padding: 2px 6px 0;
-  border-radius: 15px;
-  top: 0;
-  right: calc(100% + 10px);
 }

@@ -61,9 +61,6 @@ function App() {
                         <Route path={"/movie"} element={<CategoriesPage type={MTP.movie}/>}>
                             <Route index element={<CategoriesCurrent type={MTP.movie}/>}/>
                             <Route path={":movieId"} element={<MovieTvItem type={MTP.movie}/>}/>
-                            {/*<Route path={":movieId"} element={<React.Suspense fallback={<Loading/>}>*/}
-                            {/*    <MovieTvItem type={MTP.movie}/>*/}
-                            {/*</React.Suspense>}/>*/}
                             <Route path={"genres/:genresId"}
                                    element={<CategoriesCurrent type={MTP.movie}/>}/>
                         </Route>
