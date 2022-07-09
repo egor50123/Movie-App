@@ -57,6 +57,14 @@
   }
 }
 
+.link__active {
+  $COLOR: #9c0202;
+  background-color: $COLOR;
+  &:hover {
+    background-color: $COLOR;
+  }
+}
+
 .list {
 
   display: grid;
