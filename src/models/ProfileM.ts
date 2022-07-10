@@ -1,5 +1,4 @@
 import {MT_TYPES, MTP_TYPES} from "../constants/constants";
-import {IListBtnCurrentList} from "../components/Common/Buttons/ListBtn";
 
 export enum ProfileLinksNames {
     watchlist = "watchlist",
@@ -23,10 +22,10 @@ export interface IListParams {
     type: TListAPIParamType
 }
 
-export interface IListParamsPre {
-    sessionId: string | undefined,
-    acID: number | undefined,
-    type: string | null
+export interface IDeleteRate {
+    sessionId: string,
+    type: MTP_TYPES,
+    itemId:number
 }
 
 export interface IAccountCommon {

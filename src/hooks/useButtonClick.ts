@@ -1,42 +1,58 @@
 import React, {useState} from 'react';
 import {useAccountBtns} from "./useAccountBtns";
-import {accountBtnsTypes} from "../constants/constants";
+import {accountBtnsTypes, MTP_TYPES} from "../constants/constants";
+import {useLocation} from "react-router-dom";
+import {ProfileLinksNames} from "../models/ProfileM";
+import {useAction} from "./useAction";
 
 interface ICommon {
-    e:React.MouseEvent<Element, MouseEvent>,
+    e?:React.MouseEvent<Element, MouseEvent>,
 
 }
-
 interface commonWithItemId extends ICommon {
     itemId:number
 }
 
-const useButtonClick = (btnType:string) => {
-    const {setFavorite,setWatchList,setRate,getMyCreatedList,addToList} = useAccountBtns()
+interface commonWithItemType extends commonWithItemId {
+    type: MTP_TYPES
+}
 
+const useButtonClick = (btnType:string) => {
+    const {setFavorite,setWatchList,getMyCreatedList,ratingDelete} = useAccountBtns()
+    const {updateListId} = useAction()
     const [isRateMenu,setRateMenu] = useState(false)
     const [isListMenu, setListMenu] = useState(false)
 
-    function onRate ({e}:ICommon) {
-        e.preventDefault()
+    const href = useLocation()
+
+    function onRate ({e,itemId}:commonWithItemId) {
+        e?.preventDefault()
+        updateListId(itemId)
         setRateMenu(prev => !prev)
     }
 
     function onFavourite ({e,itemId}:commonWithItemId)  {
-        e.preventDefault()
-        //deleteOrSaveCard(ProfileLinksNames.favorites)
+        e?.preventDefault()
         setFavorite({itemId, isFavorite: true})
     }
 
     function onWatchList ({e,itemId}:commonWithItemId) {
-        e.preventDefault()
-        //deleteOrSaveCard(ProfileLinksNames.watchlist)
+        e?.preventDefault()
         setWatchList({itemId, isToWatchList: true})
     }
 
     function onList ({e,itemId}:commonWithItemId) {
         setListMenu(prev => !prev)
+        updateListId(itemId)
         getMyCreatedList()
+    }
+
+    function onDelete ({itemId,type}:commonWithItemType) {
+        switch (true) {
+            case href.pathname.includes(ProfileLinksNames.favorites): setFavorite({itemId, isFavorite: true});break;
+            case href.pathname.includes(ProfileLinksNames.watchlist): setWatchList({itemId, isToWatchList: true});break;
+            case href.pathname.includes(ProfileLinksNames.ratings): ratingDelete({itemId,type});break;
+        }
     }
 
     switch (btnType) {
@@ -46,18 +62,17 @@ const useButtonClick = (btnType:string) => {
         case accountBtnsTypes.favourite: {
             return [null, onFavourite] as const
         }
-
         case accountBtnsTypes.watchList: {
             return [null,onWatchList] as const
         }
-
         case accountBtnsTypes.list: {
             return [isListMenu,onList] as const
         }
-        default: return [false, onRate] as const
+        case accountBtnsTypes.delete: {
+            return [null,onDelete] as const
+        }
+        default: return [false, null] as const
     }
-
-    return [null, () => alert("что-то  пошло не так")] as const;
 };
 
 export default useButtonClick;

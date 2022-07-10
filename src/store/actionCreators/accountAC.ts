@@ -2,7 +2,7 @@ import {Dispatch} from "react";
 import {accountAPI, MTPAPI} from "../../API/indexAPI";
 import {accountActionCreators, accountActions} from "../types/accountT";
 import {
-    IAccountCommon,
+    IAccountCommon, IDeleteRate,
     IListAddAPI,
     IListParams,
     IMarkedLists,
@@ -129,6 +129,22 @@ export const getCreatedList = (settings:IMarkedLists) => {
         }
         catch (e) {
             dispatch({type:accountActionCreators.FETCH_ERROR,error:"error"})
+        }
+    }
+}
+
+export const deleteRating = (settings:IDeleteRate) => {
+    return async (dispatch: Dispatch<accountActions>) => {
+        try {
+            await accountAPI.deleteRating(settings);
+
+            dispatch({type:accountActionCreators.SET_SNACKBARS,message:`Удалено`,isOpen:true})
+
+            setTimeout(() => {
+                dispatch({type:accountActionCreators.SET_SNACKBARS,message:``,isOpen:false})
+            },DELAY_SNACKBAR)
+        }catch (e) {
+            alert("что-то пошло не так")
         }
     }
 }

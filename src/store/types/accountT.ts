@@ -39,6 +39,11 @@ export enum accountActionCreators {
     SET_SNACKBARS = "SET_SNACKBARS",
     FETCH_CREATED_LIST = "FETCH_CREATED_LIST",
     FETCH_CREATED_LIST_SUCCESS = "FETCH_CREATED_LIST_SUCCESS",
+    DELETE_RATING = "DELETE_RATING"
+}
+
+interface deleteRating {
+    type:accountActionCreators.DELETE_RATING
 }
 
 interface fetchAccountSuccessAction {
@@ -85,4 +90,4 @@ interface fetchCreatedListSuccess {
 
 export type accountActions = fetchAccountSuccessAction | commonFetchError | fetchList |
     fetchListSuccess | fetchMyList | fetchMyListSuccess | clearLists | setSnackbars |
-    fetchCreatedList | fetchCreatedListSuccess
+    fetchCreatedList | fetchCreatedListSuccess | deleteRating

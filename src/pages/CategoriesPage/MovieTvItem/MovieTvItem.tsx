@@ -12,7 +12,6 @@ import ActorCard from "../../../components/Common/ActorCard/ActorCard";
 import SmallCard from "../../../components/Common/Card/SmallCard/SmallCard";
 import ButtonContainer from "../../../components/Common/ButtonContainer/ButtonContainer";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
-import ButtonMenu from "../../../components/Common/ButtonContainer/ButtonMenu/ButtonMenu";
 import RateMenu from "../../../components/Common/ButtonContainer/ButtonMenu/RateMenu/RateMenu";
 import FavoriteBorderTwoToneIcon from "@mui/icons-material/FavoriteBorderTwoTone";
 import FormatListBulletedTwoToneIcon from "@mui/icons-material/FormatListBulletedTwoTone";
@@ -110,9 +109,11 @@ const MovieTvItem: FC<IMovieTvItem> = ({type}) => {
                                                  itemId={+id} size={buttonsSize.large}
                                                  className={s.button}
                                                  notLink={s.notLink}
+                                                 menuPlacement={"bottom"}
                                                  tooltipPlacement={tooltipPlacementC.top}
                                                  iconComponentRender={() => StarBorderOutlinedIcon}
-                                                 menuRender={() => <ButtonMenu placement={"bottom"} notLink={s.notLink} render={() => <RateMenu typeAPI={type} itemId={+id}/>}/>}/>
+                                                 renderMenu={() => <RateMenu typeAPI={type}
+                                                                             itemId={+id}/>}/>
                                 <ButtonContainer btnType={accountBtnsTypes.favourite}
                                                  itemId={+id} size={buttonsSize.large}
                                                  className={s.button}
@@ -125,7 +126,9 @@ const MovieTvItem: FC<IMovieTvItem> = ({type}) => {
                                                  notLink={s.notLink}
                                                  tooltipPlacement={tooltipPlacementC.top}
                                                  iconComponentRender={() => FormatListBulletedTwoToneIcon}
-                                                 menuRender={() => <ButtonMenu placement={"bottom"} notLink={s.notLink} render={() => <ListMenu typeAPI={type} itemId={+id}/>}/>}/>
+                                                 menuPlacement={"bottom"}
+                                                 renderMenu={() => <ListMenu typeAPI={type}
+                                                                             itemId={+id}/>}/>
                                 <ButtonContainer btnType={accountBtnsTypes.watchList}
                                                  itemId={+id} size={buttonsSize.large}
                                                  className={s.button}
@@ -170,7 +173,6 @@ const MovieTvItem: FC<IMovieTvItem> = ({type}) => {
                     }/>
                 </div>
 
-
                 <div className={s.footerColumn2}>
                     <div className={s.footerColumn2Box}>
                         <div className={s.footerColumnBoxItem}>
@@ -197,9 +199,6 @@ const MovieTvItem: FC<IMovieTvItem> = ({type}) => {
                             <h3>Ключевые слова</h3>
                             <p> Не найдено</p>
                         </div>
-
-
-
                     </div>
                 </div>
             </div>

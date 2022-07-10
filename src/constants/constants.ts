@@ -30,8 +30,10 @@ export enum accountBtnsTypes {
     favourite = "favourite",
     list = "list",
     rate = "rate",
-    watchList = "watchList"
+    watchList = "watchList",
+    delete = "delete"
 }
+
 
 export enum buttonsSize {
     small = "small",

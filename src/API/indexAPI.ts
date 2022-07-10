@@ -9,7 +9,7 @@ import {
     TGenresPayload
 } from "../models/payloadAPI_M";
 import {authPayload, deleteSessionPayload, sessionPayload} from "../store/types/authT";
-import {IAccountCommon, IListAddAPI, IListParams, IMarkedLists, IRateAPI} from "../models/ProfileM";
+import {IAccountCommon, IDeleteRate, IListAddAPI, IListParams, IMarkedLists, IRateAPI} from "../models/ProfileM";
 import {genreTypes, TGenreTypes} from "../store/types/mainPageT";
 import {MTP_TYPES} from "../constants/constants";
 import {IAccountStates} from "../models/cardM";
@@ -178,6 +178,14 @@ export const accountAPI = {
         return instance.post(`/${type}/${itemId}/rating?${API_KEY}&session_id=${sessionId}`, {
             "value": rate
         })
+    },
+
+    deleteRating({type,sessionId,itemId}:IDeleteRate) {
+        return instance.delete(`/${type}/${itemId}/rating?${API_KEY}&session_id=${sessionId}`,{
+            headers: {
+                "Content-Type": "application/json;charset=utf-8"
+            }
+        },)
     },
 
     getList ({sessionId, acID, type}:IListParams) {

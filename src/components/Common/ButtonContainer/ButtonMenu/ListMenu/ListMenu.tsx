@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useRef, useState} from 'react';
 import s from "../buttonMenu.module.scss"
 import {
     FormControl,
@@ -14,11 +14,12 @@ import {useAccountBtns} from "../../../../../hooks/useAccountBtns";
 
 interface IRateMenu {
     itemId:number,
-    typeAPI: MTP_TYPES
+    typeAPI: MTP_TYPES,
+    callback?:any
 }
 
 
-const ListMenu:FC<IRateMenu> = ({itemId,typeAPI}) => {
+const ListMenu:FC<IRateMenu> = ({itemId,typeAPI,callback}) => {
     const isLoading = useTypedSelector(accountSelectors.createdListLoading)
     const createdLists = useTypedSelector(accountSelectors.createdLists)
     const {addToList} = useAccountBtns()
@@ -26,6 +27,7 @@ const ListMenu:FC<IRateMenu> = ({itemId,typeAPI}) => {
     const [isOpen,setOpenMenu] = useState(true)
     const [currentList, setList] = React.useState<string | number>('');
     const [open, setOpen] = React.useState(false);
+    let flag = useRef(false)
 
 
     const onSubmit = (listId:number) => addToList({listId, type: MTP.movie, itemId:itemId})
@@ -35,7 +37,7 @@ const ListMenu:FC<IRateMenu> = ({itemId,typeAPI}) => {
     return (
         <>
             {isOpen && <div className={s.listMenu}>
-                {isLoading ? "loading" : <>
+                {isLoading ? "loading" : <div id={String(itemId)} className={s.menuBox}>
                     <h3>Создать новый список</h3>
                     <FormControl sx={{m: 1, minWidth: 250}}>
                         <InputLabel id="list">Выберите список</InputLabel>
@@ -44,7 +46,10 @@ const ListMenu:FC<IRateMenu> = ({itemId,typeAPI}) => {
                             id="list"
                             open={open}
                             onClose={() => setOpen(false)}
-                            onOpen={() => setOpen(true)}
+                            onOpen={() => {
+                                setOpen(true)
+                                flag.current = true
+                            }}
                             value={currentList}
                             label="Выберите список"
                             onChange={handleChange}
@@ -52,12 +57,13 @@ const ListMenu:FC<IRateMenu> = ({itemId,typeAPI}) => {
                             {createdLists && createdLists.map(item => (
                                 <MenuItem onClick={() => {
                                     onSubmit(item.id)
+                                    typeof callback === "function" && callback()
                                     onClose()
                                 }} value={item.name}>{item.name}</MenuItem>
                             ))}
                         </Select>
                     </FormControl>
-                </>}
+                </div>}
             </div>}
         </>
     );

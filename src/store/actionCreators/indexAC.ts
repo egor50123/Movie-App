@@ -8,6 +8,7 @@ import * as Auth from "./authAC"
 import * as AccountAC from "./accountAC"
 import * as SearchPageAC from "./searchPageAC"
 import * as CategoriesFilter from "./categoriesFilterAC"
+import * as CardAC from "./cardAC"
 
 export default {
     ...SearchAC,
@@ -19,5 +20,6 @@ export default {
     ...Auth,
     ...AccountAC,
     ...SearchPageAC,
-    ...CategoriesFilter
+    ...CategoriesFilter,
+    ...CardAC,
 }

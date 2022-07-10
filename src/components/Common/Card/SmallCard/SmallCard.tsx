@@ -1,4 +1,4 @@
-import React, {FC, useRef, useState} from 'react';
+import React, {FC, useState} from 'react';
 import styles from "../card.module.scss";
 import {BASE_IMG_URL} from "../../../../API/indexAPI";
 import {SvgIcon} from "@mui/material";
@@ -6,7 +6,6 @@ import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 import ButtonContainer from "../../ButtonContainer/ButtonContainer";
 import {accountBtnsTypes, buttonsSize} from "../../../../constants/constants";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
-import ButtonMenu from "../../ButtonContainer/ButtonMenu/ButtonMenu";
 import RateMenu from "../../ButtonContainer/ButtonMenu/RateMenu/RateMenu";
 import FavoriteBorderTwoToneIcon from "@mui/icons-material/FavoriteBorderTwoTone";
 import FormatListBulletedTwoToneIcon from "@mui/icons-material/FormatListBulletedTwoTone";
@@ -17,21 +16,18 @@ import {useTypedSelector} from "../../../../hooks/useTypedSelector";
 import * as mainPageSelectors from "../../../../store/selectors/mainPageSelectors";
 import classNames from "classnames";
 
-const SmallCard:FC<ICard> = ({
-                       title,
-                       bg_path,
-                       vote,
-                       id,
-                       overview,
-                       genres,
-                       typeAPI,
-                       listType = null,
-                       date
-                   }) => {
+const SmallCard: FC<ICard> = ({
+                                  title,
+                                  bg_path,
+                                  vote,
+                                  id,
+                                  genres,
+                                  typeAPI,
+                                  date
+                              }) => {
 
     const genresTv = useTypedSelector(mainPageSelectors.genresTv)
     const genresMovie = useTypedSelector(mainPageSelectors.genresMovie)
-    const cardRef = useRef<null | HTMLDivElement>(null)
 
     let [isHover, setHover] = useState(false)
     let mainGenres = typeAPI === "movie" ?
@@ -44,11 +40,15 @@ const SmallCard:FC<ICard> = ({
         [`${styles.card__hover}`]: isHover
     })
 
+    const closeAfterMenu = () => setHover(false)
+
     return (
-        <div ref={cardRef} onMouseOver={() => setHover(true)} onMouseLeave={() => setHover(false)}
+        <div onMouseOver={() => setHover(true)}
+             onMouseLeave={() => setHover(false)}
              className={cardClassName}>
             <div className={styles.card_box}>
                 <div className={styles.card_img}>
+                    <div className={styles.overlay}/>
                     {bg_path !== null ? <img src={`${BASE_IMG_URL}${bg_path}`} alt="" loading={"lazy"}/> :
                         <SvgIcon sx={{fontSize: 90}} component={InsertPhotoIcon} inheritViewBox/>}
                 </div>
@@ -60,7 +60,8 @@ const SmallCard:FC<ICard> = ({
                                      className={styles.button}
                                      notLink={styles.notLink}
                                      iconComponentRender={() => StarBorderOutlinedIcon}
-                                     menuRender={() => <ButtonMenu notLink={styles.notLink} render={() => <RateMenu typeAPI={typeAPI} itemId={id}/>}/>}/>
+                                     renderMenu={() => <RateMenu typeAPI={typeAPI}
+                                                                 itemId={id}/>}/>
                     <ButtonContainer btnType={accountBtnsTypes.favourite}
                                      itemId={id} size={buttonsSize.small}
                                      className={styles.button}
@@ -71,7 +72,9 @@ const SmallCard:FC<ICard> = ({
                                      className={styles.button}
                                      notLink={styles.notLink}
                                      iconComponentRender={() => FormatListBulletedTwoToneIcon}
-                                     menuRender={() => <ButtonMenu notLink={styles.notLink} render={() => <ListMenu typeAPI={typeAPI} itemId={id}/>}/>}/>
+                                     renderMenu={() => <ListMenu typeAPI={typeAPI}
+                                                                 callback={closeAfterMenu}
+                                                                 itemId={id}/>}/>
                     <ButtonContainer btnType={accountBtnsTypes.watchList}
                                      itemId={id} size={buttonsSize.small}
                                      className={styles.button}

@@ -10,7 +10,9 @@ export interface ICard {
     date?:string | undefined,
     country?:string[],
     genres?:number[],
-    listType?:string | null
+    listType?:string | null,
+    deleteCallback?:any
+    withDelete?:boolean
 }
 
 

@@ -1,20 +1,42 @@
-import React, {FC} from "react";
+import React, {FC, useEffect} from "react";
 import styles from "./card.module.scss"
+import {useLocation, useNavigate} from "react-router-dom";
+import {accountBtnsTypes, MTP_TYPES} from "../../../constants/constants";
+import {useAction} from "../../../hooks/useAction";
+import {convertBtnTypeToHrefType} from "../../../helpers/convertBtnTypeToHrefType";
 
-import {useNavigate} from "react-router-dom";
-import {MTP_TYPES} from "../../../constants/constants";
 
 
 interface ICardContainer {
-    renderCard:any,
+    renderCard: any,
     typeAPI: MTP_TYPES,
-    id:number
+    id: number,
+    canDelete?: boolean
 }
 
-const Card:FC<ICardContainer> = ({renderCard,id,typeAPI}) => {
-    const navigate = useNavigate()
+export interface IDelete {
+    id: number,
+    btnType: string
+}
 
-    function onLink (e:React.MouseEvent<HTMLElement>) {
+const Card: FC<ICardContainer> = ({renderCard, id, typeAPI,canDelete= false}) => {
+    const {deleteCard, clearDeleteCardIds} = useAction()
+    const navigate = useNavigate()
+    const href = useLocation()
+
+    const deleteCallback = ({id, btnType}: IDelete) => {
+        convertBtnTypeToHrefType(btnType, href.pathname) && deleteCard(id)
+        canDelete && btnType === accountBtnsTypes.delete && deleteCard(id)
+    }
+
+    useEffect(() => {
+        clearDeleteCardIds()
+        return () => {
+            clearDeleteCardIds()
+        }
+    }, [])
+
+    function onLink(e: React.MouseEvent<HTMLElement>) {
         const isReturn = (e.target as HTMLElement).closest(`.${styles.notLink}`) || (e.target as HTMLElement).closest(".MuiModal-root")
         if (isReturn) return
         navigate(`/${typeAPI}/${id} `)
@@ -22,7 +44,7 @@ const Card:FC<ICardContainer> = ({renderCard,id,typeAPI}) => {
 
     return (
         <div onClick={(e) => onLink(e)}>
-            {renderCard()}
+            {renderCard(deleteCallback)}
         </div>
     )
 }

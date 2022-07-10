@@ -11,6 +11,7 @@ import {authReducer} from "./reducers/authReducer";
 import {accountReducer} from "./reducers/accountReducer";
 import {searchPageReducer} from "./reducers/searchPageReducer";
 import {categoriesFilterReducer} from "./reducers/categoriesFilterReducer";
+import {cardReducer} from "./reducers/cardReducer";
 
 const  reducer = combineReducers(
     {
@@ -23,7 +24,8 @@ const  reducer = combineReducers(
         categoriesFilter: categoriesFilterReducer,
         auth: authReducer,
         account: accountReducer,
-        searchPage: searchPageReducer
+        searchPage: searchPageReducer,
+        card: cardReducer
 
     }
 )

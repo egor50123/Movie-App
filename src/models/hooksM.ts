@@ -1,5 +1,4 @@
 import {MT_TYPES, MTP_TYPES} from "../constants/constants";
-import {IListBtnCurrentList} from "../components/Common/Buttons/ListBtn";
 
 export interface IUseFavorite {
     itemId:number,
@@ -21,4 +20,9 @@ export interface IList {
     type: MT_TYPES,
     itemId: number,
     listId: number
+}
+
+export interface IRateDel {
+    type: MTP_TYPES,
+    itemId: number,
 }

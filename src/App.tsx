@@ -80,7 +80,6 @@ function App() {
                         </Route>
                     </Routes>
                 </React.Suspense>
-
                 <Snackbar/>
             </div>
             <Footer/>

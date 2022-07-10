@@ -1,12 +1,12 @@
 import {useTypedSelector} from "./useTypedSelector";
 import {useAction} from "./useAction";
-import {IList, IRate, IUseFavorite, IUseWatchList} from "../models/hooksM";
-import {postListItem} from "../store/actionCreators/accountAC";
+import {IList, IRate, IRateDel, IUseFavorite, IUseWatchList} from "../models/hooksM";
+import {IDeleteRate} from "../models/ProfileM";
 
 export const useAccountBtns = () => {
     let sessionId = useTypedSelector(state => state.auth.session.payload?.session_id)
     let acID = useTypedSelector(state => state.account.details.payload?.id)
-    let {postFavorite,postWatchList,postRate,getCreatedList,postListItem} = useAction()
+    let {postFavorite,postWatchList,postRate,getCreatedList,postListItem,deleteRating} = useAction()
 
     function setFavorite ({itemId}:IUseFavorite) {
         if (sessionId && itemId && acID)
@@ -29,13 +29,17 @@ export const useAccountBtns = () => {
     }
 
     function getMyCreatedList() {
-        if (sessionId && acID) {
+        if (sessionId && acID)
             getCreatedList({sessionId,acID})
-        }
+    }
+
+    function ratingDelete ({itemId,type}:IRateDel) {
+        if (sessionId)
+            deleteRating({sessionId,itemId,type})
     }
 
 
 
-    return {setFavorite,setWatchList,setRate,getMyCreatedList,addToList}
+    return {setFavorite,setWatchList,setRate,getMyCreatedList,addToList,ratingDelete}
 
 };
