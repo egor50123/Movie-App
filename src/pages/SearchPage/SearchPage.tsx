@@ -5,10 +5,12 @@ import {useTypedSelector} from "../../hooks/useTypedSelector";
 import {MTP} from "../../constants/constants";
 import s from "./searchPage.module.scss"
 import classNames from "classnames";
+import {searchPage, searchValue} from "../../store/selectors/commonSelectors";
 
 const SearchPage = () => {
 
-    const pageData = useTypedSelector( state => state.searchPage)
+    const pageData = useTypedSelector( searchPage)
+    const searchText = useTypedSelector(searchValue)
 
     const [currentActive,setActive] = useState("1")
 
@@ -59,6 +61,7 @@ const SearchPage = () => {
                 </div>
 
                 <div >
+                    <h3>Результаты по запросу "{searchText}"</h3>
                     <Outlet/>
                 </div>
             </div>

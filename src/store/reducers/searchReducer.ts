@@ -4,7 +4,8 @@ const init: SearchState = {
     payload: null,
     isLoading: false,
     error: false,
-    text: ""
+    text: "",
+    lastValue: ""
 }
 
 export const searchReducer = (state = init,action:SearchAction):SearchState => {
@@ -17,6 +18,9 @@ export const searchReducer = (state = init,action:SearchAction):SearchState => {
             return {...state,isLoading:false,error:action.payload, payload: null}
         case SearchActionTypes.CLEAR_SEARCH:
             return {...state,payload:null}
+        case SearchActionTypes.SAVE_LAST_VALUE: {
+            return {...state,lastValue: action.text}
+        }
         default: return state
     }
 }

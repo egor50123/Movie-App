@@ -30,8 +30,10 @@ const Card: FC<ICardContainer> = ({renderCard, id, typeAPI,canDelete= false}) =>
     }
 
     useEffect(() => {
+        if (href.pathname.includes("profile"))
         clearDeleteCardIds()
         return () => {
+            if (href.pathname.includes("profile"))
             clearDeleteCardIds()
         }
     }, [])

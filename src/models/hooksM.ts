@@ -26,3 +26,8 @@ export interface IRateDel {
     type: MTP_TYPES,
     itemId: number,
 }
+
+export interface IUseSearch {
+    inputRef: HTMLInputElement | null
+    listRef:HTMLElement | null
+}

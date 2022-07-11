@@ -22,9 +22,8 @@ export const  fetchItemSearchPage = (text:string,type:MTP_TYPES) => {
             if (response?.data.results.length === 0) {
                 throw new Error("error")
             }
-            setTimeout(() => {
-                dispatch({type: SearchPageActionTypes.FETCH_ITEM_SUCCESS,payload: (response as AxiosResponse).data, text, currentType:type})
-            },500)
+            dispatch({type: SearchPageActionTypes.FETCH_ITEM_SUCCESS,payload: (response as AxiosResponse).data, text, currentType:type})
+
         }catch (e) {
             dispatch({type: SearchPageActionTypes.FETCH_ITEM_ERROR,currentType:type,payload: true})
         }
@@ -32,3 +31,4 @@ export const  fetchItemSearchPage = (text:string,type:MTP_TYPES) => {
 }
 
 export const clearSearch = () => ({type:SearchActionTypes.CLEAR_SEARCH})
+export const saveLastValue = (text:string) => ({type:SearchActionTypes.SAVE_LAST_VALUE, text})

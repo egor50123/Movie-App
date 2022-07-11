@@ -5,13 +5,15 @@ export interface SearchState {
     isLoading: boolean,
     error: boolean
     text:string
+    lastValue:string
 }
 
 export enum SearchActionTypes {
     FETCH_SEARCH = "FETCH_SEARCH",
     FETCH_SEARCH_SUCCESS = "FETCH_SEARCH_SUCCESS",
     FETCH_SEARCH_ERROR = "FETCH_SEARCH_ERROR",
-    CLEAR_SEARCH = "CLEAR_SEARCH"
+    CLEAR_SEARCH = "CLEAR_SEARCH",
+    SAVE_LAST_VALUE = "SAVE_LAST_VALUE"
 }
 
 interface FetchSearchAction {
@@ -33,4 +35,9 @@ interface ClearSearchAction {
     type: SearchActionTypes.CLEAR_SEARCH
 }
 
-export type SearchAction = FetchSearchAction | FetchSearchSuccessAction | FetchSearchErrorAction | ClearSearchAction
+interface saveLastValue {
+    type: SearchActionTypes.SAVE_LAST_VALUE,
+    text:string,
+}
+
+export type SearchAction = FetchSearchAction | FetchSearchSuccessAction | FetchSearchErrorAction | ClearSearchAction | saveLastValue

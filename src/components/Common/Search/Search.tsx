@@ -1,60 +1,25 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {useCallback, useRef} from 'react';
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import {useAction} from "../../../hooks/useAction";
-import {NavLink, useNavigate} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import SearchItem from "./SearchItem";
-import {useDebounce} from "../../../hooks/useDebounce";
 import {MTP} from "../../../constants/constants";
 import SearchIcon from '@mui/icons-material/Search';
 import s from "./search.module.scss"
+import useSearch from "../../../hooks/useSearch";
+import {getSearch} from "../../../store/selectors/mainPageSelectors";
 
 const Search = () => {
-    const {payload,isLoading,error} = useTypedSelector(state => state.search)
-    const {fetchSearch,clearSearch,fetchItemSearchPage} = useAction()
-    const fetchSearchDebounce = useDebounce(fetchSearch,200)
-    let navigate = useNavigate()
-
-    let [value,setValue] = useState('')
+    const {payload,isLoading,error} = useTypedSelector(getSearch)
+    const {fetchItemSearchPage} = useAction()
     const listRef = useRef(null)
     const inputRef = useRef<null | HTMLInputElement>(null)
+    const [value, onChange] = useSearch({listRef: listRef.current,inputRef:inputRef.current})
 
-    const onClose = useCallback(() => {
-        if (listRef.current) (listRef.current as HTMLDivElement).style.display = "none"
-    },[])
-
-    useEffect(()=> {
-        document.addEventListener("click", onClose)
-        inputRef.current?.addEventListener("keydown", (e:KeyboardEvent) => {
-            let value = inputRef.current?.value as string
-            if (e.code === "Enter" && value !== "") {
-                navigate("./search")
-                onClose()
-                fetchItemSearchPage(value, MTP.movie)
-                fetchItemSearchPage(value, MTP.tv)
-                fetchItemSearchPage(value, MTP.person)
-            }
-        })
-    },[])
-
-    useEffect( () => {
-        value === "" ? clearSearch() : fetchSearchDebounce(value)
-        if (listRef.current) (listRef.current as HTMLDivElement).style.display = "flex"
-    },[value])
-
-    useEffect( () => {
-        if (listRef.current) (listRef.current as HTMLDivElement).style.display = "none"
-    },[])
-
-    function onChange(e:React.ChangeEvent<HTMLInputElement>) {
-        let value = e.target.value
-        setValue(value)
-    }
-
-    function getSearchResults() {
+    const getSearchResults = useCallback(() => {
         fetchItemSearchPage(value, MTP.movie)
         fetchItemSearchPage(value, MTP.tv)
-        fetchItemSearchPage(value, MTP.person)
-    }
+    },[value])
 
 
     return (
