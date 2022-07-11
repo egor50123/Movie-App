@@ -16,6 +16,8 @@ function App() {
         fetchGenres(genreTypes.genresMovie)
     }, [])
 
+    console.log("render App")
+
     return (
         <div className={"app"}>
             <Header/>

@@ -23,7 +23,15 @@ const Header = () => {
 
     const onLogOut = useCallback(() => {
         if (session) deleteSession(session)
-    },[])
+    },[session])
+
+    const onAuth = () => {
+        localStorage.setItem("movieAppTokenActivate","true")
+    }
+
+    const onAuthTry = () => {
+        localStorage.removeItem("movieAppToken")
+    }
 
     const menuOpen = useCallback(() => setProfileOpen(prev => !prev),[])
 
@@ -41,12 +49,17 @@ const Header = () => {
                     <Search/>
                 </div>
                 {!isAuth ?
-                    <Tooltip title={"Войти"} placement={"bottom"}>
-                        <a rel="noreferrer"
-                           href={`https://www.themoviedb.org/authenticate/${token}?redirect_to=http://localhost:3000/auth`}
-                           className={s.userLink}
-                           target="_blank"><PersonOutlineIcon color={"inherit"}/></a>
-                    </Tooltip>
+                    <div>
+                        <Tooltip title={"Войти"} placement={"bottom"}>
+                            <a rel="noreferrer"
+                               href={`https://www.themoviedb.org/authenticate/${token}?redirect_to=http://localhost:3000/auth`}
+                               className={s.userLink}
+                               onClick={onAuth}
+                               target="_blank"><PersonOutlineIcon color={"inherit"}/></a>
+                        </Tooltip>
+
+                    </div>
+
                     :
                     <div className={s.header__profile}>
                         <h2 className={s.profileName}>Garrus</h2>
