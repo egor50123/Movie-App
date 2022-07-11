@@ -30,6 +30,7 @@ const ProfilePage = () => {
             classnameActive: s.link__active
         })
     }
+
     return (
         <div className={s.profile}>
             <div className={s.header}>

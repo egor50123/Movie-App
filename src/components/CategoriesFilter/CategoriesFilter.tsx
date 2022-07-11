@@ -1,20 +1,18 @@
-import {ICategoriesFilter} from "../../../models/categoriesM";
-import React, {FC, useEffect, useRef, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import s from "./categoriesFilter.module.scss"
-import {useFilterData} from "../../../hooks/useFilterData";
 import SortFilter from "./SortFilter";
 import RateFilter from "./RateFilter";
 import GenresFilter from "./GenresFilter";
-import DateFilter from "./dateFilter";
+import DateFilter from "./DateFilter";
 import {Link} from "react-router-dom";
-import {useAction} from "../../../hooks/useAction";
-import {setSettings} from "../../../helpers/setSettings";
+import {useFilterData} from "../../hooks/useFilterData";
+import {ICategoriesFilter} from "../../models/categoriesM";
+import {useAction} from "../../hooks/useAction";
 
 const CategoriesFilter: FC<ICategoriesFilter> = ({type,isResetFilter}) => {
     const [isFind,setFind] = useState(false)
     const {data,setRef} = useFilterData(isFind)
     const {categoriesFilterUpdate} = useAction()
-
 
     function onFind() {
         window.scrollTo(0, 0)

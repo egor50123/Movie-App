@@ -1,9 +1,8 @@
 import "./MainPage.scss"
 import PreviewItem from "./PreviewItem/PreviewItem";
-import {EPreviewItems} from "../../models/previewItem_SwitchM";
 import Poster from "../../components/Common/Poster/Poster";
 import React from "react";
-import {moviesSwitchTitles, trendsSwitchTitles, tvSwitchTitles} from "../../constants/constants";
+import {EPreviewItems, moviesSwitchTitles, trendsSwitchTitles, tvSwitchTitles} from "../../constants/constants";
 
 const MainPage = () => {
     return (

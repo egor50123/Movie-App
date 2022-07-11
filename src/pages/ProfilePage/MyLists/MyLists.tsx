@@ -1,5 +1,4 @@
 import React from 'react';
-import Card from "../../../components/Common/Card/Card";
 import ListItem from "./ListItem/ListItem";
 import s from "./myLists.module.scss"
 

@@ -1,7 +1,7 @@
 import React, {FC, useEffect, useState} from 'react';
 import {FormControl, InputLabel, MenuItem, Select, SelectChangeEvent} from "@mui/material";
-import {CategoriesSortTypes} from "../../../models/categoriesM";
 import s from "./categoriesFilter.module.scss"
+import {CategoriesSortTypes} from "../../models/categoriesM";
 
 const SortFilter:FC<any> = ({setRef,isResetFilter}) => {
     let [sortType, setSortType] = useState<string>(CategoriesSortTypes.popularityDown)

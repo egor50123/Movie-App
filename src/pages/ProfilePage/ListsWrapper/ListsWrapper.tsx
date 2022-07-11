@@ -8,18 +8,18 @@ import Card from "../../../components/Common/Card/Card";
 import {MTP} from "../../../constants/constants";
 import s from "../profilePage.module.scss"
 import BigCard from "../../../components/Common/Card/BigCard/BigCard";
+import {accountId, commonList} from "../../../store/selectors/accountSelectors";
+import {session} from "../../../store/selectors/authSelecors";
 
 const ListsWrapper: FC = () => {
+    const {getList, clearLists} = useAction()
+    const data = useTypedSelector(commonList)
+    const sessionId = useTypedSelector(session)
+    const acID = useTypedSelector(accountId)
+    const params = useParams()
+    const currentList = params.currentList
 
-    let {getList, clearLists} = useAction()
-    let data = useTypedSelector(state => state.account.list.payload?.results)
-    let sessionId = useTypedSelector(state => state.auth.session.payload?.session_id)
-    let acID = useTypedSelector(state => state.account.details.payload?.id)
-
-    let params = useParams()
-    let currentList = params.currentList
-
-    let typeAPI: TListAPIParamType = setTypeAPILists(currentList)
+    const typeAPI: TListAPIParamType = setTypeAPILists(currentList)
 
     useEffect(() => {
         if (sessionId && acID) getList({sessionId, acID, type: typeAPI})

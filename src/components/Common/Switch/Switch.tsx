@@ -2,14 +2,10 @@ import React, {FC} from 'react';
 import "./switch.module.scss"
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import {useAction} from "../../../hooks/useAction";
-import {EPreviewItems, PreviewItemsTypes} from "../../../models/previewItem_SwitchM";
+import {ISwitch} from "../../../models/previewItem_SwitchM";
 import * as mainPageSelectors from "../../../store/selectors/mainPageSelectors";
 import s from "./switch.module.scss"
-
-interface ISwitch {
-    type:PreviewItemsTypes,
-    switchTitles:string[][]
-}
+import {EPreviewItems} from "../../../constants/constants";
 
 const Switch:FC<ISwitch> = ({type,switchTitles}) => {
     let currentSwitch = useTypedSelector(mainPageSelectors.currentSwitch)

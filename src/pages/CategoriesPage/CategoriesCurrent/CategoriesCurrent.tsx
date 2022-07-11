@@ -6,11 +6,10 @@ import {useParams} from "react-router-dom";
 import Card from "../../../components/Common/Card/Card";
 import {useScroll} from "../../../hooks/useScroll";
 import {MTP, MTP_TYPES} from "../../../constants/constants";
-import CategoriesFilter from "../CategoriesFilter/CategoriesFilter";
 import s from "./categoriesCurrent.module.scss"
 import * as selectors from "../../../store/selectors/categoriesPageSelectors"
-import BigCard from "../../../components/Common/Card/BigCard/BigCard";
 import SmallCard from "../../../components/Common/Card/SmallCard/SmallCard";
+import CategoriesFilter from "../../../components/CategoriesFilter/CategoriesFilter";
 
 const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
     const {fetchCategoriesItems,clearCategories} = useAction()
@@ -22,7 +21,6 @@ const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
     const isLoading = useTypedSelector(selectors.isLoading)
     const nextPage = useTypedSelector(selectors.nextPage)
     const isEnd = useTypedSelector(selectors.isEnd)
-    const typeMTP = useTypedSelector(selectors.typeMTP)
 
     const childRef = useRef<null | HTMLDivElement>(null)
 

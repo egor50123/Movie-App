@@ -1,11 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import "./header.module.scss"
 import {Link} from "react-router-dom";
 import logo from "../../../assest/image/logo.svg"
 import Search from "../Search/Search";
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import {useAction} from "../../../hooks/useAction";
-import {genreTypes} from "../../../store/types/mainPageT";
 import CategoriesList from "./CategoriesList/CategoriesList";
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import FaceTwoToneIcon from '@mui/icons-material/FaceTwoTone';
@@ -18,23 +17,15 @@ const Header = () => {
     const isAuth = useTypedSelector(authSelectors.isAuth)
     const token = useTypedSelector(authSelectors.token)
     const session = useTypedSelector(authSelectors.session)
-
     const [isProfileOpen, setProfileOpen] = useState(false)
 
-    let {fetchGenres, deleteSession} = useAction()
+    const {deleteSession} = useAction()
 
-    useEffect(() => {
-        fetchGenres(genreTypes.genresTv)
-        fetchGenres(genreTypes.genresMovie)
-    }, [])
-
-    function onLogOut() {
+    const onLogOut = useCallback(() => {
         if (session) deleteSession(session)
-    }
+    },[])
 
-    function menuOpen() {
-        setProfileOpen(prev => !prev)
-    }
+    const menuOpen = useCallback(() => setProfileOpen(prev => !prev),[])
 
     return (
         <div className={s.header}>

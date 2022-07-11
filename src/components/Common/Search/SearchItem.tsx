@@ -9,8 +9,7 @@ export interface ISearchItem {
 }
 
 const SearchItem: FC<ISearchItem> = ({data}) => {
-    const type = data.media_type === "movie" ? "Фильм" :
-        data.media_type === "tv" ? "Сериал" : "Актер"
+
 
     const title = data.media_type === "movie" ? data.title : data.name,
         src = data.media_type === "person" ? data.profile_path : data.backdrop_path || data.poster_path

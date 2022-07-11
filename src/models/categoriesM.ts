@@ -32,9 +32,6 @@ export interface IFilterSettings {
     page?:number,
 }
 
-export interface ICheckbox {
-    [key: string]: boolean
-}
 
 export interface ICategoriesPage {
     type: MTP_TYPES

@@ -3,12 +3,12 @@ import {movieAPI, trailersAPI, trendsAPI, tvAPI} from "../../API/indexAPI";
 import {PreviewAction, PreviewActionTypes} from "../types/previewItemT";
 import {AxiosResponse} from "axios";
 import {
-    EPreviewItems,
     MovieSwitchTypes,
     PreviewItemsTypes, TrailersSwitchTypes,
     TrendsSwitchTypes,
     TvSwitchTypes
 } from "../../models/previewItem_SwitchM";
+import {EPreviewItems} from "../../constants/constants";
 
 
 export const  fetchPreviewItems = (currentPreview:PreviewItemsTypes,switchType:string) => {

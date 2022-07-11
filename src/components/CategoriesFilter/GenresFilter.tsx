@@ -10,23 +10,15 @@ import {
     FormGroup
 } from "@mui/material";
 import {ExpandMore} from "@mui/icons-material";
-import {MTP, MTP_TYPES} from "../../../constants/constants";
-import {useTypedSelector} from "../../../hooks/useTypedSelector";
-import {moviesGenres, tvsGenres} from "../../../store/selectors/commonSelectors";
+import {MTP} from "../../constants/constants";
+import {useTypedSelector} from "../../hooks/useTypedSelector";
+import {moviesGenres, tvsGenres} from "../../store/selectors/commonSelectors";
+import {IGenresFilter} from "../../models/indexM";
 
-interface IGenresFilter {
-    setRef: any,
-    isResetFilter:boolean,
-    type: MTP_TYPES
-}
-
-interface state {
-    [id:number]: boolean
-}
 
 const GenresFilter: FC<IGenresFilter> = ({setRef,isResetFilter,type}) => {
 
-    const [withGenres, setGenres] = useState<state>({})
+    const [withGenres, setGenres] = useState<{ [id:number]: boolean }>({})
 
     const genresMovie = useTypedSelector(moviesGenres),
         genresTv = useTypedSelector(tvsGenres)

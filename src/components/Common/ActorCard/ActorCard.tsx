@@ -1,13 +1,10 @@
 import React, {FC} from 'react';
 import s from "./actorCard.module.scss"
 import {BASE_IMG_URL} from "../../../API/indexAPI";
+import {IActorCard} from "../../../models/indexM";
 
-interface IProps {
-    src:string,
-    name:string
-}
 
-const ActorCard:FC<IProps> = ({src,name}) => {
+const ActorCard:FC<IActorCard> = ({src,name}) => {
     return (
         <div className={s.root}>
             <div className={s.imgBox}>

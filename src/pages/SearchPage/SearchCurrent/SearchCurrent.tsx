@@ -6,34 +6,14 @@ import {useParams} from "react-router-dom";
 import {TMoviesTvsPayloadResults} from "../../../models/payloadAPI_M";
 import BigCard from "../../../components/Common/Card/BigCard/BigCard";
 import Card from "../../../components/Common/Card/Card";
-
-interface ISearchCurrent {
-    type: "movie" | "tv" | "person" | "collection"
-}
-
+import {ISearchCurrent} from "../../../models/indexM";
 
 const SearchCurrent: FC<ISearchCurrent> = ({type}) => {
-
     const params = useParams()
     let searchCurrent = params.searchCurrent as MTP_TYPES
     searchCurrent = searchCurrent === undefined ? MTP.movie : searchCurrent
     let payload = useTypedSelector(state => state.searchPage[searchCurrent].payload?.results)
     let error = useTypedSelector(state => state.search.error)
-
-
-    let text = MTP.movie
-    switch (type) {
-        case MTP.movie :
-            text = MTP.movie;
-            break;
-        case MTP.tv:
-            text = MTP.tv;
-            break;
-        case MTP.person:
-            text = MTP.person;
-            break;
-    }
-
 
     return (
         <div className={s.searchPage__list}>

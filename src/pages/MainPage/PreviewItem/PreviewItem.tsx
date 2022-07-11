@@ -5,12 +5,12 @@ import {shallowEqual} from "react-redux";
 import PreviewItemChild from "./PreviewItemChild/PreviewItemChild";
 import {IPreviewItem} from "../../../models/previewItem_SwitchM";
 import styles from "./PreviewItem.module.scss"
+import {currentSwitch, previewsPayload} from "../../../store/selectors/mainPageSelectors";
 
 const PreviewItem:FC<IPreviewItem> = ({title,type,switchTitles}) => {
-    const currentSwitch = useTypedSelector(state => state.mainPage.switchType,shallowEqual)
-    let previews = useTypedSelector(state => state.previewItem.previews)
-
-    let switchType = currentSwitch[type] !== undefined ? currentSwitch[type] : 1
+    const switchCurrent = useTypedSelector(currentSwitch,shallowEqual)
+    const previews = useTypedSelector(previewsPayload)
+    const switchType = switchCurrent[type] !== undefined ? switchCurrent[type] : 1
 
 
     if (previews.error) {
