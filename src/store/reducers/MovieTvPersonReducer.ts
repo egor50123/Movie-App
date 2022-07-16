@@ -21,8 +21,9 @@ const init: MovieTvPerson = {
 
 export const movieTvPersonReducer = (state = init, action: MovieTvPersonAction): MovieTvPerson => {
     switch (action.type) {
-        case MovieTvPersonActionTypes.FETCH_ITEM:
+        case MovieTvPersonActionTypes.FETCH_ITEM: {
             return {...state, isLoading: true, type: action.itemType}
+        }
         case MovieTvPersonActionTypes.FETCH_ITEM_SUCCESS:
             return {...state, isLoading: false, error: null, payload: action.payload}
         case MovieTvPersonActionTypes.FETCH_ITEM_ERROR:

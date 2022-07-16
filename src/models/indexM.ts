@@ -2,7 +2,8 @@ import {MTP_TYPES} from "../constants/constants";
 
 export interface IActorCard {
     src:string,
-    name:string
+    name:string,
+    className?:string
 }
 
 export interface IGenresFilter {
@@ -16,5 +17,6 @@ export interface IMovieTvItem {
 }
 
 export interface ISearchCurrent {
-    type: "movie" | "tv" | "person" | "collection"
+    type: MTP_TYPES,
+    text?: string
 }

@@ -55,7 +55,7 @@ const ListMenu:FC<IRateMenu> = ({itemId,typeAPI,callback}) => {
                             onChange={handleChange}
                         >
                             {createdLists && createdLists.map(item => (
-                                <MenuItem onClick={() => {
+                                <MenuItem key={item.id} onClick={() => {
                                     onSubmit(item.id)
                                     typeof callback === "function" && callback()
                                     onClose()

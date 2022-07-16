@@ -57,6 +57,7 @@ const CategoriesCurrent: FC<ICategoriesPage> = ({type}) => {
             <div className={s.main}>
                 {movieTv.length > 0 ? movieTv.map(item =>
                     <Card id={item.id}
+                          key={item.id}
                           typeAPI={item.title === undefined ? MTP.tv : MTP.movie}
                           renderCard={() => <SmallCard  key={item.id} id={item.id}
                                                         title={item.title as string || item.name as string}

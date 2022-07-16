@@ -5,7 +5,7 @@ import {
     ISearchPersonPayload,
     ISearchTvPayload
 } from "../../models/payloadAPI_M";
-import {MTP, MTP_TYPES} from "../../constants/constants";
+import {MTP_TYPES} from "../../constants/constants";
 
 export interface SearchPageState {
     movie: {
@@ -33,25 +33,24 @@ export interface SearchPageState {
 
 export enum SearchPageActionTypes {
     FETCH_SEARCH = "FETCH_SEARCH",
-    FETCH_ITEM_SUCCESS = "FETCH_ITEM_SUCCESS",
-    FETCH_ITEM_ERROR = "FETCH_ITEM_ERROR",
-    CLEAR_SEARCH_PAGE = "CLEAR_SEARCH_PAGE"
+    FETCH_SEARCH_ITEMS_SUCCESS = "FETCH_SEARCH_ITEMS_SUCCESS",
+    FETCH_SEARCH_ITEMS_ERROR = "FETCH_SEARCH_ITEMS_ERROR",
+    CLEAR_SEARCH_PAGE = "CLEAR_SEARCH_PAGE",
 }
 
 interface FetchSearchAction {
     type: SearchPageActionTypes.FETCH_SEARCH,
 }
 
-
 interface SuccessAction  {
-    type: SearchPageActionTypes.FETCH_ITEM_SUCCESS,
+    type: SearchPageActionTypes.FETCH_SEARCH_ITEMS_SUCCESS,
     payload: ISearchPagePayload<ISearchPagePayloadTypes>,
     text:string,
     currentType: MTP_TYPES
 }
 
 interface ErrorAction {
-    type: SearchPageActionTypes.FETCH_ITEM_ERROR,
+    type: SearchPageActionTypes.FETCH_SEARCH_ITEMS_ERROR,
     payload: boolean,
     currentType: MTP_TYPES
 }

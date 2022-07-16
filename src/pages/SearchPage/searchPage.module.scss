@@ -55,3 +55,25 @@
   display: grid;
   gap: 10px;
 }
+
+.pagination {
+  $HEIGHT:36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  height: $HEIGHT;
+  width: 350px;
+  border-radius: $HEIGHT/2;
+}
+
+.paginationItem {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25px;
+  height: 25px;
+  border-radius: 3px;
+  border: 1px solid red;
+}

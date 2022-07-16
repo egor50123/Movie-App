@@ -45,11 +45,11 @@ export const searchAPI = {
     getSearchedMulti(text: string) {
         return instance.get<ISearchPayload>(`/search/multi?${API_KEY}${BASE_URI}include_adult=false&query=${text}`)
     },
-    getSearchedMovie(text: string) {
-        return instance.get<ISearchPayload>(`/search/movie?${API_KEY}${BASE_URI}include_adult=false&query=${text}`)
+    getSearchedMovie(text: string, page:number = 1) {
+        return instance.get<ISearchPayload>(`/search/movie?${API_KEY}${BASE_URI}include_adult=false&query=${text}&page=${page}`)
     },
-    getSearchedTv(text: string) {
-        return instance.get<ISearchPayload>(`/search/tv?${API_KEY}${BASE_URI}include_adult=false&query=${text}`)
+    getSearchedTv(text: string, page:number = 1) {
+        return instance.get<ISearchPayload>(`/search/tv?${API_KEY}${BASE_URI}include_adult=false&query=${text}&page=${page}`)
     },
     getSearchedPerson(text: string) {
         return instance.get<ISearchPayload>(`/search/person?${API_KEY}${BASE_URI}include_adult=false&query=${text}`)

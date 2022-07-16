@@ -32,6 +32,7 @@ const ListsWrapper: FC = () => {
     return (
         <div className={s.list}>
             {data && data.map(item => <Card id={item.id}
+                                            key={item.id}
                                             typeAPI={item.title === undefined ? MTP.tv : MTP.movie}
                                             canDelete={true}
                                             renderCard={(deleteCallback: any) => <BigCard

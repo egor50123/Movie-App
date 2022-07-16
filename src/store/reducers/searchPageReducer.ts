@@ -26,7 +26,7 @@ const init: SearchPageState = {
 
 export const searchPageReducer = (state = init,action:SearchPageActions):SearchPageState => {
     switch (action.type) {
-        case SearchPageActionTypes.FETCH_ITEM_SUCCESS :
+        case SearchPageActionTypes.FETCH_SEARCH_ITEMS_SUCCESS :
             return {
                 ...state,
                 [action.currentType]: {
@@ -35,13 +35,18 @@ export const searchPageReducer = (state = init,action:SearchPageActions):SearchP
                     isLoading: false
                 },
             }
-        case SearchPageActionTypes.FETCH_ITEM_ERROR:
+        case SearchPageActionTypes.FETCH_SEARCH_ITEMS_ERROR:
             return {
                 ...state,
                 [action.currentType]: {
                     error:true,
                     isLoading: false
                 }
+            }
+
+        case SearchPageActionTypes.CLEAR_SEARCH_PAGE:
+            return {
+                ...init
             }
         default: return state
     }

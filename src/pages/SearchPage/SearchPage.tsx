@@ -8,12 +8,10 @@ import classNames from "classnames";
 import {searchPage, searchValue} from "../../store/selectors/commonSelectors";
 
 const SearchPage = () => {
-
     const pageData = useTypedSelector( searchPage)
     const searchText = useTypedSelector(searchValue)
 
     const [currentActive,setActive] = useState("1")
-
 
 
     function setCurrent (value:string) {

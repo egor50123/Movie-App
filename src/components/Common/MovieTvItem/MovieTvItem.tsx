@@ -10,13 +10,18 @@ import CarouselBoxes from "./CarouselBoxes/CarouselBoxes";
 import Aside from "./Aside/Aside";
 import MainInfo from "./MainInfo/MainInfo";
 import {IMovieTvItem} from "../../../models/indexM";
+import {movieTvItem, movieTvLoading} from "../../../store/selectors/commonSelectors";
+import Loading from "../Loading/Loading";
 
 
 const MovieTvItem: FC<IMovieTvItem> = ({type}) => {
     const params = useParams()
     const {fetchItem, clearItem, fetchPeople, fetchSimilar} = useAction()
-    const movieTvPayload: IMoviePayload | ITvPayload | null = useTypedSelector(state => state.movieTvPerson.payload)
+    const movieTvPayload: IMoviePayload | ITvPayload | null = useTypedSelector(movieTvItem)
+    const isLoading = useTypedSelector(movieTvLoading)
     const id = type === MTP.movie ? params.movieId as string : params.tvId as string
+
+    console.log(params)
 
     useEffect(() => {
         window.scrollTo(0, 0)
@@ -31,6 +36,7 @@ const MovieTvItem: FC<IMovieTvItem> = ({type}) => {
     }, [id])
 
     return (
+        !isLoading || movieTvPayload ?
         <div className={s.container}>
             <div className={s.headerContainer}>
                 <div className={s.bgImage}>
@@ -47,7 +53,7 @@ const MovieTvItem: FC<IMovieTvItem> = ({type}) => {
                 <CarouselBoxes/>
                 <Aside/>
             </div>
-        </div>
+        </div> : <Loading/>
     );
 };
 

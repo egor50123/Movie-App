@@ -16,6 +16,7 @@ export const  fetchItem = (id:string,type:MTP_TYPES) => {
                 default:break
             }
             let payload = response.data
+            console.log(payload)
 
             setTimeout(() => {
                 dispatch({type: MovieTvPersonActionTypes.FETCH_ITEM_SUCCESS,payload})

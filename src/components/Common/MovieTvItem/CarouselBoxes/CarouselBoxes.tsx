@@ -7,6 +7,7 @@ import SmallCard from "../../Card/SmallCard/SmallCard";
 import ActorCard from "../../ActorCard/ActorCard";
 import {IMoviesTvsPayload, IPeoplePayload} from "../../../../models/payloadAPI_M";
 import {useTypedSelector} from "../../../../hooks/useTypedSelector";
+import {nanoid} from "nanoid";
 
 
 const CarouselBoxes = () => {
@@ -16,9 +17,10 @@ const CarouselBoxes = () => {
     return (
         <div className={s.footerColumn1}>
             <CarouselBox title={"Рекомендации"} render={(boxClassName: any) => <div className={boxClassName}>
-                {similarPayload && similarPayload.results?.map(item => <div
+                {similarPayload && similarPayload.results?.map(item => <div key={nanoid()}
                     className={s.movieTvItem__similarItem}>
                     <Card id={item.id}
+                          key={item.id}
                           typeAPI={item.title === undefined ? MTP.tv : MTP.movie}
                           renderCard={() => <SmallCard  key={item.id} id={item.id}
                                                         title={item.title as string || item.name as string}
@@ -32,9 +34,9 @@ const CarouselBoxes = () => {
                 </div>)}
             </div>
             }/>
-            <CarouselBox title={"Актеры"} render={(boxClassName: any) => <div className={boxClassName}>
+            <CarouselBox title={"Актеры"} render={(boxClassName: any) => <div key={nanoid()} className={boxClassName}>
                 {peoplePayload && peoplePayload.cast.map(item =>
-                    <ActorCard src={item.profile_path} name={item.name} key={item.id + "q"}/>
+                    <ActorCard src={item.profile_path} name={item.name} key={nanoid()}/>
                 )}
             </div>
             }/>

@@ -28,6 +28,7 @@ const PreviewItemChild: FC<IPreviewItemPure> = ({title, type, previews, switchTy
                 {(previews[type] !== undefined && !previews[type].isLoading && previews[type].payload) ?
                     (previews[type].payload as IMoviesTvsPayload).results.map(film =>
                     <Card id={film.id}
+                          key={film.id}
                           typeAPI={film.title === undefined ? MTP.tv : MTP.movie}
                           renderCard={() => <SmallCard  key={film.id} id={film.id}
                                                       title={film.title as string || film.name as string}

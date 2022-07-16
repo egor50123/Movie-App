@@ -1,25 +1,30 @@
 import React from 'react';
 import Loading from "../Common/Loading/Loading";
 import {Route, Routes} from "react-router-dom";
-import SearchPage from "../../pages/SearchPage/SearchPage";
+//import SearchPage from "../../pages/SearchPage/SearchPage";
 import SearchCurrent from "../../pages/SearchPage/SearchCurrent/SearchCurrent";
-import CategoriesPage from "../../pages/CategoriesPage/CategoriesPage";
+//import CategoriesPage from "../../pages/CategoriesPage/CategoriesPage";
 import {MTP} from "../../constants/constants";
 import CategoriesCurrent from "../../pages/CategoriesPage/CategoriesCurrent/CategoriesCurrent";
-import AuthPage from "../../pages/AuthPage/AuthPage";
+//import AuthPage from "../../pages/AuthPage/AuthPage";
 import MainPage from "../../pages/MainPage/MainPage";
-import ProfilePage from "../../pages/ProfilePage/ProfilePage";
+//import ProfilePage from "../../pages/ProfilePage/ProfilePage";
 import MyLists from "../../pages/ProfilePage/MyLists/MyLists";
 import ListsWrapper from "../../pages/ProfilePage/ListsWrapper/ListsWrapper";
+
 const MovieTvItem = React.lazy(() => import("../Common/MovieTvItem/MovieTvItem"));
+const ProfilePage = React.lazy(() => import("../../pages/ProfilePage/ProfilePage"));
+const SearchPage = React.lazy(() => import("../../pages/SearchPage/SearchPage"));
+const CategoriesPage = React.lazy(() => import("../../pages/CategoriesPage/CategoriesPage"));
+const AuthPage = React.lazy(() => import("../../pages/AuthPage/AuthPage"));
 
 const Router = () => {
     return (
         <React.Suspense fallback={<Loading/>}>
             <Routes>
                 <Route path={"/search"} element={<SearchPage/>}>
-                    <Route index element={<SearchCurrent type={"movie"}/>}/>
-                    <Route path={":searchCurrent"} element={<SearchCurrent type={"tv"}/>}/>
+                    <Route index element={<SearchCurrent type={MTP.movie}/>}/>
+                    <Route path={":searchCurrent"} element={<SearchCurrent type={MTP.tv}/>}/>
                 </Route>
 
                 <Route path={"/movie"} element={<CategoriesPage type={MTP.movie}/>}>
@@ -35,6 +40,8 @@ const Router = () => {
                     <Route path={"genres/:genresId"}
                            element={<CategoriesCurrent type={MTP.tv}/>}/>
                 </Route>
+                {/*<Route path={"/tv/:tvId"} element={<MovieTvItem type={MTP.tv}/>}/>*/}
+                {/*<Route path={"/movie/:movieId"} element={<MovieTvItem type={MTP.tv}/>}/>*/}
 
                 <Route path={"/auth"} element={<AuthPage/>}/>
                 <Route path={"*"} element={<MainPage/>}/>
